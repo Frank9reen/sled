@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Горный покой — частная клиника</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--sage:#5a7a68;--sage-d:#3d5a4a;--bg:#f3f6f2;--paper:#fbfcf9;--ink:#1c261f;--muted:#5e6e64;--line:#d4ddd6;--price:#6b3d2e}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#e8efe8 0%,var(--bg) 40%);color:var(--ink);font-family:Manrope,sans-serif;min-height:100vh}
+a{color:var(--sage-d);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:640px;margin:0 auto;padding:clamp(20px,4vw,36px) 18px 48px}
+.head{padding:28px 0 20px}
+.head h1{font-family:Literata,serif;font-size:clamp(1.6rem,4vw,2rem);margin:0;font-weight:600;color:var(--sage-d)}
+.head p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 0 20px;border-bottom:1px solid var(--line);font-size:.9rem;font-weight:500}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:0 0 14px;box-shadow:0 1px 0 rgba(255,255,255,.8)}
+.card h2,.card b{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;display:block;margin-bottom:8px}
+.price{font-family:Literata,serif;font-size:2rem;font-weight:600;color:var(--price);line-height:1.1}
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em}
+.quote{font-size:.9rem;color:var(--muted);font-style:italic;line-height:1.5;margin:0}
+.quote b{color:var(--ink);font-style:normal;font-weight:600}
+.newsitem{margin:0 0 12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.newsitem:last-child{margin:0;padding:0;border:0}
+.newsitem .dt{font-size:.75rem;color:var(--muted);margin-bottom:4px}
+.hero{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:16px;margin:0 0 18px;border:1px solid var(--line)}
+.carousel{margin:0 0 18px}
+.carousel-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#e8efe8;aspect-ratio:16/10;cursor:zoom-in}
+.carousel-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.carousel-cap{margin:8px 0 0;color:var(--muted);font-size:.8rem;line-height:1.35;min-height:1.35em}
+.carousel-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.carousel-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.3rem;line-height:1;cursor:pointer;flex-shrink:0}
+.carousel-btn:hover{border-color:var(--sage);color:var(--sage-d)}
+.carousel-dots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;flex:1}
+.carousel-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#c5d0c8;cursor:pointer}
+.carousel-dots button.is-on{background:var(--sage)}
+.carousel-count{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-align:center;margin:6px 0 0}
+.media-cap{font-size:.75rem;color:var(--muted);margin:6px 0 0;line-height:1.35}
+.team{display:grid;gap:12px;margin-top:8px}
+.team a{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.team a:last-child{border-bottom:0}
+.team a:hover .who{color:var(--sage-d);text-decoration:underline}
+.team img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:1px solid var(--line);flex-shrink:0}
+.team .txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.team .who{display:block;font-size:1rem;font-weight:600;line-height:1.3}
+.team .role{display:block;font-size:.85rem;color:var(--muted);line-height:1.35}
+#about,#team{scroll-margin-top:12px}
+.lb{position:fixed;inset:0;z-index:90;display:none}
+.lb.is-open{display:block}
+body.lb-open{overflow:hidden}
+.lb-bg{position:absolute;inset:0;background:rgba(12,20,14,.88)}
+.lb-box{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 56px 28px;gap:12px}
+.lb-img{max-width:min(960px,100%);max-height:min(78vh,820px);width:auto;height:auto;object-fit:contain;border-radius:12px;border:1px solid var(--line);background:#0e140e}
+.lb-cap{margin:0;color:#d8e4d6;font-size:.9rem;text-align:center;max-width:min(640px,100%)}
+.lb-count{margin:0;color:#9aaca0;font-size:.75rem;letter-spacing:.08em}
+.lb-x,.lb-prev,.lb-next{position:absolute;z-index:2;border:1px solid #3a4a3e;background:#1a261c;color:#e8efe6;cursor:pointer;font-size:1.4rem;line-height:1}
+.lb-x{top:16px;right:16px;width:40px;height:40px;border-radius:10px}
+.lb-prev,.lb-next{top:50%;transform:translateY(-50%);width:44px;height:56px;border-radius:10px}
+.lb-prev{left:12px}
+.lb-next{right:12px}
+.lb-x:hover,.lb-prev:hover,.lb-next:hover{border-color:var(--sage);color:#c8e0cc}
+@media(max-width:560px){
+  .carousel-frame{aspect-ratio:4/3}
+  .lb-box{padding:52px 12px 24px}
+  .lb-prev,.lb-next{width:40px;height:48px;top:auto;bottom:18px;transform:none}
+  .lb-prev{left:16px}
+  .lb-next{right:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<h1>Горный покой</h1>
+<p>Частная психиатрическая помощь в Каменногорске</p>
+</header>
+<div aria-label="Фото клиники" aria-roledescription="carousel" class="carousel" id="clinic-carousel">
+<div class="carousel-frame">
+<img alt="Клиника «Горный покой»" id="clinic-img" src="../img/clinic-facade.jpg"/>
+</div>
+<p class="carousel-cap" id="clinic-cap"></p>
+<div class="carousel-nav">
+<button aria-label="Предыдущее фото" class="carousel-btn" id="clinic-prev" type="button">‹</button>
+<div aria-label="Слайды" class="carousel-dots" id="clinic-dots" role="tablist"></div>
+<button aria-label="Следующее фото" class="carousel-btn" id="clinic-next" type="button">›</button>
+</div>
+<p class="carousel-count" id="clinic-count"></p>
+</div>
+<nav class="nav">
+<a href="index.html">Клиника</a>
+<a href="#team">Специалисты</a>
+<a href="#about">Практика</a>
+</nav>
+<p style="color:var(--muted);margin:18px 0;line-height:1.5">
+    Частная клиника психиатрической и психотерапевтической помощи. Записывайтесь на консультацию заранее.
+  </p>
+<div class="card">
+<b>Стоимость приёма</b>
+<div class="price">от 2 200 ₽</div>
+<p style="margin:10px 0 0;font-size:.9rem;color:var(--muted);line-height:1.45">
+      Стоимость индивидуальной консультации — зависит от специалиста. Оплатить можно наличными или переводом.
+    </p>
+</div>
+<div class="card" id="team">
+<b>Специалисты</b>
+<div class="team">
+<a href="sorokina.html">
+<img alt="" height="56" src="../img/clinic-sorokina.jpg" width="56"/>
+<span class="txt"><span class="who">Елена Сорокина</span><span class="role">Главный врач — директор клиники</span></span>
+</a>
+<a href="vladikin.html">
+<img alt="" height="56" src="../img/clinic-vladikin.jpg" width="56"/>
+<span class="txt"><span class="who">Игорь Владыкин</span><span class="role">Психиатр</span></span>
+</a>
+<a href="morozov.html">
+<img alt="" height="56" src="../img/clinic-morozov.jpg" width="56"/>
+<span class="txt"><span class="who">Андрей Морозов</span><span class="role">Психотерапевт</span></span>
+</a>
+<a href="krylova.html">
+<img alt="" height="56" src="../img/clinic-krylova.jpg" width="56"/>
+<span class="txt"><span class="who">Наталья Крылова</span><span class="role">Клинический психолог</span></span>
+</a>
+<a href="sharov.html">
+<img alt="" height="56" src="../img/clinic-sharov.jpg" width="56"/>
+<span class="txt"><span class="who">Дмитрий Шаров</span><span class="role">Невролог</span></span>
+</a>
+</div>
+</div>
+<div class="card">
+<b>Контакты</b>
+<p style="margin:0;font-size:.95rem;line-height:1.5">
+      Адрес: город Каменногорск, улица Сосновая, дом 4.<br/>
+      Телефон регистратуры: +7******47-90<br/>
+      Режим работы: в будни с 10:00 до 19:00, в субботу — по записи.
+    </p>
+</div>
+<div class="card">
+<b>Новости</b>
+<div class="newsitem">
+<div class="dt">05.06.2024</div>
+<p style="margin:0;font-size:.9rem;line-height:1.45">Открываем набор для выпускников и абитуриентов: пакет «Экзаменационный стресс» — 3 сеанса.</p>
+</div>
+<div class="newsitem">
+<div class="dt">12.06.2024</div>
+<p style="margin:0;font-size:.9rem;line-height:1.45">Напоминаем: оплатить сеансы можно наличными, по qr-коду или переводом. Квитанцию выдадим по запросу.</p>
+</div>
+</div>
+<div class="card">
+<b>Отзывы</b>
+<p class="quote">Сын вернулся после первого курса в Питере. Его словно подменили: замкнулся, всё раздражает, есть стал плохо. В итоге позвонили в частную клинику. Врач приехал на дом, поговорил с сыном, без всякого давления. После двух сеансов сын стал выходить из комнаты, а через неделю сам попросил назначить ещё встречу. Спасибо, что не отвернулись, когда мы уже совсем отчаялись. <b>мать студента, май 2024</b></p>
+<p class="quote" style="margin-top:14px">Жена стала мучиться от бессонницы и панических атак после того, как потеряла работу. В государственной поликлинике лишь выписали аскорбинку и посоветовали не нервничать. Пошли к частному психиатру — там всё по‑серьёзному: провели полную диагностику, подобрали терапию и даже научили реальным приёмам техникам самопомощи. Однозначно лучшие деньги, потраченные за год! <b>Супруг пациентки, февраль 2024</b></p>
+<p class="quote" style="margin-top:14px">В 15 лет дочка вдруг замкнулась в себе: перестала с нами общаться, всё время сидела в телефоне и плакала. Мы думали — просто переходный возраст, но что‑то подсказало: надо к врачу. В Каменногорске нашли частного специалиста — он принял нас без записи уже на следующий день. Выяснилось, что у дочки тревожно-депрессивное расстройство: её травили в школе. <b>отец подростка, июль 2024</b></p>
+<p class="quote" style="margin-top:14px">Мне 42 года, и я впервые в жизни решилась пойти к психиатру. Очень боялась, что запишут в «ненормальные». Но в частной практике всё оказалось совсем не так: встретили с пониманием. Врач объяснил, что моя апатия и усталость — это не лень, а химический дисбаланс. Сейчас я принимаю лекарства и наконец чувствую себя человеком. Безумно благодарна за такое человеческое отношение! <b>женщина, март 2024</b></p>
+<p class="quote" style="margin-top:14px">Брат несколько лет пил — начались провалы в памяти, стала проявляться агрессия. Участковый психиатр ничем не помог, сказал, что брат сам должен захотеть лечиться. Нарколог‑психиатр из клиники сумел договориться с братом: сделал это мягко, но настойчиво. Уже через неделю брат оказался в стационаре под круглосуточным наблюдением. Сейчас он не пьёт уже 4 месяца и работает. Если бы не Горный покой, мы бы его потеряли. <b>Сестра пациента, апрель 2024</b></p>
+<p class="quote" style="margin-top:14px">Жена получила диагноз — биполярное расстройство. В обычной больнице сказали ждать приёма три недели, а у неё уже началась фаза подъёма: не спала, без остановки говорила, тратила деньги. Врач скорректировал терапию и дал чёткий план действий. Наконец‑то мы перестали чувствовать себя беспомощными. Огромное спасибо профессионалам! <b>муж, июнь 2024</b></p>
+<p class="quote" style="margin-top:14px">Перед экзамена началась настоящая паника — казалось, вот‑вот с ума сойду. Через знакомых нашёл в Каменногорске частную клинику: там психиатры и психотерапевты работают вместе. Научили правильно дышать, переключаться, разбираться, что именно запускает тревожность. В итоге спокойно сдал сессию и даже временную работу нашёл. <b>Молодой человек, январь 2024</b></p>
+</div>
+<div class="card" id="about">
+<b>Практика</b>
+<p style="margin:0;line-height:1.55;font-size:.95rem">
+      Амбулатория в Каменногорске — помощь жителям и гостям города в летний сезон.
+
+Лечим тревожные расстройства, помогаем подросткам адаптироваться, проводим семейные консультации, ведём приём по неврологии.
+
+Стационара нет — все приёмы только по записи.
+    </p>
+</div>
+<div class="card">
+<b>Кто наши пациенты</b>
+<table>
+<tr><th>Категория</th><th>Пример запроса</th></tr>
+<tr><td>Школьники / абитуриенты</td><td>Стресс перед экзаменами, конфликты с родителями</td></tr>
+<tr><td>Студенты на каникулах</td><td>Психологический срыв, апатия, депрессия</td></tr>
+<tr><td>Родители</td><td>Установление «границ» с ребёнком</td></tr>
+<tr><td>Взрослые</td><td>Выгорание, бессонница, панические атаки</td></tr>
+</table>
+</div>
+<div class="card">
+<b>Памятка для родителей</b>
+<p style="margin:0;font-size:.9rem;line-height:1.5;color:var(--muted)">
+      Если ребёнок уже старше 18 лет и записывается сам, мы выдадим сведения о приёме только при наличии его письменного согласия.
+    </p>
+</div>
+</div>
+<div class="lb" hidden="" id="clinic-lb">
+<div class="lb-bg" data-lb-close=""></div>
+<button aria-label="Закрыть" class="lb-x" data-lb-close="" type="button">×</button>
+<button aria-label="Назад" class="lb-prev" type="button">‹</button>
+<button aria-label="Вперёд" class="lb-next" type="button">›</button>
+<div class="lb-box">
+<img alt="" class="lb-img"/>
+<p class="lb-cap"></p>
+<p class="lb-count"></p>
+</div>
+</div>
+<script>
+(function () {
+  var slides = [
+    {src: "../img/clinic-facade.jpg", alt: "Клиника «Горный покой»", cap: ""},
+    {src: "../img/clinic-reception.jpg", alt: "Приёмная", cap: "Приёмная"},
+    {src: "../img/clinic-waiting.jpg", alt: "Холл клиники", cap: "Холл · «Горный покой»"},
+    {src: "../img/clinic-corridor.jpg", alt: "Коридор клиники", cap: "Коридор к кабинетам"},
+    {src: "../img/clinic-group-room.jpg", alt: "Кабинет", cap: "Кабинет для консультаций"},
+    {src: "../img/clinic-office.jpg", alt: "Кабинет приёма", cap: "Кабинет · с 2017 года"}
+  ];
+  var i = 0;
+  var img = document.getElementById("clinic-img");
+  var cap = document.getElementById("clinic-cap");
+  var count = document.getElementById("clinic-count");
+  var dots = document.getElementById("clinic-dots");
+  var lb = document.getElementById("clinic-lb");
+  var lbImg = lb.querySelector(".lb-img");
+  var lbCap = lb.querySelector(".lb-cap");
+  var lbCount = lb.querySelector(".lb-count");
+  var x0 = null;
+  var open = false;
+  slides.forEach(function (_, n) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Фото " + (n + 1));
+    b.addEventListener("click", function () { go(n); });
+    dots.appendChild(b);
+  });
+  function paintLb() {
+    var s = slides[i];
+    lbImg.src = s.src;
+    lbImg.alt = s.alt;
+    lbCap.textContent = s.cap;
+    lbCount.textContent = (i + 1) + " / " + slides.length;
+  }
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    var s = slides[i];
+    img.src = s.src;
+    img.alt = s.alt;
+    cap.textContent = s.cap;
+    count.textContent = (i + 1) + " / " + slides.length;
+    Array.prototype.forEach.call(dots.children, function (d, k) {
+      d.classList.toggle("is-on", k === i);
+    });
+    if (open) paintLb();
+  }
+  function openLb() {
+    open = true;
+    paintLb();
+    lb.hidden = false;
+    lb.classList.add("is-open");
+    document.body.classList.add("lb-open");
+  }
+  function closeLb() {
+    open = false;
+    lb.hidden = true;
+    lb.classList.remove("is-open");
+    document.body.classList.remove("lb-open");
+  }
+  document.getElementById("clinic-prev").addEventListener("click", function () { go(i - 1); });
+  document.getElementById("clinic-next").addEventListener("click", function () { go(i + 1); });
+  img.addEventListener("click", openLb);
+  lb.querySelector(".lb-prev").addEventListener("click", function () { go(i - 1); });
+  lb.querySelector(".lb-next").addEventListener("click", function () { go(i + 1); });
+  Array.prototype.forEach.call(lb.querySelectorAll("[data-lb-close]"), function (el) {
+    el.addEventListener("click", closeLb);
+  });
+  img.addEventListener("touchstart", function (e) { x0 = e.changedTouches[0].clientX; }, {passive: true});
+  img.addEventListener("touchend", function (e) {
+    if (x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(i + (dx > 0 ? -1 : 1));
+    else openLb();
+    x0 = null;
+  });
+  lbImg.addEventListener("touchstart", function (e) { x0 = e.changedTouches[0].clientX; }, {passive: true});
+  lbImg.addEventListener("touchend", function (e) {
+    if (x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(i + (dx > 0 ? -1 : 1));
+    x0 = null;
+  });
+  document.addEventListener("keydown", function (e) {
+    if (open) {
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") go(i - 1);
+      if (e.key === "ArrowRight") go(i + 1);
+      return;
+    }
+    var el = document.getElementById("clinic-carousel");
+    var r = el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (e.key === "ArrowLeft") go(i - 1);
+    if (e.key === "ArrowRight") go(i + 1);
+  });
+  go(0);
+})();
+</script>
+<script src="../js/visit-site.js?v=3" data-site="pokoy"></script>
+</body>
+</html>

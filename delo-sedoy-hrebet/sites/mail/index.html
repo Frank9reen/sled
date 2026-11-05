@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>КаменьMail</title>
+<style>
+:root{--bg:#0e1116;--panel:#171b22;--ink:#e8ecf2;--muted:#8b93a3;--line:#2a3140;--acc:#5b9fd4;--unread:#c9a227;--sel:#1e2a3a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;min-height:100vh}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:none;margin:0;padding:clamp(16px,3vw,28px) clamp(16px,3vw,28px) 40px}
+.head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.head .logo{display:block;height:72px;width:auto}
+.head h1{margin:0;font-size:1.2rem;font-weight:600}
+.head .addr{color:var(--muted);font-size:.88rem}
+.shell{display:grid;grid-template-columns:minmax(300px,400px) minmax(0,1fr);gap:18px;align-items:stretch;min-height:calc(100vh - 220px)}
+.shell-main{min-width:0;display:flex;flex-direction:column;gap:12px}
+.shell-side{display:flex;flex-direction:column;gap:18px;min-width:0;position:relative}
+.city-feed{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px 14px;min-width:0;display:flex;flex-direction:column;position:relative}
+.board-list{display:flex;flex-direction:column;gap:10px}
+.board-ad{border:1px solid var(--line);border-radius:10px;padding:14px 14px 12px;background:#12161d;font-size:.88rem;line-height:1.5;color:var(--muted)}
+.board-ad b{color:var(--ink);font-weight:600}
+.board-ad .tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin:0 0 8px;background:#1e2a3a;color:var(--acc)}
+.board-ad .tag.tag-warn{background:#3a2a1e;color:#e0a050}
+.board-ad .tag.tag-lost{background:#2a1e2e;color:#c9a0e0}
+.board-ad img{display:block;width:100%;max-height:160px;object-fit:cover;border-radius:8px;margin-top:10px;border:1px solid var(--line)}
+.board-ad i{color:#6a7384;font-style:normal}
+.city-feed h2{margin:0 0 4px;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.city-feed .feed-sub{margin:0 0 14px;font-size:.78rem;color:#6a7384;line-height:1.35}
+.city-feed .feed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:start}
+.city-card{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#12161d;cursor:pointer;transition:border-color .15s,background .15s;text-align:left;min-width:0}
+.city-card:hover{border-color:#3a4a60;background:#161b24}
+.city-card .tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--acc);margin:0 0 4px}
+.city-card h3{margin:0 0 4px;font-size:.9rem;font-weight:600;line-height:1.25;color:var(--ink)}
+.city-card .teaser{margin:0;font-size:.78rem;color:var(--muted);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.city-card .more{display:inline-block;margin-top:6px;font-size:.75rem;font-weight:600;color:var(--acc);background:none;border:0;padding:0;cursor:pointer;font:inherit}
+.city-card .more:hover{text-decoration:underline}
+.city-card .when{display:block;margin-top:4px;font-size:.68rem;color:#6a7384}
+.city-card .full{display:none}
+.article-view{display:none;position:absolute;inset:0;z-index:10;background:var(--panel);border-radius:12px;padding:22px 24px;overflow:auto;border:1px solid var(--line)}
+.article-view.on{display:block}
+.article-view .meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px 10px;margin:0 0 12px;width:auto;font-size:inherit;color:inherit}
+.article-view .back{background:none;border:0;color:var(--acc);font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;padding:0;margin:0;width:auto;flex:0 0 auto}
+.article-view .back:hover{text-decoration:underline}
+.article-view .sep{color:#6a7384;font-size:.85rem;user-select:none;flex:0 0 auto}
+.article-view .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--acc);margin:0;flex:0 0 auto}
+.article-view h3{margin:0 0 12px;font-size:1.35rem;font-weight:600;line-height:1.3;color:var(--ink);max-width:52ch}
+.article-view .body{font-size:1rem;color:var(--muted);line-height:1.6;max-width:58ch}
+.article-view .body:has(.board-list){max-width:none}
+.article-view .board-sub{margin:0 0 14px;font-size:.82rem;color:#6a7384;line-height:1.35}
+.article-view .body p{margin:0 0 12px}
+.article-view .body p:last-child{margin-bottom:0}
+.article-view .ext{display:inline-block;margin-top:16px;font-size:.9rem;font-weight:600}
+.article-view .when{display:block;margin-top:14px;font-size:.75rem;color:#6a7384}
+.login{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 20px;width:100%;max-width:none}
+.login.wide{max-width:none}
+.login label{display:block;font-size:.78rem;color:var(--muted);margin:0 0 4px}
+.login input{width:100%;padding:10px 12px;margin:0 0 12px;border-radius:8px;border:1px solid var(--line);background:#0c0f14;color:var(--ink);font:inherit}
+.login input.bad{border-color:#a04040}
+.login button{width:100%;padding:10px;border:0;border-radius:8px;background:var(--acc);color:#0a1220;font-weight:700;cursor:pointer}
+.login button.secondary{background:transparent;border:1px solid var(--line);color:var(--muted);margin-top:8px;font-weight:600}
+.login button.secondary:hover{color:var(--ink);border-color:var(--acc)}
+.login .link{background:none;border:0;padding:0;margin:10px 0 0;color:var(--acc);font:inherit;font-size:.82rem;cursor:pointer;text-decoration:underline}
+.login .link:hover{color:#7eb8e8}
+.recovery{display:none;margin-top:4px;padding-top:14px;border-top:1px solid var(--line)}
+.recovery.on{display:block}
+.recovery .q{font-size:.88rem;color:var(--ink);margin:0 0 10px;line-height:1.45}
+.recovery .field{margin:0 0 2px}
+.recovery .phase{display:none}
+.recovery .phase.on{display:block}
+.recovery .field-err{color:#e08080;font-size:.78rem;margin:-6px 0 10px;display:none}
+.recovery .field-err.on{display:block}
+.recovery .rec-actions{display:flex;flex-direction:column;gap:0}
+.err{color:#e08080;font-size:.85rem;margin-top:8px;display:none}
+.hint{font-size:.8rem;color:var(--muted);margin-top:12px;line-height:1.4}
+.hero{display:block;width:100%;max-height:160px;object-fit:cover;border-radius:12px;margin:0 0 16px;border:1px solid var(--line)}
+.mail{display:none;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);flex:1;min-height:420px}
+.mail-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted);background:#12161d}
+.mail-bar b{color:var(--ink);font-weight:600}
+.mail-bar button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;font:inherit;font-size:.78rem}
+.mail-bar button:hover{color:var(--ink);border-color:var(--acc)}
+.inbox{display:none}
+.inbox.on{display:block}
+.layout{display:grid;grid-template-columns:minmax(0,34%) minmax(0,1fr)}
+.list{border-right:1px solid var(--line);min-width:0}
+.row{display:grid;grid-template-columns:10px minmax(0,1fr);gap:10px;align-items:start;padding:12px 12px 12px 10px;border-bottom:1px solid var(--line);cursor:pointer}
+.row:hover{background:#1c2230}
+.row.active{background:var(--sel);box-shadow:inset 3px 0 0 var(--acc)}
+.row.unread .subj{font-weight:700;color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--unread);margin-top:6px}
+.dot.off{background:transparent}
+.meta{font-size:.74rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;overflow-wrap:anywhere}
+.subj{margin:3px 0 0;font-size:.9rem;line-height:1.3;overflow-wrap:anywhere}
+.preview{font-size:.78rem;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.pane{padding:18px 20px 24px;background:#12161d;min-width:0}
+.pane.empty{color:var(--muted);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.92rem;padding:40px 20px}
+.letter{display:none;min-width:0}
+.letter.on{display:block}
+.letter h2{margin:0 0 8px;font-size:1.08rem;font-weight:600;overflow-wrap:anywhere}
+.letter .from{font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.45;overflow-wrap:anywhere}
+.letter .box{background:#0c0f14;border:1px solid var(--line);border-radius:8px;padding:16px;line-height:1.55;font-size:.93rem;overflow-wrap:anywhere;word-break:break-word}
+.letter .note{margin-top:14px;font-size:.84rem;color:#c9a227;line-height:1.45;overflow-wrap:anywhere}
+.letter img{max-width:100%;border-radius:6px;border:1px solid #2a3344;margin-top:8px}
+.cap{font-size:.78rem;color:#8a94a4}
+.nav{font-size:.85rem;margin-top:16px;color:var(--muted)}
+@media (max-width:900px){
+  .shell{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    min-height:0;
+    align-items:stretch;
+  }
+  .shell-main,
+  .shell-side,
+  .city-feed{width:100%;max-width:none}
+  .city-feed .feed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){
+  .city-feed .feed-grid{grid-template-columns:1fr}
+}
+@media (max-width:800px){
+  .layout{grid-template-columns:1fr}
+  .list{border-right:0;border-bottom:1px solid var(--line)}
+}
+body.mail-open{overflow:hidden}
+body.mail-open .wrap{padding:12px 12px 0;height:100vh;display:flex;flex-direction:column}
+body.mail-open .head{margin-bottom:10px;padding-bottom:8px;flex-shrink:0}
+body.mail-open .head .logo{height:48px}
+body.mail-open .hero,
+body.mail-open .shell-side,
+body.mail-open .nav{display:none!important}
+body.mail-open .shell{
+  display:block;
+  flex:1;
+  min-height:0;
+  gap:0;
+}
+body.mail-open .shell-main{height:100%;min-height:0}
+body.mail-open .mail{
+  display:flex!important;
+  flex-direction:column;
+  height:100%;
+  min-height:0;
+  border-radius:10px;
+  margin:0;
+}
+body.mail-open .inbox.on{
+  display:flex;
+  flex:1;
+  min-height:0;
+  flex-direction:column;
+}
+body.mail-open .layout{
+  flex:1;
+  min-height:0;
+  height:100%;
+  grid-template-rows:minmax(0,1fr);
+}
+body.mail-open .list,
+body.mail-open .pane{overflow:auto;min-height:0;max-height:none}
+@media (max-width:800px){
+  body.mail-open .layout{grid-template-rows:minmax(180px,40%) minmax(0,1fr)}
+  body.mail-open .list{border-right:0;border-bottom:1px solid var(--line)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<img alt="КаменьMail" class="logo" height="72" src="../img/kamen-mail-logo.jpg" width="115"/>
+</header>
+<img alt="Каменногорск" class="hero" src="../img/mail-kamenogorsk.jpg"/>
+<div class="shell">
+<div class="shell-main">
+<div class="login" id="gate">
+<div id="loginForm">
+<label>Адрес</label>
+<input autocomplete="username" id="user" placeholder="имя@kamen.mail"/>
+<label>Пароль</label>
+<input autocomplete="current-password" id="pass" placeholder="пароль" type="password"/>
+<button id="go" type="button">Войти</button>
+<button class="link" id="showRecovery" type="button">Забыли пароль?</button>
+<div class="err" id="err">Неверный логин или пароль</div>
+</div>
+<div class="recovery" id="recoveryForm">
+<p class="q">Восстановление доступа<br/><span id="recHint">Укажите адрес ящика, а потом ответьте на контрольные вопросы.</span></p>
+<div class="phase on" id="recPhaseEmail">
+<div class="field">
+<label>Адрес электронной почты</label>
+<input autocomplete="username" id="recUser" placeholder="p.petrov@kamen.mail"/>
+<div class="field-err" id="recErrUser">Ящик не найден — проверьте адрес</div>
+</div>
+</div>
+<div class="phase" id="recPhaseQs">
+<div class="field">
+<label>1. Любимая марка машины</label>
+<input autocomplete="off" id="recCar" placeholder="ответ"/>
+<div class="field-err" id="recErrCar">Неверный ответ</div>
+</div>
+<div class="field">
+<label>2. Улица, где живу</label>
+<input autocomplete="off" id="recStreet" placeholder="ответ"/>
+<div class="field-err" id="recErrStreet">Неверный ответ</div>
+</div>
+<div class="field">
+<label>3. Любимое хобби</label>
+<input autocomplete="off" id="recHobby" placeholder="ответ"/>
+<div class="field-err" id="recErrHobby">Неверный ответ</div>
+</div>
+</div>
+<div class="rec-actions">
+<button id="recNext" type="button">Далее</button>
+<button class="secondary" id="hideRecovery" type="button">← Назад ко входу</button>
+</div>
+<div class="err" id="recErr">Ящик не открывается — проверьте ответы</div>
+</div>
+</div>
+<div class="mail" id="box">
+<div class="mail-bar">
+<span>Входящие · <span id="barAddr"></span></span>
+<button id="logout" type="button">Выйти</button>
+</div>
+<div class="inbox" id="inbox-koltsov">
+<div class="layout">
+<div class="list" role="list">
+<div class="row unread" data-id="k-uaz-reply" role="button" tabindex="0">
+<div class="dot"></div>
+<div>
+<div class="meta"><span>Доска объявлений</span><span>26.07</span></div>
+<div class="subj">Отклик на объявление: продажа УАЗ 469</div>
+<div class="preview">По вашему объявлению есть интерес к покупке. Покупатель хочет посмотреть машину…</div>
+</div>
+</div>
+<div class="row unread" data-id="k-speed" role="button" tabindex="0">
+<div class="dot"></div>
+<div>
+<div class="meta"><span>ЦАФАП ГИБДД</span><span>15.07</span></div>
+<div class="subj">Уведомление о зафиксированном превышении скорости</div>
+<div class="preview">24.06.2024, 23:12, трасса к карьеру, примерно 18 км от озера…</div>
+</div>
+</div>
+<div class="row unread" data-id="k-uaz-sale" role="button" tabindex="0">
+<div class="dot"></div>
+<div>
+<div class="meta"><span>Доска объявлений</span><span>30.06</span></div>
+<div class="subj">Объявление опубликовано: продажа УАЗ 469</div>
+<div class="preview">Ваше объявление размещено. Осмотр у турклуба, номер А 123 ВС…</div>
+</div>
+</div>
+<div class="row" data-id="k-kira" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>k.belova@kamen.mail</span><span>22.06</span></div>
+<div class="subj">Мне очень нужны деньги</div>
+<div class="preview">Дорогой, привет. Селезнёв с Орловым готовы отвалить 300 тысяч…</div>
+</div>
+</div>
+<div class="row" data-id="k-hike" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>m.seleznev@kamen.mail</span><span>17.06</span></div>
+<div class="subj">Напоминание: дневной маршрут 17.06</div>
+<div class="preview">Артём, глянь график и описание маршрута на сегодня…</div>
+</div>
+</div>
+<div class="row" data-id="k-vlad2" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>i.vladikin@kamen.mail</span><span>15.06</span></div>
+<div class="subj">Re: границы общения с пациенткой</div>
+<div class="preview">Кольцов А., добрый день. Белова К. — моя пациентка…</div>
+</div>
+</div>
+</div>
+<div class="pane">
+<div class="pane empty" id="empty-k">Выберите письмо слева</div>
+<article class="letter" id="letter-k-kira">
+<h2>Мне очень нужны деньги</h2>
+<div class="from">От: k.belova@kamen.mail<br/>Кому: a.koltsov@kamen.mail · 22.06.2024, 21:47</div>
+<div class="box">
+              Дорогой, привет.<br/><br/>
+              Мне сейчас очень нужны деньги. У самой нет — папа держит всё под контролем.<br/><br/>
+              Селезнёв с Орловым уже сами готовы выплатить триста тысяч — лишь бы я не отнесла в Комитет заявление про их мошенничество с субсидией. Я им так и написала: платят — молчу.<br/><br/>
+              А ещё думаю надавить на лечащего врача. У него есть чего бояться: если пригрозить, что расскажу про изнасилование — на сеансах, когда мы были одни, — он заплатит, лишь бы я не пошла в полицию.<br/><br/>
+              Только никому ни слова.<br/><br/>
+              Кира
+</div>
+</article>
+<article class="letter" id="letter-k-vlad2">
+<h2>Re: границы общения с пациенткой</h2>
+<div class="from">От: i.vladikin@kamen.mail Владыкин Игорь Степанович, психиатр<br/>Кому: a.koltsov@kamen.mail · 15.06.2024, 11:40</div>
+<div class="box">
+              Кольцов Артём Викторович, добрый день!<br/><br/>
+              Кира Валерьевна Белова — моя пациентка, лечение идёт по направлению от семьи. На прошлой неделе после ссоры у склада она пропустила сеанс и написала, что «парень только мешает».<br/><br/>
+              Если заметите, что ей становится хуже, — напишите мне на i.vladikin@kamen.mail. Не звоните ей ночью и не обсуждайте это с родителями без её согласия.<br/><br/>
+              С уважением,<br/>
+              И. С. Владыкин<br/>
+              клиника «Горный покой» · i.vladikin@kamen.mail
+</div>
+</article>
+<article class="letter" id="letter-k-uaz-reply">
+<h2>Отклик на объявление: продажа УАЗ 469</h2>
+<div class="from">От: board@kamen.mail<br/>Кому: a.koltsov@kamen.mail · 26.07.2024, 16:40 · было не прочитано</div>
+<div class="box">
+              Доска объявлений Каменногорска<br/><br/>
+              Информационное сообщение: по вашему объявлению о продаже транспортного средства поступил отклик.<br/><br/>
+              Объявление: Продам УАЗ 469<br/>
+              Госрегзнак: А 123 ВС 47<br/>
+              Адрес осмотра из объявления: у турклуба «Седой Хребет», проходная<br/><br/>
+              Покупатель просит связаться и показать машину. Ответ можно дать, написав на этот ящик или договорившись на осмотре.<br/><br/>
+              Письмо сформировано автоматически.
+</div>
+</article>
+<article class="letter" id="letter-k-speed">
+<h2>Уведомление о зафиксированном превышении скорости</h2>
+<div class="from">От: cafap@gibdd.local<br/>Кому: a.koltsov@kamen.mail · 15.07.2024 · было не прочитано</div>
+<div class="box">
+Центр автоматизированной фиксации административных правонарушений (ЦАФАП) ГИБДД<br/><br/>
+              Уведомление о зафиксированном превышении скорости<br/><br/>
+              Дата и время фиксации: 24.06.2024, 23:12<br/>
+              Камера № 47, автодорога Каменногорск — карьер «Северный», км 12+300<br/>
+              Направление: от города к карьеру (противоположная сторона района от перевала «Седой Хребет» и озера Черничного; до тропы к озеру — около 18 км)<br/>
+              Транспортное средство: УАЗ (категория B), госрегзнак А 123 ВС 47<br/>
+              Зафиксированная скорость: 97 км/ч при ограничении 60 км/ч<br/>
+              Владелец, которому направлено уведомление: Кольцов А. В.<br/><br/>
+              Письмо отправлено на электронную почту, указанную при регистрации транспортного средства.
+<img alt="Кадр камеры км 12 · трасса к карьеру «Северный»" src="../../papers/img/cafap-km12.jpg"/>
+</div>
+</article>
+<article class="letter" id="letter-k-uaz-sale">
+<h2>Объявление опубликовано: продажа УАЗ 469</h2>
+<div class="from">От: board@kamen.mail<br/>Кому: a.koltsov@kamen.mail · 30.06.2024, 10:14 · было не прочитано</div>
+<div class="box">
+              Доска объявлений Каменногорска<br/><br/>
+              Информационное сообщение: ваше объявление о продаже транспортного средства опубликовано.<br/><br/>
+              Категория: Продажа<br/>
+              Текст объявления:<br/>
+              «Продам УАЗ 469 Ездил по тропам и к карьеру с туристическими группами. Кузов целый, резина «зубастая», недавно поменяна. Возможен торг. Посмотреть машину можно у турклуба. Ищите номер А 123 ВС. На проходной клуба ищите Кольцова.»<br/><br/>
+              Марка / модель: УАЗ 469<br/>
+              Госрегзнак (из карточки ТС): А 123 ВС 47<br/>
+              Адрес для осмотра: у турклуба «Седой Хребет», проходная<br/>
+              Контакт продавца: Кольцов А. В. · a.koltsov@kamen.mail<br/><br/>
+              Письмо сформировано автоматически. Отвечать на него не требуется.
+</div>
+</article>
+<article class="letter" id="letter-k-hike">
+<h2>Напоминание: дневной маршрут 17.06</h2>
+<div class="from">От: m.seleznev@kamen.mail Селезнёв Марк Олегович<br/>Кому: a.koltsov@kamen.mail · 17.06.2024, 08:10</div>
+<div class="box">
+              Артём, привет.<br/><br/>
+              Глянь, пожалуйста, график и напоминание от базы на сегодня — совместный дневной поход.<br/><br/>
+              <b>17.06 · старт 09:30</b> у проходной базы (ул. Лесная, 11).<br/>
+              Инструкторы: Орлов Н., Громов А.<br/>
+              Ты — в группе сопровождения, как договаривались.<br/><br/>
+              <b>Маршрут:</b><br/>
+              1) выход с базы по грунтовке к нижней стоянке у перевала «Седой Хребет»;<br/>
+              2) пешая тропа через перевал к озеру Черничному (обрыв у берега — не срезать, держаться маркировки);<br/>
+              3) короткий привал у воды, контроль состава группы;<br/>
+              4) возврат той же тропой на базу, ориентир закрытия маршрута — до 16:00.<br/><br/>
+              Снаряжение со склада брать только по журналу. После возвращения — сдать обратно Орлову.<br/><br/>
+              Если что поменяется по группе — пиши мне или Никите.<br/><br/>
+              Марк Селезнёв<br/>
+              турклуб «Седой Хребет» · m.seleznev@kamen.mail
+</div>
+</article>
+</div>
+</div>
+</div>
+<div class="inbox" id="inbox-vladikin">
+<div class="layout">
+<div class="list" role="list">
+<div class="row" data-id="v-kira" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>k.belova@kamen.mail</span><span>24.06</span></div>
+<div class="subj">Re: разговор вне кабинета</div>
+<div class="preview">Вашу записку с местом встречи получила. Приготовьте деньги…</div>
+</div>
+</div>
+<div class="row" data-id="v-fender" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>Автосервис «Камень»</span><span>18.06</span></div>
+<div class="subj">Фото до ремонта крыла</div>
+<div class="preview">Игорь Степанович, осмотрели переднее левое крыло. Во вложении — фото…</div>
+</div>
+</div>
+<div class="row" data-id="v-club" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>Турклуб «Седой Хребет»</span><span>12.06</span></div>
+<div class="subj">Членский взнос (июнь)</div>
+<div class="preview">Владыкин И. С. — взнос 50 000 рублей отмечен как оплаченный.</div>
+</div>
+</div>
+<div class="row" data-id="v-father" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>Белов В. С.</span><span>10.06</span></div>
+<div class="subj">По сеансам дочери</div>
+<div class="preview">Игорь Степанович, я по‑прежнему считаю, что вы должны её вести…</div>
+</div>
+</div>
+<div class="row" data-id="v-yacht" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>d.sokolov@kamen.mail</span><span>05.05</span></div>
+<div class="subj">Фото с яхты</div>
+<div class="preview">Игорь, нашёл в телефоне снимок с весеннего ретрита в Турции…</div>
+</div>
+</div>
+</div>
+<div class="pane">
+<div class="pane empty" id="empty-v">Выберите письмо слева</div>
+<article class="letter" id="letter-v-yacht">
+<h2>Фото с яхты</h2>
+<div class="from">От: d.sokolov@kamen.mail<br/>Кому: i.vladikin@kamen.mail · 05.05.2024 · вложение</div>
+<div class="box">
+              Игорь, нашёл в телефоне снимок с весеннего ретрита в Турции. На яхте классно отдохнули тогда.<br/><br/>
+<img alt="Вложение: яхта" src="../../papers/img/bracelet-yacht.jpg"/>
+</div>
+</article>
+<article class="letter" id="letter-v-kira">
+<h2>Re: разговор вне кабинета</h2>
+<div class="from">От: k.belova@kamen.mail<br/>Кому: i.vladikin@kamen.mail · 24.06.2024, 18:02</div>
+<div class="box">
+              Вашу записку с местом встречи получила. Приготовьте деньги.
+</div>
+</article>
+<article class="letter" id="letter-v-fender">
+<h2>Фото до ремонта крыла</h2>
+<div class="from">От: service@avtokamen.mail<br/>Кому: i.vladikin@kamen.mail · 18.06.2024, 14:36 · вложение</div>
+<div class="box">
+              Игорь Степанович, добрый день.<br/><br/>
+              Осмотрели переднее левое крыло вашего седана. Деформация сильная — нужна рихтовка и покраска.<br/><br/>
+              Во вложении — фото повреждений на приёмке.<br/><br/>
+              Автосервис «Камень» · ул. Заводская, 8<br/><br/>
+<img alt="Вложение: повреждённое крыло" src="../../papers/img/vladikin-fender-repair.jpg"/>
+</div>
+</article>
+<article class="letter" id="letter-v-father">
+<h2>По сеансам дочери</h2>
+<div class="from">От: v.belov@kamen.mail<br/>Кому: i.vladikin@kamen.mail · 10.06.2024, 21:04</div>
+<div class="box">
+              Игорь Степанович, я по‑прежнему считаю, что вы должны её вести.<br/><br/>
+              С уважением,<br/>
+              В. С. Белов
+</div>
+</article>
+<article class="letter" id="letter-v-club">
+<h2>Членский взнос (июнь)</h2>
+<div class="from">От: kassa@sedoy-hrebet.club<br/>Кому: i.vladikin@kamen.mail · 12.06.2024, 10:20</div>
+<div class="box">
+              Уважаемый Игорь Степанович,<br/><br/>
+              Членский взнос за июнь (50 000 рублей) оплачен. По вопросам кассы клуба обращайтесь к Селезнёву М. О., тел. ····18‑29.<br/><br/>
+              Благодарим за поддержку программы «Горный сезон–2024»!
+</div>
+</article>
+</div>
+</div>
+</div>
+<div class="inbox" id="inbox-avtokamen">
+<div class="layout">
+<div class="list" role="list">
+<div class="row" data-id="a-fender" role="button" tabindex="0">
+<div class="dot off"></div>
+<div>
+<div class="meta"><span>→ i.vladikin@kamen.mail</span><span>18.06</span></div>
+<div class="subj">Фото до ремонта крыла</div>
+<div class="preview">Игорь Степанович, осмотрели переднее левое крыло. Во вложении — фото…</div>
+</div>
+</div>
+</div>
+<div class="pane">
+<div class="pane empty" id="empty-a">Выберите письмо слева</div>
+<article class="letter" id="letter-a-fender">
+<h2>Фото до ремонта крыла</h2>
+<div class="from">От: service@avtokamen.mail<br/>Кому: i.vladikin@kamen.mail · 18.06.2024, 14:36 · вложение · отправлено</div>
+<div class="box">
+              Игорь Степанович, добрый день.<br/><br/>
+              Осмотрели переднее левое крыло вашего седана. Деформация сильная — нужна рихтовка и покраска.<br/><br/>
+              Во вложении — фото повреждений на приёмке.<br/><br/>
+              Автосервис «Камень» · ул. Заводская, 8<br/><br/>
+<img alt="Вложение: повреждённое крыло" src="../../papers/img/vladikin-fender-repair.jpg"/>
+</div>
+</article>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="shell-side">
+<aside aria-label="Новости Каменногорска" class="city-feed">
+<h2>Лента города</h2>
+<p class="feed-sub">КаменьMail: подборка из «Каменногорск сегодня» и городских объявлений</p>
+<div class="feed-grid" id="feedGrid">
+<article class="city-card" data-article="tragedy" role="button" tabindex="0">
+<span class="tag">Происшествия</span>
+<h3>У перевала Седой Хребет трагедия</h3>
+<p class="teaser">Утром 25 июня у озера Черничного обнаружили тело 19‑летней волонтёрки турклуба…</p>
+<button class="more" type="button">Читать далее →</button>
+<span class="when">25.06.2024</span>
+<div class="full" data-tag="Происшествия" data-title="У перевала Седой Хребет трагедия" data-when="25.06.2024" hidden="">
+<p>Утром 25 июня у озера Черничного, на тропе к перевалу «Седой Хребет», нашли тело 19‑летней девушки — волонтёра турклуба. По предварительным данным, она погибла вечером накануне. Следствие пока не исключает, что это несчастный случай — возможно, девушка сорвалась с обрыва. Так как накануне был сильный дождь и плохая видимость.</p>
+<p>В 2020‑м у той же тропы турист сорвался с обрыва и погиб. Родственники просят не распространять слухи.</p>
+</div>
+</article>
+<article class="city-card" data-article="azs" role="button" tabindex="0">
+<span class="tag">Город</span>
+<h3>Хот доги по пути</h3>
+<p class="teaser">АЗС «Трак» недалеко оз. Черничное у шоссе на перевале работает круглосуточно.</p>
+<button class="more" type="button">Читать далее →</button>
+<span class="when">июнь 2024</span>
+<div class="full" data-tag="Город" data-title="Хот доги по пути" data-when="июнь 2024" hidden="">
+<p>АЗС «Трак» недалеко оз. Черничное у шоссе на перевале работает круглосуточно. Вы всегда можете заправить у нас машину, съесть сытный хот-дог и выпить чашечку ароматного кофе.</p>
+</div>
+</article>
+<article class="city-card" data-article="club" role="button" tabindex="0">
+<span class="tag">Турклуб</span>
+<h3>Юбилей турклуба «Седой Хребет»</h3>
+<p class="teaser">Туристическому клубу Седой Хребет исполняется 10 лет — 1 июня!…</p>
+<button class="more" type="button">Читать далее →</button>
+<span class="when">июнь 2024</span>
+<div class="full" data-tag="Турклуб" data-title="Юбилей турклуба «Седой Хребет»" data-when="июнь 2024" hidden="">
+<p>Туристическому клубу Седой Хребет исполняется 10 лет - 1 июня! Благодаря ему к нам в город приезжает большое количество туристов из других городов. Он стал уже давно знаковой карточкой нашего города. Сердечно поздравляем и желаем дальнейшего развития и новых вершин.</p>
+</div>
+</article>
+<article class="city-card" data-article="roads" role="button" tabindex="0">
+<span class="tag">Дороги</span>
+<h3>Ремонт грунтовки к перевалу</h3>
+<p class="teaser">С 20 по 27 июня — ремонт дороги вокруг озера Черничное…</p>
+<button class="more" type="button">Читать далее →</button>
+<span class="when">20–27.06.2024</span>
+<div class="full" data-tag="Дороги" data-title="Ремонт грунтовки к перевалу" data-when="20–27.06.2024" hidden="">
+<p>Дорожная служба города Каменногорск сообщает что с 20 по 27 июня будет проводиться ремонт дороги вокруг озера Черничное. Пользуйтесь объездной дорогой через лес.</p>
+</div>
+</article>
+<article class="city-card" data-article="forestry" role="button" tabindex="0">
+<span class="tag">Лес</span>
+<h3>Разведение костров в лесу</h3>
+<p class="teaser">Стали часто поступать жалобы от местных жителей на разжигание костров…</p>
+<button class="more" type="button">Читать далее →</button>
+<span class="when">июнь 2024</span>
+<div class="full" data-tag="Лес" data-title="Разведение костров в лесу" data-when="июнь 2024" hidden="">
+<p>Стали часто поступать жалобы от местных жителей на разжигание костров, а также оставление мусора около озера. Лесникам даны указания делать обход озера чаще. Нам надо беречь свою природу.</p>
+</div>
+</article>
+<article class="city-card" data-article="quarry" role="button" tabindex="0">
+<span class="tag">Промышленность</span>
+<h3>Камера контроля скорости у карьера</h3>
+<p class="teaser">В июне на подъезде к карьеру установили новую камеру контроля скорости…</p>
+<button class="more" type="button">Читать далее →</button>
+<span class="when">лето 2024</span>
+<div class="full" data-tag="Промышленность" data-title="Камера контроля скорости у карьера" data-when="лето 2024" hidden="">
+<p>В июне, после дождей, на подъезде к карьеру установили новую автомобильную камеру контроля скорости. Так как на этом участке дороги часто водители превышали скорость.</p>
+</div>
+</article>
+<article class="city-card" data-article="board" role="button" tabindex="0">
+<span class="tag">Объявления</span>
+<h3>Доска объявлений Каменногорска</h3>
+<p class="teaser">Городские объявления Каменногорска: работа, дороги, услуги…</p>
+<button class="more" type="button">Смотреть доску →</button>
+<div class="full" data-tag="Город" data-title="Доска объявлений Каменногорска" hidden="">
+<div class="board-list">
+<div class="board-ad">
+<span class="tag">Вакансия</span>
+Вакансия АЗС «Трак». Вакансия на должность кассира на ночные смены (22:00–06:00). Опыт работы не обязателен. Главное требование — будьте аккуратны. Расскажем и покажем, как работать. Находимся около перевала Седой Хребет. З/п — процент от продаж. В летний период много клиентов. Обращайтесь по адресу: ул. Шоссейная, 7.
+<i>1.07</i>
+</div>
+<div class="board-ad">
+<span class="tag">Продажа</span>
+Продам УАЗ 469 Ездил по тропам и к карьеру с туристическими группами. Кузов целый, резина «зубастая», недавно поменяна. Возможен торг. Посмотреть машину можно у турклуба. Ищите номер А 123 ВС. На проходной клуба ищите Кольцова.
+<i>30.06</i>
+</div>
+<div class="board-ad">
+<span class="tag">Продажа</span>
+Продажа б/у туристического снаряжения<br/>
+Из‑за отъезда продаю практически новый инвентарь. Сходил с ним только несколько раз.<br/>
+Фонари налобные отдам за 1 000 ₽, карабины HMS за 2 000 ₽ — брал за 1 500 ₽ и 2 400 ₽ в ГорСнаб.<br/>
+Состояние рабочее, без сколов. Пишите в личку.
+<i>20.06</i>
+</div>
+<div class="board-ad">
+<span class="tag">Информация</span>
+Турклуб «Седой Хребет»
+<p>Адрес: г. Каменногорск, ул. Лесная, 11.</p>
+<p>Если вы спросите, где начинается настоящая походная жизнь, мы ответим: «У перевала». Именно здесь, в живописном уголке природы, расположилась общественная база нашего турклуба — место, которое служит одновременно штабом, складом и домом для всех, кто влюблен в горы.</p>
+<p>Наша база — это не просто точка на карте, а полноценный организационный центр. Здесь кипит работа: мы планируем маршруты любой сложности, организуем походы выходного дня и длительные экспедиции. В надежных кладовых базы хранится всё необходимое снаряжение — от проверенных временем палаток до современного альпинистского инвентаря, готового к использованию.</p>
+<p>Особое время для базы — лето. В этот период здесь собирается весь цвет клуба. Инструкторы, волонтеры и гости сезона постоянно пересекаются на территории базы: кто-то готовит снаряжение к выходу, кто-то делится опытом у костра, а кто-то просто отдыхает после тяжелого перехода.</p>
+<p>База у перевала — это место, где каждый чувствует себя частью большой команды. Здесь заканчиваются суетные будни и начинаются настоящие приключения.</p>
+<i>17.06</i>
+</div>
+<div class="board-ad">
+<span class="tag">Вакансия</span>
+Карьер «Северный» набирает работников. Нужны водители самосвалов, машинисты экскаватора и рабочие на погрузку. Работа со сменным графиком, разъезды из Каменногорска. Обращайтесь в отдел кадров либо к начальнику смены Белову В. С.
+<p>Адрес: автодорога Каменногорск — карьер «Северный», км 12 (КПП).</p>
+Возьмите с собой медицинскую книжку и удостоверение (для водителей).
+<i>11.06</i>
+</div>
+<div class="board-ad">
+<span class="tag">Информация</span>
+База отдыха «Скала» приглашает отдохнуть от городской суеты. Можно насладиться чудесными видами на горный хребет или на озеро.
+<p>Адрес: г. Каменногорск, подъезд к перевалу «Седой Хребет».</p>
+<i>1.06</i>
+</div>
+<div class="board-ad">
+<span class="tag">Информация</span>
+Частная клиника «Горный покой» приглашает оказывает психологическую помощь в период студенческий экзаменов. Подробнее: <a href="../gorny-pokoy/index.html">сайт клиники</a>.
+<i>25.05</i>
+</div>
+</div>
+</div>
+</article>
+</div>
+</aside>
+<div class="article-view" hidden="" id="articleView">
+<div class="meta">
+<button class="back" id="articleBack" type="button">← К ленте</button>
+<span class="sep" aria-hidden="true">·</span>
+<span class="tag" id="articleTag"></span>
+</div>
+<h3 id="articleTitle"></h3>
+<div class="body" id="articleBody"></div>
+<a class="ext" href="#" id="articleExt" style="display:none"></a>
+<span class="when" id="articleWhen"></span>
+</div>
+</div>
+</div>
+</div>
+<script>
+const ACCOUNTS = {
+  koltsov: {
+    user: ["a.koltsov@kamen.mail", "a.koltsov"],
+    addr: "a.koltsov@kamen.mail",
+    recovery: true,
+    security: {
+      car: ["УАЗ", "уаз", "UAZ", "uaz"],
+      street: ["Нагорная", "нагорная"],
+      hobby: ["Скалолазание", "скалолазание"],
+    },
+  },
+  vladikin: {
+    user: ["i.vladikin@kamen.mail", "i.vladikin"],
+    pass: "pokoy47",
+    addr: "i.vladikin@kamen.mail",
+  },
+  seleznev: {
+    user: ["m.seleznev@kamen.mail", "m.seleznev"],
+    addr: "m.seleznev@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  belova: {
+    user: ["k.belova@kamen.mail", "k.belova"],
+    addr: "k.belova@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  ryzhova: {
+    user: ["s.ryzhova@kamen.mail", "s.ryzhova"],
+    addr: "s.ryzhova@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  belov: {
+    user: ["v.belov@kamen.mail", "v.belov"],
+    addr: "v.belov@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  samoylova: {
+    user: ["v.samoylova@kamen.mail", "v.samoylova"],
+    addr: "v.samoylova@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  sokolov: {
+    user: ["d.sokolov@kamen.mail", "d.sokolov"],
+    addr: "d.sokolov@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  orlov: {
+    user: ["n.orlov@sedoy-hrebet.club", "n.orlov"],
+    addr: "n.orlov@sedoy-hrebet.club",
+    recovery: false,
+    noRecovery: true,
+  },
+  board: {
+    user: ["board@kamen.mail", "board"],
+    addr: "board@kamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+  cafap: {
+    user: ["cafap@gibdd.local", "cafap"],
+    addr: "cafap@gibdd.local",
+    recovery: false,
+    noRecovery: true,
+  },
+  baza: {
+    user: ["baza@sedoy-hrebet.club", "baza"],
+    addr: "baza@sedoy-hrebet.club",
+    recovery: false,
+    noRecovery: true,
+  },
+  kassa: {
+    user: ["kassa@sedoy-hrebet.club", "kassa"],
+    addr: "kassa@sedoy-hrebet.club",
+    recovery: false,
+    noRecovery: true,
+  },
+  raspisanie: {
+    user: ["raspisanie@gorny-pokoy.local", "raspisanie"],
+    addr: "raspisanie@gorny-pokoy.local",
+    recovery: false,
+    noRecovery: true,
+  },
+  registratura: {
+    user: ["registratura@gorny-pokoy.local", "registratura"],
+    addr: "registratura@gorny-pokoy.local",
+    recovery: false,
+    noRecovery: true,
+  },
+  cvetok: {
+    user: ["order@cvetok-kamen.local", "order@cvetok-kamen.local", "order"],
+    addr: "order@cvetok-kamen.local",
+    recovery: false,
+    noRecovery: true,
+  },
+  avtokamen: {
+    user: ["service@avtokamen.mail", "service", "avtokamen"],
+    addr: "service@avtokamen.mail",
+    recovery: false,
+    noRecovery: true,
+  },
+};
+const gate = document.getElementById("gate");
+const box = document.getElementById("box");
+const err = document.getElementById("err");
+const recErr = document.getElementById("recErr");
+const loginForm = document.getElementById("loginForm");
+const recoveryForm = document.getElementById("recoveryForm");
+const barAddr = document.getElementById("barAddr");
+
+const norm = (s) => (s || "").trim().toLocaleLowerCase("ru-RU")
+  .replace(/ё/g, "е")
+  .replace(/^(улица|ул\.?)\s+/i, "")
+  .replace(/[\s.,\-]+/g, "");
+
+const matchAny = (value, options) => {
+  const v = norm(value);
+  if (!v) return false;
+  return options.some((opt) => {
+    const o = norm(opt);
+    if (!o) return false;
+    return v === o || v.startsWith(o) || o.startsWith(v);
+  });
+};
+
+const findAccount = (u) => Object.keys(ACCOUNTS).find(k => ACCOUNTS[k].user.includes(u));
+
+let recPhase = "email";
+const recNext = document.getElementById("recNext");
+const gateEl = document.getElementById("gate");
+const recHint = document.getElementById("recHint");
+const recPhaseEmail = document.getElementById("recPhaseEmail");
+const recPhaseQs = document.getElementById("recPhaseQs");
+const recErrUser = document.getElementById("recErrUser");
+
+const clearRecFieldErr = () => {
+  recoveryForm.querySelectorAll(".field-err").forEach(el => el.classList.remove("on"));
+  recoveryForm.querySelectorAll("input").forEach(el => el.classList.remove("bad"));
+  recErr.style.display = "none";
+};
+
+const setRecPhase = (phase) => {
+  recPhase = phase;
+  recPhaseEmail.classList.toggle("on", phase === "email");
+  recPhaseQs.classList.toggle("on", phase === "qs");
+  if (phase === "email") {
+    recHint.textContent = "Укажите адрес ящика.";
+    recNext.textContent = "Далее";
+    document.getElementById("recUser").focus();
+  } else {
+    recHint.textContent = "Ящик Кольцова А. — ответьте на контрольные вопросы.";
+    recNext.textContent = "Войти в ящик";
+    document.getElementById("recCar").focus();
+  }
+};
+
+const showRecovery = (prefill) => {
+  loginForm.style.display = "none";
+  recoveryForm.classList.add("on");
+  err.style.display = "none";
+  clearRecFieldErr();
+  document.getElementById("recCar").value = "";
+  document.getElementById("recStreet").value = "";
+  document.getElementById("recHobby").value = "";
+  if (prefill) document.getElementById("recUser").value = prefill;
+  gateEl.classList.add("wide");
+  setRecPhase("email");
+};
+
+const hideRecovery = () => {
+  recoveryForm.classList.remove("on");
+  loginForm.style.display = "block";
+  gateEl.classList.remove("wide");
+  clearRecFieldErr();
+  document.getElementById("recUser").value = "";
+  document.getElementById("recCar").value = "";
+  document.getElementById("recStreet").value = "";
+  document.getElementById("recHobby").value = "";
+  recPhase = "email";
+};
+
+const validateEmail = () => {
+  clearRecFieldErr();
+  const u = (document.getElementById("recUser").value || "").trim().toLowerCase();
+  const who = findAccount(u);
+  if (!who) {
+    recErrUser.textContent = "Ящик не найден — проверьте адрес";
+    document.getElementById("recUser").classList.add("bad");
+    recErrUser.classList.add("on");
+    document.getElementById("recUser").focus();
+    return false;
+  }
+  if (ACCOUNTS[who].noRecovery || !ACCOUNTS[who].recovery) {
+    recErrUser.textContent = "Ящик найден, но контрольные вопросы для восстановления не заданы";
+    document.getElementById("recUser").classList.add("bad");
+    recErrUser.classList.add("on");
+    document.getElementById("recUser").focus();
+    return false;
+  }
+  return true;
+};
+
+const validateQuestions = () => {
+  clearRecFieldErr();
+  const sec = ACCOUNTS.koltsov.security;
+  let ok = true;
+  let firstBad = null;
+
+  const fail = (inputId, errId) => {
+    document.getElementById(inputId).classList.add("bad");
+    document.getElementById(errId).classList.add("on");
+    if (!firstBad) firstBad = document.getElementById(inputId);
+    ok = false;
+  };
+
+  const car = (document.getElementById("recCar").value || "").trim();
+  const street = (document.getElementById("recStreet").value || "").trim();
+  const hobby = (document.getElementById("recHobby").value || "").trim();
+
+  if (!car || !matchAny(car, sec.car)) fail("recCar", "recErrCar");
+  if (!street || !matchAny(street, sec.street)) fail("recStreet", "recErrStreet");
+  if (!hobby || !matchAny(hobby, sec.hobby)) fail("recHobby", "recErrHobby");
+
+  if (firstBad) firstBad.focus();
+  return ok;
+};
+
+const recoverNext = () => {
+  if (recPhase === "email") {
+    if (!validateEmail()) return;
+    setRecPhase("qs");
+    return;
+  }
+  if (!validateQuestions()) return;
+  openBox("koltsov");
+};
+
+const openBox = (who) => {
+  sessionStorage.setItem("pp_kamen_mail", who);
+  document.body.classList.add("mail-open");
+  gate.style.display = "none";
+  gateEl.classList.remove("wide");
+  box.style.display = "block";
+  err.style.display = "none";
+  recErr.style.display = "none";
+  document.querySelectorAll(".inbox").forEach(el => el.classList.remove("on"));
+  document.getElementById("inbox-" + who).classList.add("on");
+  barAddr.textContent = ACCOUNTS[who].addr;
+  document.querySelectorAll(".letter").forEach(el => el.classList.remove("on"));
+  document.querySelectorAll(".row").forEach(el => el.classList.remove("active"));
+  document.querySelectorAll(".pane.empty").forEach(el => { el.style.display = ""; });
+};
+
+const go = () => {
+  const u = (document.getElementById("user").value || "").trim().toLowerCase();
+  const p = (document.getElementById("pass").value || "").trim();
+  const who = findAccount(u);
+  if (!who) {
+    err.textContent = "Неверный логин или пароль";
+    err.style.display = "block";
+    return;
+  }
+  if (ACCOUNTS[who].pass) {
+    if (p === ACCOUNTS[who].pass) {
+      openBox(who);
+      return;
+    }
+    err.textContent = "Неверный пароль";
+    err.style.display = "block";
+    return;
+  }
+  // Ящик без пароля и без контрольных вопросов — вход по логину, если есть inbox
+  if (ACCOUNTS[who].noRecovery && document.getElementById("inbox-" + who)) {
+    openBox(who);
+    return;
+  }
+  err.textContent = "Неверный логин или пароль";
+  err.style.display = "block";
+};
+
+
+document.getElementById("go").onclick = go;
+document.getElementById("recNext").onclick = recoverNext;
+document.getElementById("showRecovery").onclick = () => {
+  const u = document.getElementById("user").value.trim();
+  showRecovery(u || undefined);
+};
+document.getElementById("hideRecovery").onclick = hideRecovery;
+document.getElementById("pass").addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+document.getElementById("user").addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+["recUser", "recCar", "recStreet", "recHobby"].forEach(id => {
+  document.getElementById(id).addEventListener("keydown", e => { if (e.key === "Enter") recoverNext(); });
+});
+document.getElementById("logout").onclick = () => {
+  sessionStorage.removeItem("pp_kamen_mail");
+  document.body.classList.remove("mail-open");
+  box.style.display = "none";
+  gate.style.display = "block";
+  hideRecovery();
+  document.getElementById("pass").value = "";
+  document.getElementById("user").value = "";
+  document.getElementById("recUser").value = "";
+};
+
+const saved = sessionStorage.getItem("pp_kamen_mail");
+if (saved && ACCOUNTS[saved] && document.getElementById("inbox-" + saved)) openBox(saved);
+else if (location.hash === "#koltsov-recovery") showRecovery("a.koltsov@kamen.mail");
+
+const openMail = (id) => {
+  document.querySelectorAll(".letter").forEach(el => el.classList.remove("on"));
+  document.querySelectorAll(".row").forEach(el => el.classList.remove("active"));
+  const row = document.querySelector('.row[data-id="' + id + '"]');
+  const letter = document.getElementById("letter-" + id);
+  if (!row || !letter) return;
+  const empty = letter.closest(".pane").querySelector(".pane.empty");
+  if (empty) empty.style.display = "none";
+  letter.classList.add("on");
+  row.classList.add("active");
+  row.classList.remove("unread");
+  row.querySelector(".dot")?.classList.add("off");
+};
+
+document.querySelectorAll(".row").forEach(row => {
+  const id = row.dataset.id;
+  row.addEventListener("click", () => openMail(id));
+  row.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openMail(id); }
+  });
+});
+
+const articleView = document.getElementById("articleView");
+const openArticle = (card) => {
+  const full = card.querySelector(".full");
+  if (!full) return;
+  document.getElementById("articleTag").textContent = full.dataset.tag || "";
+  document.getElementById("articleTitle").textContent = full.dataset.title || "";
+  document.getElementById("articleBody").innerHTML = full.innerHTML;
+  const when = document.getElementById("articleWhen");
+  when.textContent = full.dataset.when || "";
+  when.style.display = full.dataset.when ? "" : "none";
+  const ext = document.getElementById("articleExt");
+  if (full.dataset.ext) {
+    ext.href = full.dataset.ext;
+    ext.textContent = full.dataset.extLabel || "Открыть →";
+    ext.style.display = "";
+  } else {
+    ext.style.display = "none";
+  }
+  articleView.hidden = false;
+  articleView.classList.add("on");
+};
+const closeArticle = () => {
+  articleView.classList.remove("on");
+  articleView.hidden = true;
+};
+document.getElementById("articleBack").onclick = closeArticle;
+document.querySelectorAll(".city-card").forEach(card => {
+  const open = () => openArticle(card);
+  card.addEventListener("click", open);
+  card.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  });
+});
+</script>
+<script src="../js/visit-site.js?v=3" data-site="mail"></script>
+</body>
+</html>

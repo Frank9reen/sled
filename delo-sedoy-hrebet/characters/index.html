@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Круг лиц</title>
+  <style>
+:root { --bg:#f4f0e6; --card:#fffdf8; --ink:#1a1814; --muted:#5c564c; --line:#c9bfa8; --acc:#2f5d4a; --bad:#8b3a3a; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 "Georgia","Times New Roman",serif; }
+.wrap { max-width:820px; margin:0 auto; padding:24px 18px 48px; }
+a { color:var(--acc); }
+h1 { font-size:1.55rem; margin:0 0 8px; }
+h2 { font-size:1.15rem; margin:28px 0 10px; border-bottom:1px solid var(--line); padding-bottom:4px; }
+.meta { color:var(--muted); font-size:.92rem; margin:0 0 18px; }
+.card { background:var(--card); border:1px solid var(--line); padding:16px 18px; margin:12px 0; border-radius:2px; }
+table { width:100%; border-collapse:collapse; font-size:.95rem; }
+th, td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#ebe4d4; font-family:"Segoe UI",Arial,sans-serif; font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; }
+.pill { display:inline-block; font:700 .72rem "Segoe UI",Arial,sans-serif; padding:2px 8px; border-radius:3px; text-transform:uppercase; }
+.pill-s { background:#ffcdd2; color:#b71c1c; }
+.pill-w { background:#dce9e2; color:#1b5e20; }
+.pill-v { background:#e8e0f0; color:#4a148c; }
+.kv { display:grid; grid-template-columns:140px 1fr; gap:6px 12px; font-size:.95rem; }
+.kv b { color:var(--muted); font-weight:600; font-family:"Segoe UI",Arial,sans-serif; font-size:.82rem; }
+.foot { margin-top:28px; color:var(--muted); font-size:.85rem; }
+.portrait { width:100%; max-width:420px; display:block; border:1px solid var(--line); margin:0 0 14px; }
+.thumb { width:36px; height:50px; object-fit:cover; object-position:center top; border:1px solid var(--line); vertical-align:middle; margin-right:8px; }
+.namecell { display:flex; align-items:center; gap:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Круг лиц</h1>
+  <h2>Жертва</h2>
+  <table>
+    <tr><th>ФИО</th><th>Роль</th><th>Работа</th></tr>
+    <tr>
+      <td><div class="namecell"><img class="thumb" src="img/belova-kira.jpg" alt="" /><span><a href="belova-kira.html"><b>Белова Кира</b></a> · 19</span></div></td>
+      <td>Жертва</td>
+      <td>СПбГЭУ · логистика туризма; волонтёр «Седой Хребет»</td>
+    </tr>
+  </table>
+
+  <h2>Подозреваемые</h2>
+  <table>
+    <tr><th>ФИО</th><th>Роль</th><th>Работа</th></tr>
+    <tr><td><div class="namecell"><img class="thumb" src="img/tishin.jpg" alt="" /><span>1. <a href="tishin.html"><b>Тишин Роман</b></a> · 21</span></div></td><td>Задержанный</td><td>АЗС «Трак»</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/orlov.jpg" alt="" /><span>2. <a href="orlov.html"><b>Орлов Никита</b></a> · 38</span></div></td><td>Склад / касса</td><td>Старший инструктор</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/koltsov.jpg" alt="" /><span>3. <a href="koltsov.html"><b>Кольцов Артём</b></a> · 21</span></div></td><td>Парень</td><td>База турклуба / скалы</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/seleznev.jpg" alt="" /><span>4. <a href="seleznev.html"><b>Селезнёв Марк</b></a> · 25</span></div></td><td>«Друг-парень» / касса</td><td>Учёт взносов клуба</td></tr>
+  </table>
+
+  <h2>Свидетели и окружение</h2>
+  <table>
+    <tr><th>ФИО</th><th>Роль</th><th>Работа</th></tr>
+    <tr><td><div class="namecell"><img class="thumb" src="img/vladikin.jpg" alt="" /><span><a href="vladikin.html"><b>Владыкин Игорь</b></a> · 55</span></div></td><td>врач (убийца вскрывается позже)</td><td>Психиатр «Горный покой»</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/tishina.jpg" alt="" /><span><a href="tishina.html"><b>Тишина Галина</b></a> · 42</span></div></td><td>Заказчик</td><td>Шеф-повар кафе «Скала»</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/belov.jpg" alt="" /><span><a href="belov.html"><b>Белов Валерий</b></a> · 55</span></div></td><td>Отец жертвы</td><td>Бригадир карьера</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/ryzhova.jpg" alt="" /><span><a href="ryzhova.html"><b>Рыжова Софья</b></a> · 22</span></div></td><td>Алиби Кольцову (ложь)</td><td>Кафе «Скала»</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/dudin.jpg" alt="" /><span><a href="dudin.html"><b>Дудин Степан</b></a> · 56</span></div></td><td>Нашёл тело</td><td>Дорожный мастер</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/samoylova.jpg" alt="" /><span><a href="samoylova.html"><b>Самойлова Вера</b></a> · 19</span></div></td><td>Подруга · фон / SMS</td><td>Медколледж</td></tr>
+<tr><td><div class="namecell"><img class="thumb" src="img/lebedev.jpg" alt="" /><span><a href="lebedev.html"><b>Лебедев Фёдор</b></a> · 65</span></div></td><td>Двое у озера ~23:00</td><td>Лесник</td></tr>
+  </table>
+
+</div>
+</body>
+</html>

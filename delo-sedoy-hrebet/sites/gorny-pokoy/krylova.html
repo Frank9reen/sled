@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Н. Крылова — Горный покой</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--sage:#5a7a68;--sage-d:#3d5a4a;--bg:#f3f6f2;--paper:#fbfcf9;--ink:#1c261f;--muted:#5e6e64;--line:#d4ddd6;--price:#6b3d2e}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#e8efe8 0%,var(--bg) 40%);color:var(--ink);font-family:Manrope,sans-serif;min-height:100vh}
+a{color:var(--sage-d);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:640px;margin:0 auto;padding:clamp(20px,4vw,36px) 18px 48px}
+.head{padding:28px 0 20px}
+.head h1{font-family:Literata,serif;font-size:clamp(1.6rem,4vw,2rem);margin:0;font-weight:600;color:var(--sage-d)}
+.head p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 0 20px;border-bottom:1px solid var(--line);font-size:.9rem;font-weight:500}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:0 0 14px;box-shadow:0 1px 0 rgba(255,255,255,.8)}
+.card b{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;display:block;margin-bottom:8px}
+.price{font-family:Literata,serif;font-size:1.25rem;font-weight:600;color:var(--price)}
+.media{display:block;width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin:0 0 6px;border:1px solid var(--line)}
+.media-cap{font-size:.75rem;color:var(--muted);margin:0 0 12px;line-height:1.35}
+.doc-photo{float:right;width:96px;height:96px;object-fit:cover;border-radius:50%;margin:0 0 8px 14px;border:2px solid var(--line)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<h1>Наталья Крылова</h1>
+<p>Клинический психолог</p>
+</header>
+<nav class="nav"><a href="index.html">← Клиника</a> · <a href="index.html#team">Специалисты</a></nav>
+<div class="card">
+<img alt="Зал ожидания" class="media" src="../img/clinic-waiting.jpg"/>
+<p class="media-cap">Зал ожидания</p>
+<img alt="Крылова" class="doc-photo" src="../img/clinic-krylova.jpg"/>
+<p style="margin:0 0 10px;line-height:1.5">
+<b style="display:inline;text-transform:none;letter-spacing:0;font-size:inherit;color:inherit">Крылова Наталья Викторовна</b> Клинический психолог, работает в «Горном покое» с 2022 года. Консультирует подростков и студентов на каникулах, часто — совместно с психиатрами клиники.
+    </p>
+<p style="margin:0 0 8px;clear:both"><b style="display:inline;text-transform:none;letter-spacing:0;font-size:inherit;color:inherit">Приём:</b> ср–сб 10:00–18:00</p>
+<p style="margin:0 0 8px"><b style="display:inline;text-transform:none;letter-spacing:0;font-size:inherit;color:inherit">Стоимость:</b> <span class="price">2 200 ₽ / час</span></p>
+<p style="margin:0"><b style="display:inline;text-transform:none;letter-spacing:0;font-size:inherit;color:inherit">Специализация:</b> Подростки и экзаменационный стресс: семейные консультации</p>
+</div>
+</div>
+<script src="../js/visit-site.js?v=3" data-site="pokoy"></script>
+</body>
+</html>

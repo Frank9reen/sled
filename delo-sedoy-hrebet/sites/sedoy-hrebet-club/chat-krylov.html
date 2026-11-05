@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Переписка · Орлов ↔ Крылов — ГорСнаб</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#121612;--panel:#1a201a;--panel2:#141a14;--ink:#e6efe4;--muted:#8a9a86;--line:#2a3428;--alpine:#6a9a72;--topo:rgba(106,154,114,.15);--acc:#7cb892;--mine:#2a4030;--them:#1e261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",sans-serif;
+  background-image:linear-gradient(var(--topo) 1px,transparent 1px),linear-gradient(90deg,var(--topo) 1px,transparent 1px);
+  background-size:48px 48px;min-height:100vh}
+a{color:var(--alpine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:640px;margin:0 auto;padding:clamp(16px,3vw,28px) 14px 48px}
+.head{padding:8px 0 16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.head .tag{display:inline-block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--alpine);border:1px solid #3a5a40;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.head h1{margin:0;font-size:clamp(1.2rem,3vw,1.55rem);font-weight:700;letter-spacing:-.02em}
+.head p{margin:8px 0 0;color:var(--muted);font-size:.88rem;line-height:1.4}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.chat-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.avatar{width:48px;height:48px;border-radius:50%;flex-shrink:0;border:1px solid var(--line);background:#2a4030;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:var(--acc);letter-spacing:.04em}
+.chat-head b{display:block;font-size:.95rem}
+.chat-head span{font-size:.78rem;color:var(--muted)}
+.chat-body{padding:14px 16px 20px;display:flex;flex-direction:column;gap:8px;background:#0f140f;min-height:380px}
+.stamp{align-self:center;font-size:.7rem;color:var(--muted);padding:4px 10px;margin:6px 0;background:#1a201a;border-radius:999px;border:1px solid var(--line)}
+.msg{max-width:90%;padding:9px 12px;border-radius:12px;font-size:.88rem;line-height:1.45}
+.msg.them{align-self:flex-start;background:var(--them);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.mine{align-self:flex-end;background:var(--mine);border:1px solid #3d5a48;border-bottom-right-radius:4px}
+.msg .who{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--alpine);margin-bottom:4px;font-weight:600}
+.msg.mine .who{color:#9ec8aa;text-align:right}
+.msg .when{display:block;font-size:.68rem;color:var(--muted);margin-top:6px}
+.msg.mine .when{text-align:right}
+.pin{margin:14px 0 0;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;font-size:.88rem;line-height:1.5;color:var(--muted)}
+.pin b{color:var(--ink);font-weight:600}
+.pin .addr{display:block;margin-top:8px;padding:10px 12px;background:#0f140f;border:1px solid var(--line);border-radius:8px;color:var(--acc);font-weight:600}
+.nav{margin-top:18px;font-size:.88rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="card">
+<div class="chat-head">
+<div class="avatar" aria-hidden="true">ПК</div>
+<span class="titles"><b>Крылов Павел Андреевич</b></span>
+</div>
+<div class="chat-body">
+<div class="stamp">июнь 2024</div>
+
+<div class="msg them">
+<div class="who">Крылов</div>
+Никита, по счёту 44‑06 «бонус» за объём готов. Часть можете забрать наличными — как договаривались при закупке.
+<span class="when">22.06 · 11:40</span>
+</div>
+
+<div class="msg mine">
+<div class="who">Орлов</div>
+Павел Андреевич, спасибо. Сумму в переписке не светите. Когда удобно передать?
+<span class="when">22.06 · 12:05</span>
+</div>
+
+<div class="msg them">
+<div class="who">Крылов</div>
+Лучше лично, у нас. Накладную тоже закроем — вы же по складу расписываетесь?
+<span class="when">22.06 · 12:18</span>
+</div>
+
+<div class="msg mine">
+<div class="who">Орлов</div>
+Ок. Только не на базе клуба. К вам приеду. Марка тоже возьму, у него подпись клуба.
+<span class="when">22.06 · 12:24</span>
+</div>
+
+<div class="stamp">согласование встречи</div>
+
+<div class="msg them">
+<div class="who">Крылов</div>
+Тогда так: <b>24 июня, ровно в 23:00</b>. Адрес офиса ГорСнаб: ул. Заводская, 14. Накладную ГС‑24/06 закроем там же, «бонус» я вам передам.
+<span class="when">24.06 · 16:10</span>
+</div>
+
+<div class="msg mine">
+<div class="who">Орлов</div>
+Принято. К 23:00 будем.
+<span class="when">24.06 · 16:22</span>
+</div>
+
+<div class="msg them">
+<div class="who">Крылов</div>
+Жду у ворот. Если опоздаете — звоните на этот номер.
+<span class="when">24.06 · 16:28</span>
+</div>
+</div>
+</div>
+
+<p class="nav"><a href="lk.html">← Личный кабинет</a></p>
+</div>
+<script src="../js/visit-site.js?v=3" data-site="club"></script>
+</body>
+</html>

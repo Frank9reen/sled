@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Н. Орлов — Седой Хребет</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#121612;--panel:#1a201a;--ink:#e6efe4;--muted:#8a9a86;--line:#2a3428;--alpine:#6a9a72;--topo:rgba(106,154,114,.15)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",sans-serif;
+  background-image:linear-gradient(var(--topo) 1px,transparent 1px),linear-gradient(90deg,var(--topo) 1px,transparent 1px);
+  background-size:48px 48px;min-height:100vh}
+a{color:var(--alpine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:640px;margin:0 auto;padding:clamp(20px,4vw,36px) 18px 48px}
+.head{padding:20px 0 16px}
+.head h1{margin:0;font-size:clamp(1.5rem,4vw,1.9rem);font-weight:700;letter-spacing:-.02em}
+.head p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 0 20px;border-bottom:1px solid var(--line);font-size:.9rem;font-weight:500}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 14px}
+.media{display:block;width:100%;max-height:260px;object-fit:cover;border-radius:10px;margin:0 0 6px;border:1px solid var(--line)}
+.media-cap{font-size:.75rem;color:var(--muted);margin:0 0 14px;line-height:1.35}
+.doc-photo{float:right;width:96px;height:96px;object-fit:cover;border-radius:50%;margin:0 0 8px 14px;border:2px solid var(--line)}
+.meta{margin:0 0 8px;font-size:.95rem;line-height:1.45;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<h1>Никита Орлов</h1>
+<p>Старший инструктор · склад инвентаря</p>
+</header>
+<nav class="nav"><a href="index.html">← Турклуб</a> · <a href="index.html#instructors">Инструкторы</a></nav>
+<div class="card">
+<img alt="Инструктаж перед выходом" class="media" src="../img/club-orlov-briefing.jpg"/>
+<p class="media-cap">Инструктаж по технике безопасности</p>
+<img alt="Орлов" class="doc-photo" src="../../characters/img/orlov.jpg"/>
+<p style="margin:0 0 12px;line-height:1.5">
+<b>Орлов Никита Петрович</b> — старший инструктор турклуба «Седой Хребет». Ведёт группы по тропам к озеру Черничному и по хребту, отвечает за склад снаряжения и журнал учёта такелажа.
+</p>
+<p class="meta" style="clear:both"><b>Смены:</b> по графику базы · часто пн / сб</p>
+<p class="meta" style="margin-bottom:0"><b>Зона:</b> маршруты, склад, инструктаж по технике безопасности</p>
+</div>
+</div>
+<script src="../js/visit-site.js?v=3" data-site="club"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Номера — «Скала»</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+:root{--stone:#ebe0d0;--ink:#2c241c;--muted:#6e6256;--pine:#3a5568;--pine-l:#6a8496;--paper:#faf6ee;--line:#d6cbb8}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(160deg,#b9c9d4 0%,#e8d9c4 48%,#d4b896 100%);color:var(--ink);font-family:Outfit,sans-serif;min-height:100vh}
+a{color:var(--pine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:680px;margin:0 auto;padding:clamp(20px,4vw,36px) 18px 48px}
+.head{padding:8px 0 20px}
+.head .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pine-l);margin:0 0 8px}
+.head h1{font-family:Fraunces,serif;font-size:clamp(1.7rem,4vw,2.2rem);margin:0;font-weight:700}
+.head .sub{margin:8px 0 0;color:var(--muted)}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 0 20px;border-bottom:1px solid var(--line);font-size:.92rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0;box-shadow:0 8px 24px rgba(60,50,30,.06)}
+.note{background:#e8eef2;border-left:3px solid var(--pine);padding:14px 16px;border-radius:0 12px 12px 0;margin:16px 0;font-size:.95rem}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+tr.ok td{background:#eef3f6}
+.staff{display:grid;gap:10px;margin-top:8px}
+.staff div{font-size:.9rem;line-height:1.45}
+.staff b{font-weight:600}
+.hero{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:16px;margin:0 0 18px;border:1px solid var(--line)}
+.media{display:block;width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin:10px 0 0;border:1px solid var(--line)}
+.media-cap{font-size:.75rem;color:var(--muted);margin:6px 0 0}
+.staff-row{display:flex;gap:12px;align-items:flex-start;margin:0 0 12px}
+.staff-row img{width:56px;height:56px;object-fit:cover;border-radius:50%;border:1px solid var(--line);flex:0 0 auto}
+.staff-row p{margin:0;font-size:.9rem;line-height:1.45}
+
+.badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:#c45c26;color:#fff}
+.badge-ok{background:#3a5568}
+.badge-busy{background:#b42318}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">Фонд номеров</div>
+    <h1>Номера</h1>
+    <p class="sub">Актуальные бронирования на летний сезон 2024</p>
+  </header>
+  <nav class="nav"><a href="index.html">← «Скала»</a></nav>
+  <img class="hero" src="../img/skala-repair.jpg" alt="Номера на ремонте" style="max-height:200px" />
+  <div class="card" style="padding:0;overflow:hidden">
+    <table>
+      <tr><th>№</th><th>Вид</th><th>Мест</th><th>Статус</th></tr>
+      <tr><td>101</td><td>на хребет</td><td>4</td><td><span class="badge badge-ok">свободен</span></td></tr>
+      <tr><td>102</td><td>на хребет</td><td>2</td><td><span class="badge badge-ok">свободен</span></td></tr>
+      <tr><td>214</td><td>на двор / парковку</td><td>2</td><td><span class="badge badge-busy">занят</span></td></tr>
+      <tr><td>301</td><td>на озеро</td><td>2</td><td><span class="badge">ремонт</span> 20.06–05.07</td></tr>
+      <tr><td>302</td><td>на хребет</td><td>2</td><td><span class="badge">ремонт</span> 10.06–20.07</td></tr>
+      <tr><td>303</td><td>на озеро</td><td>2</td><td><span class="badge">ремонт</span> 20.06–05.07</td></tr>
+      <tr><td>401</td><td>на хребет</td><td>2</td><td><span class="badge badge-ok">свободен</span></td></tr>
+    </table>
+  </div>
+  <p style="margin-top:16px;font-size:.9rem"><a href="staff.html">Отзывы</a> · <a href="index.html">← «Скала»</a></p>
+</div>
+<script src="../js/visit-site.js?v=3" data-site="skala"></script>
+</body>
+</html>

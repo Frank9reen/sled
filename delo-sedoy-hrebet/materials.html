@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"/><title>ПП-2024-0624 · Сводный лист · Седой Хребет</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap"/><style>
+:root { --ink:#1a1a1a; --muted:#555; --rule:#bbb; --band:#2c3e50; --soft:#f4f1ea; --acc:#8b3a2a; }
+@page { size:A4; margin:12mm 14mm; }
+* { box-sizing:border-box; }
+html { background:#ddd; }
+body { margin:0; font-family:"PT Serif","Times New Roman",serif; color:var(--ink); line-height:1.45; font-size:10.5pt; }
+.wrap { max-width:210mm; margin:0 auto; background:#fff; padding:14mm 16mm 18mm; box-shadow:0 0 24px rgba(0,0,0,.12); }
+@media print {
+  html { background:#fff; }
+  .wrap { box-shadow:none; max-width:none; padding:0; }
+  .noprint { display:none !important; }
+  a { color:inherit; text-decoration:none; }
+  h1, h2 { page-break-after:avoid; }
+  table { page-break-inside:avoid; }
+}
+h1 { font-family:"PT Sans","Segoe UI",sans-serif; font-size:18pt; border-bottom:2px solid var(--band); padding-bottom:4px; margin:1.4em 0 .6em; }
+h2 { font-family:"PT Sans","Segoe UI",sans-serif; font-size:13pt; color:var(--band); margin:1.2em 0 .45em; border-left:4px solid var(--acc); padding-left:8px; }
+h3 { font-family:"PT Sans","Segoe UI",sans-serif; font-size:11pt; margin:1em 0 .35em; }
+p { margin:.35em 0; }
+ul, ol { margin:.35em 0 .6em 1.2em; padding:0; }
+li { margin:.15em 0; }
+hr { border:0; border-top:1px solid var(--rule); margin:1.2em 0; }
+table { width:100%; border-collapse:collapse; font-size:9pt; margin:.5em 0 1em; }
+th, td { border:1px solid #ccc; padding:4px 6px; vertical-align:top; text-align:left; }
+th { background:var(--band); color:#fff; font-family:"PT Sans",sans-serif; font-weight:600; }
+tr:nth-child(even) td { background:#f7f7f7; }
+code { font-size:9pt; background:#eee; padding:0 3px; }
+a { color:var(--band); }
+a.paper-link { font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+.pill {
+  display:inline-block !important; font-family:"PT Sans",sans-serif; font-size:8.5pt !important; font-weight:700 !important;
+  padding:2px 8px !important; border-radius:4px !important; letter-spacing:.03em; vertical-align:middle;
+  text-transform:uppercase; white-space:nowrap;
+}
+.pill-ok, span.pill-ok {
+  background:#c8e6c9 !important; color:#1b5e20 !important; border:1px solid #81c784 !important;
+}
+.pill-bad, span.pill-bad {
+  background:#ffcdd2 !important; color:#b71c1c !important; border:1px solid #e57373 !important;
+}
+.cover { text-align:center; padding:8mm 0 6mm; border-bottom:3px double var(--band); margin-bottom:8mm; }
+.cover h1 { border:0; font-size:22pt; margin:.3em 0; }
+.toc { background:var(--soft); padding:10px 14px; margin:0 0 10mm; font-size:10pt; }
+.toc a { color:var(--band); }
+.meta { font-size:9.5pt; color:var(--muted); }
+.thumb { width:48px; height:68px; object-fit:cover; object-position:center top; border:1px solid #ccc; vertical-align:middle; display:block; }
+.thumb-doc { width:40px; height:54px; object-fit:cover; object-position:top center; background:#f7f3ea; }
+td.photo { width:56px; padding:4px; text-align:center; vertical-align:middle; white-space:nowrap; }
+td.photo .thumbs-row { display:flex; flex-direction:row; flex-wrap:wrap; gap:3px; justify-content:center; }
+td.photo .thumbs-row .thumb { display:inline-block; }
+.section-break { page-break-before:always; }
+.spoiler { border:1px dashed var(--acc); background:#faf6f4; padding:8px 10px; margin:8px 0; }
+.spoiler::before { content:"СПОЙЛЕР / АВТОР"; display:block; font-family:"PT Sans",sans-serif; font-size:8pt; color:var(--acc); letter-spacing:.1em; margin-bottom:4px; }
+.rel-map {
+  position:relative; width:100%; max-width:980px; aspect-ratio:980 / 780; height:auto;
+  margin:8px 0 16px;
+  background:linear-gradient(180deg,#faf8f6 0%,#f0ece6 100%);
+  border:1px solid #ccc; overflow:hidden;
+}
+.rel-map svg.rel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.rel-map .rel-edge-label {
+  position:absolute; transform:translate(-50%,-50%); font-family:"PT Sans",sans-serif;
+  font-size:7.5pt; color:#444; background:rgba(250,248,246,.92); padding:1px 5px;
+  border:1px solid #ddd; border-radius:3px; white-space:nowrap; z-index:2; pointer-events:none;
+}
+.rel-node {
+  position:absolute; width:78px; text-align:center; text-decoration:none; color:inherit;
+  z-index:3; transform:translate(-50%,-50%);
+}
+.rel-node img {
+  width:52px; height:52px; object-fit:cover; border-radius:50%;
+  border:2px solid #fff; box-shadow:0 0 0 1px #999; display:block; margin:0 auto 3px;
+  background:#ddd;
+}
+.rel-node.victim img { box-shadow:0 0 0 2px #c62828; }
+.rel-node.suspect img { box-shadow:0 0 0 2px #c62828; }
+.rel-node .rel-name {
+  display:block; font-family:"PT Sans",sans-serif; font-size:8pt; font-weight:700;
+  line-height:1.15; color:var(--ink);
+}
+.rel-node .rel-role {
+  display:block; font-size:7pt; color:var(--muted); line-height:1.1; margin-top:1px;
+}
+.rel-legend {
+  display:flex; flex-wrap:wrap; gap:10px 16px; font-size:8.5pt; color:var(--muted);
+  margin:0 0 8px; font-family:"PT Sans",sans-serif;
+}
+.rel-legend i { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:-1px; margin-right:4px; }
+.rel-legend .lg-v { background:#c62828; }
+.rel-legend .lg-s { background:#c62828; }
+.rel-legend .lg-w { background:#666; }
+@media print {
+  .rel-map { break-inside:avoid; max-width:100%; }
+}
+</style></head><body><div class="wrap">
+<div class="cover">
+<h1>Перевал «Седой Хребет»</h1>
+<p class="meta">Дело <b>ПП-2024-0624</b></p>
+</div>
+
+<nav class="toc noprint"><b>Оглавление</b>
+<ol>
+<li><a href="#cast">Круг лиц</a></li>
+<li><a href="#facts">Факты</a></li>
+</ol></nav>
+
+<h1 id="cast" class="section-break">1. Круг лиц</h1>
+<h2>Детектив</h2>
+<table>
+<tr><th>#</th><th></th><th>ФИО</th><th>Роль</th><th>Работа</th></tr>
+<tr><td>1</td><td class="photo"></td><td>Крутов</td><td>Детектив · частное бюро</td><td>Частное расследование по заказу Галины Тишиной · снять обвинение с Романа; выяснить, кто был у озера ночью</td></tr>
+</table>
+<h2>Жертва</h2>
+<table>
+<tr><th>#</th><th></th><th>ФИО</th><th>Роль</th><th>Работа</th></tr>
+<tr><td>1</td><td class="photo"><img class="thumb" src="A6/jpg/kira-belova-foto.jpg" alt="" /></td><td><a href="characters/belova-kira.html">Белова Кира</a> · 19</td><td>Жертва</td><td>СПбГЭУ, 1 курс · логистика туризма; летом волонтёр турклуба «Седой Хребет»</td></tr>
+</table>
+<h2>Подозреваемые</h2>
+<table>
+<tr><th>#</th><th></th><th>ФИО</th><th>Роль</th><th>Работа</th><th>Мотив (смерть Киры)</th><th>Алиби (заявлено)</th></tr>
+<tr><td>1</td><td class="photo"><img class="thumb" src="A6/jpg/roman-tishin-foto.jpg" alt="" /></td><td><a href="characters/tishin.html">Тишин Роман</a> · 21</td><td>Задержанный</td><td>АЗС «Трак»</td><td>Бумажник / «деньги»; АЗС рядом с тропой</td><td>Ночная смена на кассе → чек <a class="paper-link" href="papers/B29.html">B29</a></td></tr>
+<tr><td>2</td><td class="photo"><img class="thumb" src="A6/jpg/nikita-orlov-foto.jpg" alt="" /></td><td><a href="characters/orlov.html">Орлов Никита</a> · 38</td><td>Склад / касса</td><td>Старший инструктор</td><td>грант через Селезнёва</td><td>«Дома» — ложь; 24.06 · 23:00 ГорСнаб (бонусы)</td></tr>
+<tr><td>3</td><td class="photo"><img class="thumb" src="A6/jpg/artem-koltsov-foto.jpg" alt="" /></td><td><a href="characters/koltsov.html">Кольцов Артём</a> · 21</td><td>Парень</td><td>База турклуба / скалы</td><td></td><td>Рыжова: номер с видом на озеро (ложь); она — только «на базе отдыха»; исключён: B28 · 24.06 · 23:12 у карьера км&nbsp;12</td></tr>
+<tr><td>4</td><td class="photo"><img class="thumb" src="A6/jpg/mark-seleznev-foto.jpg" alt="" /></td><td><a href="characters/seleznev.html">Селезнёв Марк</a> · 25</td><td>«друг» / касса</td><td>Учёт взносов клуба</td><td>Кира знала схему кассы</td><td>«Дома» — ложь; 24.06 · 23:00 с Крыловым</td></tr>
+</table>
+<h2>Свидетели и окружение</h2>
+<table>
+<tr><th>#</th><th></th><th>ФИО</th><th>Роль</th><th>Работа</th></tr>
+<tr><td>1</td><td class="photo"><img class="thumb" src="A6/jpg/igor-vladikin-foto.jpg" alt="" /></td><td><a href="characters/vladikin.html">Владыкин Игорь</a></td><td>Свидетель · психиатр Киры; перекладывает вину на Тишина; «уехал по делам»</td><td>Психиатр «Горный покой»</td></tr>
+<tr><td>2</td><td class="photo"><img class="thumb" src="A6/jpg/galina-tishina-foto.jpg" alt="" /></td><td><a href="characters/tishina.html">Тишина Галина</a></td><td>Заказчик · мать Романа; просит снять сына</td><td>Шеф-повар кафе «Скала»</td></tr>
+<tr><td>3</td><td class="photo"><img class="thumb" src="A6/jpg/valeriy-belov-foto.jpg" alt="" /></td><td><a href="characters/belov.html">Белов Валерий</a></td><td>Отец жертвы · ухудшает репутацию дочери и направляет подозрения на Орлова/Селезнёва</td><td>Карьер «Северный»</td></tr>
+<tr><td>4</td><td class="photo"><img class="thumb" src="A6/jpg/sofia-ryzova-foto.jpg" alt="" /></td><td><a href="characters/ryzhova.html">Рыжова Софья</a></td><td>Свидетель · подтверждает: Кольцов был с ней на базе отдыха (без номера)</td><td>Кафе «Скала»</td></tr>
+<tr><td>5</td><td class="photo"><img class="thumb" src="A6/jpg/stepan-dudin-foto.jpg" alt="" /></td><td><a href="characters/dudin.html">Дудин Степан</a></td><td>Нашёл тело утром</td><td>Дорожный мастер</td></tr>
+<tr><td>6</td><td class="photo"><img class="thumb" src="A6/jpg/vera-samoylova-foto.jpg" alt="" /></td><td><a href="characters/samoylova.html">Самойлова Вера</a></td><td>Подруга Киры</td><td>Медколледж</td></tr>
+<tr><td>7</td><td class="photo"><img class="thumb" src="A6/jpg/fedor-lebedev-foto.jpg" alt="" /></td><td><a href="characters/lebedev.html">Лебедев Фёдор</a></td><td>Лесник · двое у озера ~23:00; на парковке легковой автомобиль</td><td>Лесник</td></tr>
+</table>
+<h2>Схема связей</h2>
+<div class="rel-legend">
+  <span><i class="lg-v"></i>жертва</span>
+  <span><i class="lg-s"></i>подозреваемые</span>
+  <span><i class="lg-w"></i>свидетели / окружение</span>
+</div>
+<div class="rel-map">
+  <svg class="rel-lines" viewBox="0 0 980 780" preserveAspectRatio="xMidYMid meet"
+       xmlns="http://www.w3.org/2000/svg"><line x1="176" y1="94" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="510" y1="62" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="804" y1="109" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="862" y1="312" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="764" y1="530" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="490" y1="608" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="216" y1="530" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="78" y1="640" x2="216" y2="530" stroke="#9a8f84" stroke-width="1.2" /><line x1="666" y1="671" x2="764" y2="530" stroke="#9a8f84" stroke-width="1.2" /><line x1="764" y1="530" x2="862" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="78" y1="429" x2="216" y2="530" stroke="#9a8f84" stroke-width="1.2" /><line x1="78" y1="218" x2="490" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="490" y1="608" x2="862" y2="312" stroke="#9a8f84" stroke-width="1.2" /><line x1="666" y1="671" x2="78" y2="640" stroke="#9a8f84" stroke-width="1.2" /></svg>
+  <span class="rel-edge-label" style="left:34.00%;top:26.00%">отец</span><span class="rel-edge-label" style="left:51.00%;top:24.00%">подруга · SMS</span><span class="rel-edge-label" style="left:66.00%;top:27.00%">врач / пациентка</span><span class="rel-edge-label" style="left:69.00%;top:40.00%">«друг» · касса</span><span class="rel-edge-label" style="left:64.00%;top:54.00%">парень</span><span class="rel-edge-label" style="left:50.00%;top:59.00%">склад · ссора</span><span class="rel-edge-label" style="left:36.00%;top:54.00%">у тела · бумажник</span><span class="rel-edge-label" style="left:15.00%;top:75.00%">мать</span><span class="rel-edge-label" style="left:73.00%;top:77.00%">ложь про номер</span><span class="rel-edge-label" style="left:83.00%;top:54.00%">ревность</span><span class="rel-edge-label" style="left:15.00%;top:61.50%">утро у озера</span><span class="rel-edge-label" style="left:29.00%;top:34.00%">двое ~23:00</span><span class="rel-edge-label" style="left:69.00%;top:59.00%">грант / касса</span><span class="rel-edge-label" style="left:38.00%;top:84.00%">кафе «Скала»</span>
+  <a class="rel-node victim" href="characters/belova-kira.html" style="left:50.00%;top:40.00%"><img src="A6/jpg/kira-belova-foto.jpg" alt="" /><span class="rel-name">Кира Белова</span><span class="rel-role">жертва</span></a><a class="rel-node" href="characters/belov.html" style="left:18.00%;top:12.00%"><img src="A6/jpg/valeriy-belov-foto.jpg" alt="" /><span class="rel-name">Белов В.</span><span class="rel-role">отец</span></a><a class="rel-node" href="characters/samoylova.html" style="left:52.00%;top:8.00%"><img src="A6/jpg/vera-samoylova-foto.jpg" alt="" /><span class="rel-name">Самойлова</span><span class="rel-role">подруга</span></a><a class="rel-node" href="characters/vladikin.html" style="left:82.00%;top:14.00%"><img src="A6/jpg/igor-vladikin-foto.jpg" alt="" /><span class="rel-name">Владыкин</span><span class="rel-role">врач</span></a><a class="rel-node suspect" href="characters/seleznev.html" style="left:88.00%;top:40.00%"><img src="A6/jpg/mark-seleznev-foto.jpg" alt="" /><span class="rel-name">Селезнёв</span><span class="rel-role">«друг» / касса</span></a><a class="rel-node suspect" href="characters/koltsov.html" style="left:78.00%;top:68.00%"><img src="A6/jpg/artem-koltsov-foto.jpg" alt="" /><span class="rel-name">Кольцов</span><span class="rel-role">парень</span></a><a class="rel-node suspect" href="characters/orlov.html" style="left:50.00%;top:78.00%"><img src="A6/jpg/nikita-orlov-foto.jpg" alt="" /><span class="rel-name">Орлов</span><span class="rel-role">склад · ссора</span></a><a class="rel-node suspect" href="characters/tishin.html" style="left:22.00%;top:68.00%"><img src="A6/jpg/roman-tishin-foto.jpg" alt="" /><span class="rel-name">Тишин</span><span class="rel-role">задержанный</span></a><a class="rel-node" href="characters/tishina.html" style="left:8.00%;top:82.00%"><img src="A6/jpg/galina-tishina-foto.jpg" alt="" /><span class="rel-name">Тишина Г.</span><span class="rel-role">заказчик · повар</span></a><a class="rel-node" href="characters/ryzhova.html" style="left:68.00%;top:86.00%"><img src="A6/jpg/sofia-ryzova-foto.jpg" alt="" /><span class="rel-name">Рыжова</span><span class="rel-role">алиби Кольцову</span></a><a class="rel-node" href="characters/dudin.html" style="left:8.00%;top:55.00%"><img src="A6/jpg/stepan-dudin-foto.jpg" alt="" /><span class="rel-name">Дудин</span><span class="rel-role">нашёл тело</span></a><a class="rel-node" href="characters/lebedev.html" style="left:8.00%;top:28.00%"><img src="A6/jpg/fedor-lebedev-foto.jpg" alt="" /><span class="rel-name">Лебедев</span><span class="rel-role">двое у озера</span></a>
+</div>
+
+<h1 id="facts" class="section-break">2. Факты: бумаги и сайты</h1><h2>Бумаги и сайты</h2>
+<table>
+<tr><th></th><th>ID</th><th>Тип бумаги</th><th>Роль</th><th>Бумага</th><th>Что даёт</th></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B01-letter.jpg" alt="" /></span></td><td><b><a href="papers/B01.html">B01</a></b></td><td>A4</td><td><span class="pill pill-ok">улика</span></td><td>Письмо Галины Тишиной</td><td>Заказ частного расследования</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B02-decree.jpg" alt="" /></span></td><td><b><a href="papers/B02.html">B02</a></b></td><td>A4</td><td><span class="pill pill-ok">улика</span></td><td>Постановление: закрыли 28.06 → возобновлено 04.07</td><td>Две волны следствия; СМЭ 02.07</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B03-protocol.jpg" alt="" /></span></td><td><b><a href="papers/B03.html">B03</a></b></td><td>A4</td><td><span class="pill pill-ok">улика</span></td><td>Протокол осмотра ОМП</td><td>Тело у обрыва, верёвка, шины, нить, бумажник у Тишина</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B03a-wallet.jpg" alt="" /></span></td><td><b><a href="papers/B03a.html">B03a</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>Фото: бумажник Беловой</td><td>У тела / в руках у Тишина</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B03b-parking.jpg" alt="" /></span></td><td><b><a href="papers/B03b.html">B03b</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>Фото: парковка у тропы</td><td>Колея легковая → B21</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B04-sme.jpg" alt="" /></span></td><td><b><a href="papers/B04.html">B04</a></b></td><td>A4</td><td><span class="pill pill-ok">улика</span></td><td>Выписка из акта СМЭ</td><td>Удушение ~23:00 (повторная СМЭ 02.07); инсценировка</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B04a-rope.jpg" alt="" /></span></td><td><b><a href="papers/B04a.html">B04a</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>Фото: фрагмент верёвки</td><td>Жёлто-чёрная · ОМП</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B04b-thread.jpg" alt="" /></span></td><td><b><a href="papers/B04b.html">B04b</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>Фото: красная нить из ладони</td><td>Чужой браслет → сравнить с <b><a class="paper-link" href="sites/mail/index.html">S08</a></b></td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B04c-cliff.jpg" alt="" /></span></td><td><b><a href="papers/B04c.html">B04c</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>Фото: обрыв у озера</td><td>Картина «падения» — инсценировка</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B05-dossier.jpg" alt="" /></span></td><td><b><a href="papers/B05.html">B05</a></b></td><td>A4</td><td><span class="pill pill-ok">улика</span></td><td>Досье на жертву</td><td>Анкета · Белова Кира</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B05a-kira-vera.jpg" alt="" /></span></td><td><b><a href="papers/B05a.html">B05a</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>Фото: Кира и Самойлова</td><td>Лето 2024 · подруга</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B16-raport.jpg" alt="" /></span></td><td><b><a href="papers/B16.html">B16</a></b></td><td>A4</td><td><span class="pill pill-ok">улика</span></td><td>Рапорт Лебедева</td><td>Двое ~23:00; легковой автомобиль</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A6/jpg/B18-note.jpg" alt="" /></span></td><td><b><a href="papers/B18.html">B18</a></b></td><td>A6</td><td><span class="pill pill-bad">ложный след</span></td><td>Записка «Жду тебя на перевале у Черничного, как договаривались» (без подписи)</td><td>Указывает на Кольцова; по факту — Владыкин</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B21-tire-track.jpg" alt="" /></span></td><td><b><a href="papers/B21.html">B21</a></b></td><td>A5</td><td><span class="pill pill-ok">улика</span></td><td>След + УАЗ: протектор совпадает; колея легковая</td><td>Ложный след на парня</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B23-zajavlenie.jpg" alt="" /></span></td><td><b><a href="papers/B23.html">B23</a></b></td><td>A4</td><td><span class="pill pill-bad">ложный след</span></td><td>Заявление Беловой о нецелевом использовании субсидии</td><td>Мотив Селезнёва · не подано в Комитет (22.06)</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A6/jpg/B25-badge.jpg" alt="" /></span></td><td><b><a href="papers/B25.html">B25</a></b></td><td>A6</td><td><span class="pill pill-ok">улика</span></td><td>Бейдж Киры · инструктор-волонтёр</td><td>QR → <b><a class="paper-link" href="sites/sedoy-hrebet-club/index.html">S06</a></b></td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A4/jpg/B29-a4-kassa-azs.jpg" alt="" /></span></td><td><b><a href="papers/B29.html">B29</a></b></td><td>A4</td><td><span class="pill pill-ok">алиби</span></td><td>Кассовая выписка АЗС «Трак»: 24.06 · 23:12</td><td>Кассиром был Тишин; во время смерти Беловой он был на АЗС</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A5/jpg/B45-newspaper.jpg" alt="" /></span></td><td><b><a href="papers/B45.html">B45</a></b></td><td>A5</td><td><span class="pill pill-bad">ложный след</span></td><td>Вырезка «Каменногорск сегодня»</td><td>Утро 25.06 · «несчастный случай». QR → <b><a class="paper-link" href="sites/mail/index.html">КаменьMail</a></b></td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A6/jpg/B57-postcard.jpg" alt="" /></span></td><td><b><a href="papers/B57.html">B57</a></b></td><td>A6</td><td><span class="pill pill-ok">алиби</span></td><td>Открытка базы отдыха «Скала»</td><td>QR → <b><a class="paper-link" href="sites/pansionat-skala/index.html">S05</a></b> (номера на ремонте)</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="A6/jpg/B60-pin.jpg" alt="" /></span></td><td><b><a href="papers/B60.html">B60</a></b></td><td>A6</td><td><span class="pill pill-ok">улика</span></td><td>Карточка PIN кабинета</td><td>0624 → <b><a class="paper-link" href="sites/cabinet/index.html">S01</a></b></td></tr>
+</table>
+<p>Хаб: <a href="sites/index.html">sites/</a> · PIN <b>0624</b>.</p>
+<table>
+<tr><th></th><th>ID</th><th>Роль</th><th>Сайт</th><th>Что даёт</th></tr>
+<tr><td></td><td><b><a href="sites/cabinet/index.html">S01</a></b></td><td>вход</td><td><a href="sites/cabinet/index.html">Кабинет</a></td><td>PIN с <b><a class="paper-link" href="papers/B60.html">B60</a></b> → сайты</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb" src="sites/img/clinic-facade.jpg" alt="" /></span></td><td><b><a href="sites/gorny-pokoy/index.html">S03</a></b></td><td><span class="pill pill-ok">улика</span></td><td><a href="sites/gorny-pokoy/index.html">Клиника «Горный покой»</a></td><td>Доска объявлений / кабинет; стикер → <b><a class="paper-link" href="sites/mail/index.html">S08</a></b> (B27 яхта)</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb" src="places/img/p12-rooms-repair.jpg" alt="" /></span></td><td><b><a href="sites/pansionat-skala/index.html">S05</a></b></td><td><span class="pill pill-ok">алиби</span></td><td><a href="sites/pansionat-skala/index.html">База отдыха «Скала»</a></td><td>Опровергает «номер с видом на озеро». Не в кабинете — вход по <b>QR</b> на открытке <b><a class="paper-link" href="papers/B57.html">B57</a></b></td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb" src="places/img/atm-club-warehouse-argue.jpg" alt="" /></span></td><td><b><a href="sites/sedoy-hrebet-club/index.html">S06</a></b></td><td><span class="pill pill-ok">улика</span></td><td><a href="sites/sedoy-hrebet-club/index.html">Седой хребет Клуб</a></td><td>ЛК <code>m.seleznev</code> / <code>220499</code> (ДР 22.04.99); субсидия 1 млн / закупка 100 тыс. / отчёт; переписка Орлов·Кольцов·Кира в ЛК (<code>a.koltsov@kamen.mail</code>)</td></tr>
+<tr><td class="photo"><span class="thumbs-row"><img class="thumb thumb-doc" src="papers/img/cafap-email-b28.jpg" alt="" /> <img class="thumb thumb-doc" src="papers/img/bracelet-yacht.jpg" alt="" /></span></td><td><b><a href="sites/mail/index.html">S07</a></b> · <b><a href="sites/mail/index.html">S08</a></b></td><td><span class="pill pill-ok">улика</span></td><td><a href="sites/mail/index.html">КаменьMail</a></td><td>Кольцов (<code>a.koltsov@kamen.mail</code> · восстановление: УАЗ · ул. Нагорная · скалолазание — подсказки в <b>ленте города</b> / объявлении про УАЗ / допросах); Владыкин (<code>pokoy47</code>, B27 яхта); Селезнёв (<code>m.seleznev@kamen.mail</code> — ящик есть, восстановления нет)</td></tr>
+<tr><td></td><td><b><a href="sites/verify/index.html">S10</a></b></td><td>финал</td><td><a href="sites/verify/index.html">Проверка версии</a></td><td></td></tr>
+<tr><td></td><td><b><a href="sites/sedoy-hrebet-club/lk.html">S12</a></b></td><td><span class="pill pill-ok">улика</span></td><td><a href="sites/sedoy-hrebet-club/lk.html">ЛК клуба</a></td><td><code>m.seleznev</code> / <code>220499</code> · касса · чаты · <a href="sites/sedoy-hrebet-club/chat-krylov.html">Орлов ↔ Крылов</a> (23:00 · Заводская, 14)</td></tr>
+</table>
+<h2>Допросы</h2>
+<table>
+<tr><th></th><th>ID</th><th>Кто</th><th>Статус</th><th>Ключевое</th></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/roman-tishin-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D01.html">D01</a></b></td><td>Тишин Роман</td><td>подозреваемый</td><td>Ночная смена АЗС; бумажник у тела</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/artem-koltsov-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D02.html">D02</a></b></td><td>Кольцов Артём</td><td>свидетель</td><td>База / УАЗ; ночь с Рыжовой в «Скале»</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/mark-seleznev-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D03.html">D03</a></b></td><td>Селезнёв Марк</td><td>свидетель</td><td>Касса клуба; говорит — дома</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/sofia-ryzova-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D04.html">D04</a></b></td><td>Рыжова Софья</td><td>свидетель</td><td>Смена в кафе; подтверждает Кольцова</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/igor-vladikin-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D05.html">D05</a></b></td><td>Владыкин Игорь</td><td>свидетель</td><td>Клиника; «по делам»; указывает на Тишина</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/galina-tishina-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D06.html">D06</a></b></td><td>Тишина Галина</td><td>свидетель</td><td>Кухня «Скалы»; сын на АЗС; заказчик</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/valeriy-belov-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D07.html">D07</a></b></td><td>Белов Валерий</td><td>свидетель</td><td>Отец; карьер; винит Орлова по указке Селезнёва</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/nikita-orlov-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D08.html">D08</a></b></td><td>Орлов Никита</td><td>подозреваемый</td><td>Журнал верёвок; ссора у склада; грант / касса</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/fedor-lebedev-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D09.html">D09</a></b></td><td>Лебедев Фёдор</td><td>свидетель</td><td>Обход; двое у берега; колеи легковой</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/stepan-dudin-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D10.html">D10</a></b></td><td>Дудин Степан</td><td>свидетель</td><td>Утренний объезд; нашёл тело; дождь накануне</td></tr>
+<tr><td class="photo"><img class="thumb" src="A6/jpg/vera-samoylova-foto.jpg" alt="" /></td><td><b><a href="papers/interrogations/D11.html">D11</a></b></td><td>Самойлова Вера</td><td>свидетель</td><td>Подруга; «скоро всё изменится»</td></tr>
+</table>
+</div></body></html>

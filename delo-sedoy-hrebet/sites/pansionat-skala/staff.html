@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Команда — «Скала»</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;700&amp;family=Outfit:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--stone:#ebe0d0;--ink:#2c241c;--muted:#6e6256;--pine:#3a5568;--pine-l:#6a8496;--paper:#faf6ee;--line:#d6cbb8}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(160deg,#b9c9d4 0%,#e8d9c4 48%,#d4b896 100%);color:var(--ink);font-family:Outfit,sans-serif;min-height:100vh}
+a{color:var(--pine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:680px;margin:0 auto;padding:clamp(20px,4vw,36px) 18px 48px}
+.head{padding:8px 0 20px}
+.head .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pine-l);margin:0 0 8px}
+.head h1{font-family:Fraunces,serif;font-size:clamp(1.7rem,4vw,2.2rem);margin:0;font-weight:700}
+.head .sub{margin:8px 0 0;color:var(--muted)}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 0 20px;border-bottom:1px solid var(--line);font-size:.92rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0;box-shadow:0 8px 24px rgba(60,50,30,.06)}
+.note{background:#e4ebe8;border-left:3px solid var(--pine);padding:14px 16px;border-radius:0 12px 12px 0;margin:16px 0;font-size:.95rem}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+tr.ok td{background:#eef3f6}
+.staff{display:grid;margin-top:4px}
+.hero{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:16px;margin:0 0 18px;border:1px solid var(--line)}
+.media{display:block;width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin:10px 0 0;border:1px solid var(--line)}
+.media-cap{font-size:.75rem;color:var(--muted);margin:6px 0 0}
+.staff-row{display:flex;gap:12px;align-items:center;margin:0;padding:10px 0;border-bottom:1px solid var(--line)}
+.staff-row:last-child{border-bottom:0;padding-bottom:0}
+.staff-row img{width:56px;height:56px;object-fit:cover;border-radius:50%;border:1px solid var(--line);flex:0 0 auto}
+.staff-row .txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.staff-row .who{font-size:.95rem;font-weight:600;line-height:1.3}
+.staff-row .role{font-size:.85rem;color:var(--muted);line-height:1.35}
+.reviews{display:grid;gap:14px;margin-top:12px}
+.review{padding:0 0 14px;border-bottom:1px solid var(--line)}
+.review:last-child{padding-bottom:0;border-bottom:0}
+.review .who{font-size:.82rem;color:var(--muted);margin:6px 0 0}
+.review .text{margin:6px 0 0;font-size:.92rem;line-height:1.45}
+.stars{letter-spacing:.08em;color:#b8860b;font-size:.95rem}
+.stars span{color:#cfc6b4}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<div class="eyebrow">Персонал</div>
+<h1>Команда</h1>
+<p class="sub">Администрация и кафе: сезон 2024</p>
+</header>
+<nav class="nav"><a href="index.html">← «Скала»</a> · <a href="rooms.html">Номера</a></nav>
+<div class="card">
+<b style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Кафе</b>
+<div class="staff">
+<div class="staff-row">
+<img alt="" src="../img/skala-staff-tishina.jpg"/>
+<span class="txt"><span class="who">Тишина Галина Николаевна</span><span class="role">Шеф-повар</span></span>
+</div>
+<div class="staff-row">
+<img alt="" src="../img/skala-staff-kuznetsov.jpg"/>
+<span class="txt"><span class="who">Кузнецов Павел</span><span class="role">Повар</span></span>
+</div>
+<div class="staff-row">
+<img alt="" src="../img/skala-staff-ryzhova.jpg"/>
+<span class="txt"><span class="who">Рыжова Софья</span><span class="role">Официантка</span></span>
+</div>
+<div class="staff-row">
+<img alt="" src="../img/skala-staff-melnikova.jpg"/>
+<span class="txt"><span class="who">Мельникова Дарья</span><span class="role">Официантка</span></span>
+</div>
+<div class="staff-row">
+<img alt="" src="../img/skala-staff-fomin.jpg"/>
+<span class="txt"><span class="who">Фомин Илья</span><span class="role">Бармен</span></span>
+</div>
+</div>
+</div>
+<div class="card">
+<b style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Администрация</b>
+<div class="staff">
+<div class="staff-row">
+<img alt="" src="../img/skala-staff-saveleva.jpg"/>
+<span class="txt"><span class="who">Савельева Ольга Викторовна</span><span class="role">Администратор · ресепшн</span></span>
+</div>
+</div>
+</div>
+<div class="card">
+<b style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Отзывы гостей</b>
+<div class="reviews">
+<div class="review">
+<div class="stars">★★★★<span>★</span> · 4/5</div>
+<p class="text">Номер спокойный, дети в восторге. Каждый вечер ужинали в кафе — повар Галина Тишина готовит как дома: порции щедрые, борщ и котлеты прямо как у бабушки. Уезжаем завтра вечером, всё по плану.</p>
+<p class="who">семья З. · номер 214 · 23.06.2024</p>
+</div>
+<div class="review">
+<div class="stars">★★★<span>★★</span> · 3/5</div>
+<p class="text">Очень жаль, что номер с видом на озеро на ремонте — мы именно из‑за него и ехали. В итоге нас переселили в 401‑й: вид на хребет, в принципе, ничего, но не то, что хотелось. Зато администрация предупредила заранее — это плюс.</p>
+<p class="who">А. Волков, номер 4 401, 21.06.2024</p>
+</div>
+<div class="review">
+<div class="stars">★★★★★ · 5/5</div>
+<p class="text">Завтраки в кафе — просто находка для базы отдыха! Особенно хочу отметить официантку Софью Рыжову: работает быстро, без суеты и всегда подскажет, что из блюд самое свежее. В кафе тихо и чисто, да и до троп недалеко.</p>
+<p class="who">Н. Петрова, номер 1 102, 18.06.2024</p>
+</div>
+<div class="review">
+<div class="stars">★★★★<span>★</span> · 4/5</div>
+<p class="text">В зале кормят неплохо: меню, правда, небольшое, зато всё свежее, а чай постоянно подливают. По утрам немного шумно из‑за парковки, но к ночи всё успокаивается.</p>
+<p class="who">Семья Ивановых, номер 101, 16.06.2024</p>
+</div>
+</div>
+</div>
+</div>
+<script src="../js/visit-site.js?v=3" data-site="skala"></script>
+</body>
+</html>

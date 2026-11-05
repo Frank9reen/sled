@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Каменногорск: локальные сайты, ПП‑2024‑0624</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&amp;family=Fraunces:opsz,wght@9..144,500;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root { --bg:#0f1412; --card:#1a221e; --ink:#e8efe6; --muted:#8a9a88; --line:#2a3830; --acc:#7cb892; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Outfit,sans-serif; background:radial-gradient(1200px 600px at 10% -10%,#1a2e24,var(--bg)); color:var(--ink); }
+    .wrap { max-width:760px; margin:0 auto; padding:clamp(24px,5vw,48px) 18px 56px; }
+    h1 { font-family:Fraunces,serif; font-size:clamp(1.6rem,4vw,2.2rem); margin:0 0 8px; font-weight:700; }
+    .meta { color:var(--muted); font-size:.92rem; margin:0 0 28px; line-height:1.45; }
+    .meta b { color:var(--acc); }
+    a { color:var(--acc); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .nav { display:flex; flex-wrap:wrap; gap:10px 18px; margin:0 0 28px; font-size:.95rem; }
+    .grid { display:grid; gap:12px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; transition:border-color .15s; }
+    .card:hover { border-color:#3d5a48; }
+    .card h2 { margin:0 0 6px; font-size:1.05rem; font-weight:600; }
+    .card h2 a { color:var(--ink); }
+    .card p { margin:0; font-size:.9rem; color:var(--muted); line-height:1.45; }
+    .pill { display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:999px; margin:0 4px 6px 0; }
+    .ok { background:#1e3d2a; color:#9ed4ae; }
+    .bad { background:#3d1e22; color:#e8a0a8; }
+    .hero { display:block; width:100%; max-height:220px; object-fit:cover; border-radius:16px; margin:0 0 22px; border:1px solid var(--line); }
+    .card-thumb { float:right; width:72px; height:72px; object-fit:cover; border-radius:10px; margin:0 0 8px 12px; border:1px solid var(--line); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+<img alt="Озеро Черничное ночью" class="hero" src="img/lake-chernichnoe-night.jpg"/>
+<h1>Сеть Каменногорска</h1>
+<p class="meta">Дело ПП-2024-0624, локальные HTML, PIN кабинета: <b>0624</b></p>
+<p class="meta" style="margin-top:-12px;line-height:1.5">
+    Небольшой горный район: тут и база отдыха у хребта, и база турклуба, и частная клиника, и заправка у шоссе на перевал. Летом 2 2024‑го здесь встречались и семьи на отдыхе, и волонтёры, и инструкторы, и те, кто на каникулах вернулся домой. Сайты — просто фон для дела, причём не все страницы одинаково важны.
+  </p>
+<p class="nav"><a href="cabinet/index.html">Кабинет сыщика</a> · <a href="hints/index.html">Подсказки</a> · <a href="verify/index.html">Проверщик теории</a></p>
+<div class="grid">
+<div class="card">
+<img alt="" class="card-thumb" src="img/skala-exterior.jpg"/>
+<h2><a href="pansionat-skala/index.html">База отдыха «Скала»</a></h2>
+</div>
+<div class="card">
+<img alt="" class="card-thumb" src="img/clinic-facade.jpg"/>
+<h2><a href="gorny-pokoy/index.html">Горный покой</a></h2>
+</div>
+<div class="card">
+<img alt="" class="card-thumb" src="img/club-base.jpg"/>
+<h2><a href="sedoy-hrebet-club/index.html">Турклуб «Седой Хребет»</a></h2>
+</div>
+<div class="card">
+<img alt="" class="card-thumb" src="img/mail-terminal.jpg"/>
+<h2><a href="mail/index.html">КаменьMail</a></h2>
+<p>Веб-почта города</p>
+</div>
+<div class="card">
+<img alt="" class="card-thumb" src="img/verify-evidence.jpg"/>
+<h2><a href="verify/index.html">Проверщик теории</a></h2>
+<p>Сдача итоговой версии по делу</p>
+</div>
+<div class="card">
+<img alt="" class="card-thumb" src="img/board-uaz.jpg"/>
+<h2><a href="kamenogorsk-board/index.html">Доска объявлений Каменногорска</a></h2>
+<p>Объявления жителей Каменногорска</p>
+</div>
+</div>
+</div>
+</body>
+</html>

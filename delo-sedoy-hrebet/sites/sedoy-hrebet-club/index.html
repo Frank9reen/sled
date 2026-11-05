@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Турклуб «Седой Хребет»</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#121612;--panel:#1a201a;--ink:#e6efe4;--muted:#8a9a86;--line:#2a3428;--alpine:#6a9a72;--topo:rgba(106,154,114,.15)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",sans-serif;
+  background-image:linear-gradient(var(--topo) 1px,transparent 1px),linear-gradient(90deg,var(--topo) 1px,transparent 1px);
+  background-size:48px 48px;min-height:100vh}
+a{color:var(--alpine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:clamp(20px,4vw,40px) 18px 48px}
+.head{padding:12px 0 24px;border-bottom:1px solid var(--line)}
+.head-brand{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.head-logo{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid #3a5a40;background:#0e140e}
+.head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px;flex:1;min-width:0}
+.head-top h1{margin:0;font-size:clamp(1.5rem,4vw,2rem);font-weight:700;letter-spacing:-.02em}
+.head .tag{display:inline-block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--alpine);border:1px solid #3a5a40;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.head p{margin:10px 0 0;color:var(--muted)}
+.btn-lk{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:10px 16px;border-radius:10px;background:var(--alpine);color:#0a120c;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap}
+.btn-lk:hover{text-decoration:none;filter:brightness(1.08)}
+.grid{display:grid;gap:12px;margin-top:24px}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h2{margin:0 0 10px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--alpine);font-weight:600}
+.card ul{margin:0;padding-left:1.1em;color:var(--muted);font-size:.95rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.45}
+.warn{font-size:.8rem;color:#c4a070;margin-top:10px}
+.full{grid-column:1/-1}
+.team{display:grid;gap:0;margin-top:4px}
+.team a{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.team a:last-child{border-bottom:0;padding-bottom:0}
+.team a:hover .who{color:var(--alpine);text-decoration:underline}
+.team img,.team .face-init{width:48px;height:48px;border-radius:50%;object-fit:cover;border:1px solid var(--line);flex-shrink:0}
+.team .face-init{display:flex;align-items:center;justify-content:center;background:#121812;color:var(--alpine);font-size:.72rem;font-weight:700;letter-spacing:.04em}
+.team .txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.team .who{display:block;font-size:.95rem;font-weight:600;line-height:1.3;color:var(--ink)}
+.team .role{display:block;font-size:.82rem;color:var(--muted);line-height:1.35}
+#instructors{scroll-margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+.hero{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:14px;margin:18px 0 0;border:1px solid var(--line)}
+.media{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin:10px 0 0;border:1px solid var(--line)}
+.media-cap{font-size:.75rem;color:var(--muted);margin:6px 0 0}
+.hero,.media,#album-img{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px 56px;background:rgba(6,10,6,.88);backdrop-filter:blur(6px)}
+.lightbox.is-open{display:flex}
+.lightbox-box{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:100%}
+.lightbox img{max-width:min(92vw,1100px);max-height:min(78vh,820px);width:auto;height:auto;object-fit:contain;border-radius:10px;border:1px solid #3a5a40;box-shadow:0 12px 40px rgba(0,0,0,.45);pointer-events:none}
+.lightbox-cap{margin:0;color:#d8e4d6;font-size:.9rem;text-align:center;max-width:min(640px,100%);line-height:1.4}
+.lightbox-close{position:absolute;top:14px;right:16px;width:42px;height:42px;border:1px solid #3a5a40;border-radius:10px;background:#121812;color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;z-index:2}
+.lightbox-close:hover{border-color:var(--alpine);color:var(--alpine)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:12px;border:1px solid #3a5a40;background:#121812;color:var(--ink);font-size:1.6rem;line-height:1;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center}
+.lightbox-nav:hover{border-color:var(--alpine);color:var(--alpine)}
+.lightbox-prev{left:12px}
+.lightbox-next{right:12px}
+.lightbox-count{margin:0;font-size:.75rem;letter-spacing:.08em;color:#9aaca0;text-align:center}
+@media(max-width:560px){
+  .lightbox{padding:56px 12px 48px}
+  .lightbox-nav{width:40px;height:40px;font-size:1.35rem;top:auto;bottom:18px;transform:none}
+  .lightbox-prev{left:16px}
+  .lightbox-next{right:16px}
+  .lightbox img{max-height:68vh}
+}
+.carousel{margin-top:10px;position:relative}
+.carousel-frame{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0e140e;aspect-ratio:16/10}
+.carousel-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.carousel-cap{margin:10px 0 0;color:var(--muted);font-size:.85rem;line-height:1.4;min-height:2.6em}
+.carousel-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.carousel-btn{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#121812;color:var(--ink);font-size:1.35rem;line-height:1;cursor:pointer;flex-shrink:0}
+.carousel-btn:hover{border-color:var(--alpine);color:var(--alpine)}
+.carousel-dots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;flex:1}
+.carousel-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#3a4a38;cursor:pointer}
+.carousel-dots button.is-on{background:var(--alpine)}
+.carousel-count{font-size:.75rem;color:#6a7a66;letter-spacing:.06em;text-align:center;margin:8px 0 0}
+#schedule{scroll-margin-top:16px}
+#album{scroll-margin-top:16px}
+@media(max-width:560px){
+  .carousel-frame{aspect-ratio:4/3}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<div class="head-brand">
+<img alt="Логотип турклуба «Седой Хребет»" class="head-logo" height="72" src="../img/club-logo.jpg" width="72"/>
+<div style="flex:1;min-width:0">
+<div class="tag">Турклуб</div>
+<div class="head-top" style="margin-bottom:0">
+<h1>Седой Хребет</h1>
+<a class="btn-lk" href="lk.html">Личный кабинет</a>
+</div>
+</div>
+</div>
+<p style="margin:12px 0 0">
+<a href="board.html">Новости клуба</a>
+</p>
+</header>
+<img alt="База турклуба" class="hero" src="../img/club-base.jpg"/>
+<p style="color:var(--muted);line-height:1.5;margin:18px 0 0">
+    Общественная база турклуба у перевала.
+
+Туристический лагерь г. Каменногорск, ул. Лесная, 11. Работаем с мая по сентябрь.
+  </p>
+<div class="grid">
+<div class="card full">
+<h2>Новости клуба</h2>
+<ul style="margin-top:10px">
+<li><b>18.06</b> Обучение плетению узлов на скалодроме от инструктора Тихонова</li>
+<li><b>15.06</b> Волонтеры обошли тропу к оз.Черничному, чтобы подготовить ее к предстоящему походу</li>
+<li><b>14.06</b> Тренировки на скалодроме для следующего турнира среди клубов от Кольцова</li>
+</ul>
+<p style="margin-top:12px;font-size:.88rem"><a href="board.html">Все новости →</a></p>
+</div>
+<div class="card" id="instructors">
+<h2>Наши инструкторы</h2>
+<div class="team">
+<a href="orlov.html">
+<img alt="" height="48" src="../../characters/img/orlov.jpg" width="48"/>
+<span class="txt"><span class="who">Орлов Никита</span><span class="role">Старший инструктор · склад</span></span>
+</a>
+<a href="koltsov.html">
+<img alt="" height="48" src="../../characters/img/koltsov.jpg" width="48"/>
+<span class="txt"><span class="who">Кольцов Артём</span><span class="role">Инструктор · скалодром</span></span>
+</a>
+<a href="gromov.html">
+<span aria-hidden="true" class="face-init">ГА</span>
+<span class="txt"><span class="who">Громов Алексей</span><span class="role">Инструктор</span></span>
+</a>
+<a href="tikhonov.html">
+<img alt="" height="48" src="../img/club-tikhonov-guide.jpg" width="48"/>
+<span class="txt"><span class="who">Тихонов Сергей</span><span class="role">Инструктор гидов</span></span>
+</a>
+</div>
+<p style="margin-top:10px;font-size:.88rem"><a href="#schedule">График смен →</a></p>
+</div>
+<div class="card">
+<h2>Маршруты</h2>
+<p style="margin:0 0 8px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--alpine)">Прошедшие</p>
+<ul>
+<li><b>17.06</b> Совместный поход: тропа к озеру Черничному через перевал Седой Хребет, а затем возврат к базе.</li>
+<li>15 июня — волонтёрский обход тропы к Черничному, группа Беловой К.</li>
+<li>8 июня — короткий учебный выход группы с Орловым прошел успешно</li>
+</ul>
+<p style="margin:12px 0 8px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--alpine)">Планируемые</p>
+<ul>
+<li>29.06 — кольцо «Седой Хребет», день.</li>
+<li>6 июля — ночёвка у верхней гривки (набор группы)</li>
+<li>13 августа — семейный маршрут к смотровой площадке</li>
+</ul>
+</div>
+<div class="card full" id="album">
+<h2>Альбом базы</h2>
+<div aria-label="Альбом базы" aria-roledescription="carousel" class="carousel" id="album-carousel">
+<div class="carousel-frame">
+<img alt="Совместный поход 17.06" id="album-img" src="../img/club-hike-17-06.jpg"/>
+</div>
+<p class="carousel-cap" id="album-cap">Совместный поход на озеро Черничное</p>
+<div class="carousel-nav">
+<button aria-label="Предыдущее фото" class="carousel-btn" id="album-prev" type="button">‹</button>
+<div aria-label="Слайды" class="carousel-dots" id="album-dots" role="tablist"></div>
+<button aria-label="Следующее фото" class="carousel-btn" id="album-next" type="button">›</button>
+</div>
+<p class="carousel-count" id="album-count"></p>
+</div>
+</div>
+<div class="card full" id="schedule">
+<h2>График смен · июнь 2024</h2>
+<img alt="Доска графика смен на базе" class="media" src="../img/club-schedule-board.jpg"/>
+<div style="margin:12px -18px -18px;overflow-x:auto">
+<table>
+<tr><th>Дата</th><th>Инструктор</th><th>Мероприятие</th></tr>
+<tr><td>08.06 сб</td><td>Орлов Н.</td><td>короткий учебный выход</td></tr>
+<tr><td>14.06 пт</td><td>Тихонов С.</td><td>Смена на базе</td></tr>
+<tr><td>15.06 сб</td><td>Орлов Н. / Белова К.</td><td>волонтёрский обход тропы к Черничному</td></tr>
+<tr><td>16.06 вс</td><td>Кольцов А.</td><td>выходной</td></tr>
+<tr><td>17.06 пн</td><td>Орлов Н. / Громов А.</td><td>совместный поход Черничное</td></tr>
+<tr><td>18.06 вт</td><td>Тихонов С.</td><td>Курс гидов на скалодроме</td></tr>
+<tr><td>19.06 ср</td><td>Громов А.</td><td>выходной</td></tr>
+<tr><td>20.06 чт</td><td>Кольцов А.</td><td>Инвентаризация</td></tr>
+<tr><td>21.06 пт</td><td>Тихонов С.</td><td>—</td></tr>
+<tr><td>22.06 сб</td><td>Орлов Н.</td><td></td></tr>
+<tr><td>23.06 вс</td><td>Громов А.</td><td>—</td></tr>
+<tr><td>24.06 пн</td><td>Кольцов А.</td><td>Обучение быстрому подъему на скалодроме</td></tr>
+<tr><td>24.06 пн</td><td>Орлов Н.</td><td>база / склад</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="true" aria-label="Просмотр фото" class="lightbox" id="lightbox" role="dialog">
+<button aria-label="Закрыть" class="lightbox-close" id="lightbox-close" type="button">×</button>
+<button aria-label="Предыдущее фото" class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button">‹</button>
+<div class="lightbox-box">
+<img alt="" id="lightbox-img" src=""/>
+<p class="lightbox-cap" id="lightbox-cap"></p>
+<p class="lightbox-count" id="lightbox-count"></p>
+</div>
+<button aria-label="Следующее фото" class="lightbox-nav lightbox-next" id="lightbox-next" type="button">›</button>
+</div>
+<script>
+(function(){
+  var slides = [
+    {src:"../img/club-hike-17-06.jpg", alt:"Совместный поход 17.06", cap:"Совместный поход на озеро Черничное"},
+    {src:"../img/club-album-climbing.jpg", alt:"Скалодром на базе", cap:"Кира у скалодрома · июнь 2024"},
+    {src:"../img/club-album-veranda.jpg", alt:"Вечер на веранде", cap:"Вечер на веранде · чай после смены"},
+    {src:"../img/club-album-gear.jpg", alt:"Спор у склада", cap:"Инструктаж по технике безопасности"},
+    {src:"../img/club-cashier-mark.jpg", alt:"Касса клуба", cap:"Селезнёв М."},
+    {src:"../img/club-seleznev-bday-2024.jpg", alt:"День рождения Селезнёва", cap:"22.04.2024 · Марку Селезнёву — 25 лет · посиделки на базе в уютном кругу друзей"},
+    {src:"../img/club-album-trail.jpg", alt:"Утренний выход на тропу после дождя", cap:"Утренний выход на тропу после дождя"},
+    {src:"../img/club-ropes.jpg", alt:"Склад верёвок", cap:"Новое пополнение снаряжением после муниципальной субсидии"},
+    {src:"../img/club-album-orlov-rope.jpg", alt:"Орлов на базе", cap:"Орлов Н. собирается в поход 17 июня"},
+    {src:"../img/club-base.jpg", alt:"База турклуба", cap:"База «Седой Хребет» · общий вид"}
+  ];
+  var gallery = slides.map(function(s){ return {src:s.src, alt:s.alt, cap:s.cap, album:true}; })
+    .concat([{src:"../img/club-schedule-board.jpg", alt:"Доска графика смен на базе", cap:"Доска графика смен на базе"}]);
+
+  var albumI = 0;
+  var lbI = 0;
+  var img = document.getElementById("album-img");
+  var cap = document.getElementById("album-cap");
+  var count = document.getElementById("album-count");
+  var dots = document.getElementById("album-dots");
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lightbox-img");
+  var lbCap = document.getElementById("lightbox-cap");
+  var lbCount = document.getElementById("lightbox-count");
+  var x0 = null;
+  var lbX0 = null;
+
+  slides.forEach(function(_, n){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Фото " + (n + 1));
+    b.addEventListener("click", function(){ goAlbum(n); });
+    dots.appendChild(b);
+  });
+
+  function goAlbum(n){
+    albumI = (n + slides.length) % slides.length;
+    var s = slides[albumI];
+    img.src = s.src;
+    img.alt = s.alt;
+    cap.textContent = s.cap;
+    count.textContent = (albumI + 1) + " / " + slides.length;
+    Array.prototype.forEach.call(dots.children, function(d, k){
+      d.classList.toggle("is-on", k === albumI);
+    });
+  }
+
+  function showLb(n){
+    lbI = (n + gallery.length) % gallery.length;
+    var g = gallery[lbI];
+    lbImg.src = g.src;
+    lbImg.alt = g.alt || "";
+    lbCap.textContent = g.cap || g.alt || "";
+    lbCount.textContent = (lbI + 1) + " / " + gallery.length;
+    if (g.album){
+      var ai = slides.findIndex(function(s){ return s.src === g.src; });
+      if (ai >= 0) goAlbum(ai);
+    }
+  }
+  function openLb(n){
+    showLb(n);
+    lb.classList.add("is-open");
+    lb.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLb(){
+    lb.classList.remove("is-open");
+    lb.setAttribute("aria-hidden", "true");
+    lbImg.removeAttribute("src");
+    document.body.style.overflow = "";
+  }
+  function findGalleryIndex(src){
+    var file = (src || "").split("/").pop().split("?")[0];
+    for (var n = 0; n < gallery.length; n++){
+      if (gallery[n].src.split("/").pop() === file) return n;
+    }
+    return 0;
+  }
+
+  document.querySelector(".hero").addEventListener("click", function(){
+    openLb(findGalleryIndex(this.currentSrc || this.src));
+  });
+  document.querySelector(".media").addEventListener("click", function(){
+    openLb(findGalleryIndex(this.currentSrc || this.src));
+  });
+  img.addEventListener("click", function(){
+    openLb(findGalleryIndex(img.currentSrc || img.src));
+  });
+
+  document.getElementById("lightbox-close").addEventListener("click", closeLb);
+  document.getElementById("lightbox-prev").addEventListener("click", function(e){
+    e.stopPropagation();
+    showLb(lbI - 1);
+  });
+  document.getElementById("lightbox-next").addEventListener("click", function(e){
+    e.stopPropagation();
+    showLb(lbI + 1);
+  });
+  lb.addEventListener("click", function(e){
+    if (e.target === lb) closeLb();
+  });
+  lb.addEventListener("touchstart", function(e){
+    lbX0 = e.changedTouches[0].clientX;
+  }, {passive:true});
+  lb.addEventListener("touchend", function(e){
+    if (lbX0 == null || !lb.classList.contains("is-open")) return;
+    var dx = e.changedTouches[0].clientX - lbX0;
+    if (Math.abs(dx) > 40) showLb(lbI + (dx > 0 ? -1 : 1));
+    lbX0 = null;
+  });
+
+  document.getElementById("album-prev").addEventListener("click", function(){ goAlbum(albumI - 1); });
+  document.getElementById("album-next").addEventListener("click", function(){ goAlbum(albumI + 1); });
+  img.addEventListener("touchstart", function(e){ x0 = e.changedTouches[0].clientX; }, {passive:true});
+  img.addEventListener("touchend", function(e){
+    if (x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) goAlbum(albumI + (dx > 0 ? -1 : 1));
+    x0 = null;
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (lb.classList.contains("is-open")){
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") showLb(lbI - 1);
+      if (e.key === "ArrowRight") showLb(lbI + 1);
+      return;
+    }
+    var album = document.getElementById("album");
+    if (!album) return;
+    var r = album.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (e.key === "ArrowLeft") goAlbum(albumI - 1);
+    if (e.key === "ArrowRight") goAlbum(albumI + 1);
+  });
+
+  goAlbum(0);
+})();
+</script>
+<script src="../js/visit-site.js?v=3" data-site="club"></script>
+</body>
+</html>

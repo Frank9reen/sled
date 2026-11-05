@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Личный кабинет сотрудника · Турклуб «Седой Хребет»</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#121612;--panel:#1a201a;--panel2:#141a14;--ink:#e6efe4;--muted:#8a9a86;--line:#2a3428;--alpine:#6a9a72;--topo:rgba(106,154,114,.15);--acc:#7cb892;--mine:#2a4030;--them:#1e261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",sans-serif;
+  background-image:linear-gradient(var(--topo) 1px,transparent 1px),linear-gradient(90deg,var(--topo) 1px,transparent 1px);
+  background-size:48px 48px;min-height:100vh}
+a{color:var(--alpine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:920px;margin:0 auto;padding:clamp(16px,3vw,32px) 14px 48px}
+.head{padding:8px 0 20px;border-bottom:1px solid var(--line)}
+.head-brand{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.head-logo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid #3a5a40;background:#0e140e}
+.head .tag{display:inline-block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--alpine);border:1px solid #3a5a40;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.head h1{margin:0;font-size:clamp(1.35rem,3.5vw,1.85rem);font-weight:700;letter-spacing:-.02em}
+.head p{margin:8px 0 0;color:var(--muted);font-size:.9rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.card h2{margin:0 0 10px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--alpine);font-weight:600}
+label{display:block;font-size:.75rem;color:var(--muted);margin:0 0 4px}
+input{width:100%;padding:10px 12px;margin:0 0 12px;border-radius:8px;border:1px solid var(--line);background:#0f140f;color:var(--ink);font:inherit}
+button{padding:10px 14px;border:0;border-radius:8px;background:var(--alpine);color:#0a120c;font-weight:700;cursor:pointer;font:inherit}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--muted);font-weight:600}
+.err{color:#e08080;font-size:.85rem;margin-top:8px;display:none}
+.app{display:none}
+.app.on{display:block}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:.85rem;color:var(--muted)}
+.bar b{color:var(--ink)}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.tab.on{background:var(--mine);border-color:#3d5a48;color:var(--acc)}
+.pane{display:none}
+.pane.on{display:block}
+.files{list-style:none;margin:0;padding:0}
+.files li{border-bottom:1px solid var(--line);padding:11px 0}
+.files li:last-child{border-bottom:0}
+.files a{display:block;color:var(--acc);font-size:.92rem}
+.hint{font-size:.82rem;color:var(--muted);line-height:1.45;margin:0 0 12px}
+.crm{display:grid;grid-template-columns:240px 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:420px;background:var(--panel2)}
+@media(max-width:680px){.crm{grid-template-columns:1fr;min-height:auto}}
+.crm-list{border-right:1px solid var(--line);background:#111611}
+@media(max-width:680px){.crm-list{border-right:0;border-bottom:1px solid var(--line)}}
+.crm-list-head{padding:12px 14px;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--line)}
+.contact{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.contact:hover{background:#1a221a}
+.contact.on{background:var(--mine)}
+.contact .face{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:1px solid var(--line);background:#0c1010}
+.contact .meta{min-width:0;flex:1}
+.contact .name{display:block;font-weight:600;font-size:.9rem;margin-bottom:3px}
+.contact .role{display:block;font-size:.75rem;color:var(--muted);margin-bottom:4px}
+.contact .preview{display:block;font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crm-chat{display:flex;flex-direction:column;min-height:420px}
+@media(max-width:680px){.crm-chat{min-height:360px}}
+.chat-head{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+.chat-head .face{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:1px solid var(--line);background:#0c1010}
+.chat-head .titles{min-width:0}
+.chat-head b{display:block;font-size:.95rem}
+.chat-head span{font-size:.78rem;color:var(--muted)}
+.chat-body{flex:1;padding:14px 16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#0f140f}
+.stamp{align-self:center;font-size:.7rem;color:var(--muted);padding:4px 10px;margin:6px 0;background:#1a201a;border-radius:999px;border:1px solid var(--line)}
+.msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:.88rem;line-height:1.45}
+.msg.them{align-self:flex-start;background:var(--them);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.mine{align-self:flex-end;background:var(--mine);border:1px solid #3d5a48;border-bottom-right-radius:4px}
+.msg .who{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--alpine);margin-bottom:4px;font-weight:600}
+.msg.mine .who{color:#9ec8aa;text-align:right}
+.msg.offline{align-self:center;font-size:.78rem;color:#c08080;font-style:italic;background:transparent;border:0;padding:4px 0}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<div class="head-brand">
+<img alt="Логотип турклуба «Седой Хребет»" class="head-logo" height="56" src="../img/club-logo.jpg" width="56"/>
+<div>
+<div class="tag">Турклуб «Седой Хребет»</div>
+<h1>Личный кабинет сотрудника</h1>
+</div>
+</div>
+<p><a href="index.html">← Клуб</a></p>
+</header>
+<div class="card" id="gate">
+<h2>Вход</h2>
+<label>Email или логин</label>
+<input autocomplete="username" id="user" placeholder="имя@kamen.mail"/>
+<label>Пароль</label>
+<input autocomplete="current-password" id="pass" placeholder="пароль" type="password"/>
+<button id="go" style="width:100%" type="button">Войти</button>
+<div class="err" id="err">Неверный логин или пароль</div>
+</div>
+<div class="app" id="app">
+<div class="bar">
+<span><b>Селезнёв М. О.</b> · Роль: бухгалтерия</span>
+<button class="ghost" id="logout" style="width:auto;padding:6px 12px;margin:0" type="button">Выйти</button>
+</div>
+<div class="tabs">
+<button class="tab on" data-tab="docs" type="button">Документы</button>
+<button class="tab" data-tab="crm" type="button">Переписка</button>
+</div>
+<div class="pane on card" id="pane-docs">
+<h2>Документы</h2>
+<ul class="files">
+<li><a href="docs/vedomost-vznosy-iyun-2024.pdf">Ведомость взносов</a></li>
+<li><a href="docs/vyplaty-personalu-iyun-2024.pdf">Выплаты персоналу</a></li>
+<li><a href="docs/platezh-subsidiya-oborudovanie.pdf">Банковский перевод: субсидия на оборудование</a></li>
+<li><a href="docs/otchet-subsidiya-iyun-2024.pdf">Отчётность по субсидии</a></li>
+<li><a href="docs/soglashenie-47-S-06.pdf">Соглашение № 47-С/06</a></li>
+<li><a href="docs/akt-priemki-snaryazheniya-16-06.pdf">Акт приёмки снаряжения от 16.06.2024</a></li>
+<li><a href="docs/nakladnaya-kubok-koltsov.pdf">Накладная на доставку кубка</a></li>
+</ul>
+</div>
+<div class="pane card" id="pane-crm" style="padding:0;border:0;background:transparent">
+<div class="crm">
+<div class="crm-list">
+<div class="crm-list-head">Контакты · служебная переписка</div>
+<button class="contact on" data-chat="orlov" type="button">
+<img alt="" class="face" height="40" src="../../characters/img/orlov.jpg" width="40"/>
+<span class="meta">
+<span class="name">Орлов Никита</span>
+<span class="role">старший инструктор</span>
+<span class="preview">Крылов написал — вернёт часть бонусов…</span>
+</span>
+</button>
+<button class="contact" data-chat="koltsov" type="button">
+<img alt="" class="face" height="40" src="../../characters/img/koltsov.jpg" width="40"/>
+<span class="meta">
+<span class="name">Кольцов Артём</span>
+<span class="role">инструктор</span>
+<span class="preview">Ок, спасибо. Я сегодня в дороге до вечера…</span>
+</span>
+</button>
+<button class="contact" data-chat="kira" type="button">
+<img alt="" class="face" height="40" src="../../characters/img/belova-kira.jpg" width="40"/>
+<span class="meta">
+<span class="name">Белова Кира</span>
+<span class="role">волонтёр</span>
+<span class="preview">Говорить будем, когда перевод будет…</span>
+</span>
+</button>
+<button class="contact" data-chat="samoylova" type="button">
+<img alt="" class="face" height="40" src="../../characters/img/samoylova.jpg" width="40"/>
+<span class="meta">
+<span class="name">Самойлова Вера</span>
+<span class="role">волонтёр</span>
+<span class="preview">Смену 14.06 отметила в журнале.</span>
+</span>
+</button>
+</div>
+<div class="crm-chat">
+<div class="chat-head" id="chatHead">
+<img alt="" class="face" height="44" src="../../characters/img/orlov.jpg" width="44"/>
+<span class="titles"><b>Орлов Никита</b><span>старший инструктор</span></span>
+</div>
+<div class="chat-body" id="chatBody"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+const USER = ["m.seleznev@kamen.mail", "m.seleznev"];
+const PASS = "220499";
+
+const CHATS = {
+  orlov: {
+    title: "Орлов Никита",
+    sub: "старший инструктор",
+    face: "../../characters/img/orlov.jpg",
+    messages: [
+      ["15.06 · 21:14", "Марк", "Никита, по субсидии платёжку закрыл. Акт сегодня подпишем, ладно?", true],
+      ["15.06 · 21:22", "Никита", "Ок. Только про количество инвентаря особо не свети. Уйми её как‑нибудь.", false],
+      ["15.06 · 21:31", "Марк", "Знаю. Белова тоже может лишнего сболтнуть — уже про грант намекала.", true],
+      ["15.06 · 21:40", "Никита", "Надо что‑то с ней делать.", false],
+      ["16.06 · 09:05", "Марк", "Да, надо будет подумать. Для отчёта в Документы положил и ещё информацию в ссылке: <a href=\"https://disk.yandex.ru/d/gCpEfrzAyfZHbw\" target=\"_blank\" rel=\"noopener\">Яндекс.Диск</a>", true],
+      ["16.06 · 09:18", "Никита", "Открыл? Пароль — дата основания клуба.", false],
+      ["17.06 · 19:40", "Никита", "Поход к Черничному закрыл, группа целая. Вот только личную верёвку не могу найти на стеллаже после.", false],
+      ["17.06 · 19:48", "Марк", "Тогда в учёте поставь «в ремонте», чтобы Кира не цеплялась. Ей и без того вечно чего‑то мало.", true],
+      ["22.06 · 11:03", "Марк", "Отчёт по субсидии тоже собрал: там счёт 44‑06 и фото со склада.", true],
+      ["24.06 · 15:10", "Никита", "Кира опять у склада крутится. Я ей прямо сказал: журнал не её дело. В итоге наорали друг на друга, она злая уехала.", false],
+      ["24.06 · 16:40", "Никита", "Марк, Крылов написал мне — адрес и время по ссылке тебе скину (та же ссылка на Яндекс.Диск) — вернёт часть бонусов: <a href=\"https://disk.yandex.ru/d/gCpEfrzAyfZHbw\" target=\"_blank\" rel=\"noopener\">Яндекс.Диск</a>", false],
+    ],
+  },
+  koltsov: {
+    title: "Кольцов Артём",
+    sub: "инструктор",
+    face: "../../characters/img/koltsov.jpg",
+    messages: [
+      ["17.06 · 10:22", "Марк", "Артём, скинул тебе на a.koltsov@kamen.mail график и напоминание от базы — глянь, пожалуйста. Там же про смену 24‑го.", true],
+      ["17.06 · 10:35", "Артём", "Ок, спасибо. Я сегодня в дороге до вечера, в почту не получится заглянуть.", false],
+    ],
+  },
+  kira: {
+    title: "Белова Кира",
+    sub: "волонтёр",
+    face: "../../characters/img/belova-kira.jpg",
+    messages: [
+      ["14.06 · 16:20", "Кира", "Марк, ты в отчёте по субсидии цифры завысил? Снаряжение столько не стоит — я прайс ГорСнаба видела.", false],
+      ["14.06 · 16:28", "Марк", "Кира, не сейчас, я не на базе. Это пока черновик, потом всё сведем, разложим по полочкам.", true],
+      ["14.06 · 16:31", "Кира", "Я и счёт видела, и выплаты — с субсидией никак не бьётся. За верёвки и палатки миллион не выходит.", false],
+      ["14.06 · 16:35", "Марк", "Пожалуйста, не поднимай шум раньше времени. Сначала порядок наведём, потом уже отчёт покажем.", true],
+      ["14.06 · 16:40", "Кира", "Ладно. Но если это не ошибка — я молчать не стану.", false],
+      ["18.06 · 11:02", "Кира", "Марк, хватит со мной на базе как с маленькой носиться. Я сама во всём разберусь.", false],
+      ["18.06 · 11:15", "Марк", "Хорошо. Только давай без заявлений в Комитет, пока не сделаем сверку. Договорились?", true],
+      ["21.06 · 09:40", "Кира", "Черновик заявления в Комитет почти готов. Про субсидию и завышенный счёт.", false],
+      ["21.06 · 10:18", "Кира", "Или так: платишь мне — и заявления не будет. Триста тысяч. За молчание. Иначе Комитет узнает про ваше с Орловым мошенничество.", false],
+      ["21.06 · 10:24", "Марк", "Кира… ты сейчас меня шантажируешь?", true],
+      ["21.06 · 10:31", "Кира", "Называй как хочешь. Деньги — молчу. Нет денег — отношу заявление. Выбирай.", false],
+      ["21.06 · 10:40", "Марк", "Не надо так. Давай встретимся, спокойно поговорим. Без сумм в переписке.", true],
+      ["21.06 · 10:47", "Кира", "Говорить будем, когда перевод будет. До этого черновик никуда не денется.", false],
+    ],
+  },
+  samoylova: {
+    title: "Самойлова Вера",
+    sub: "волонтёр",
+    face: "../../characters/img/samoylova.jpg",
+    messages: [
+      ["12.06 · 10:05", "Вера", "Марк, подскажи: смена 14.06 у меня на базе — во сколько отмечаться у Орлова?", false],
+      ["12.06 · 10:12", "Марк", "К 9:00. Заполни журнал у ресепшена, потом иди к складу. Если опоздаваешь, то напиши Никите.", true],
+      ["12.06 · 10:18", "Вера", "Поняла. Кира тоже в этот день на тропе будет?", false],
+      ["12.06 · 10:25", "Марк", "Нет, её не будет — у неё 15‑го обход будет у озера.", true],
+      ["14.06 · 18:40", "Вера", "Смену закрыла, инвентарь сдала Орлову. В ведомости по зарплате я есть?", false],
+      ["14.06 · 18:52", "Марк", "Есть. Черновик выплат уже в папке — глянь, когда будешь на базе. По взносам отдельно.", true],
+      ["19.06 · 15:10", "Вера", "На курсы гида Тихонова меня не записывали — я только волонтёр, верно?", false],
+      ["19.06 · 15:20", "Марк", "Верно. Курсы — для инструкторов. Тебе достаточно смен на базе и тропах.", true],
+    ],
+  },
+};
+
+const gate = document.getElementById("gate");
+const app = document.getElementById("app");
+const err = document.getElementById("err");
+const chatHead = document.getElementById("chatHead");
+const chatBody = document.getElementById("chatBody");
+
+const renderChat = (id) => {
+  const c = CHATS[id];
+  if (!c) return;
+  chatHead.innerHTML = `<img class="face" src="${c.face}" alt="" width="44" height="44" /><span class="titles"><b>${c.title}</b><span>${c.sub}</span></span>`;
+  chatBody.innerHTML = "";
+  let lastStamp = "";
+  c.messages.forEach(([stamp, who, text, kind]) => {
+    if (stamp !== lastStamp) {
+      const s = document.createElement("div");
+      s.className = "stamp";
+      s.textContent = stamp;
+      chatBody.appendChild(s);
+      lastStamp = stamp;
+    }
+    if (kind === "offline") {
+      const o = document.createElement("div");
+      o.className = "msg offline";
+      o.textContent = text;
+      chatBody.appendChild(o);
+      return;
+    }
+    const m = document.createElement("div");
+    m.className = "msg " + (kind ? "mine" : "them");
+    m.innerHTML = `<div class="who">${who}</div>${text}`;
+    chatBody.appendChild(m);
+  });
+  chatBody.scrollTop = chatBody.scrollHeight;
+};
+
+const open = () => {
+  sessionStorage.setItem("pp_club_lk", "1");
+  gate.style.display = "none";
+  app.classList.add("on");
+  err.style.display = "none";
+  renderChat("orlov");
+};
+const close = () => {
+  sessionStorage.removeItem("pp_club_lk");
+  app.classList.remove("on");
+  gate.style.display = "block";
+  document.getElementById("pass").value = "";
+};
+
+document.getElementById("go").onclick = () => {
+  const u = (document.getElementById("user").value || "").trim().toLowerCase();
+  const p = (document.getElementById("pass").value || "").trim();
+  if (USER.includes(u) && p === PASS) open();
+  else err.style.display = "block";
+};
+document.getElementById("pass").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("go").click(); });
+document.getElementById("user").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("go").click(); });
+document.getElementById("logout").onclick = close;
+
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("on"));
+    document.querySelectorAll(".pane").forEach(p => p.classList.remove("on"));
+    btn.classList.add("on");
+    document.getElementById("pane-" + btn.dataset.tab).classList.add("on");
+  };
+});
+
+document.querySelectorAll(".contact[data-chat]").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".contact").forEach(b => b.classList.remove("on"));
+    btn.classList.add("on");
+    renderChat(btn.dataset.chat);
+  };
+});
+
+if (sessionStorage.getItem("pp_club_lk")) open();
+</script>
+<script src="../js/visit-site.js?v=3" data-site="club"></script>
+</body>
+</html>

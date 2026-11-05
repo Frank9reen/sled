@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 88" role="img" aria-label="SLED">
+  <rect x="4" y="8" width="272" height="72" fill="none" stroke="#b91c2c" stroke-width="3"/>
+  <circle cx="258" cy="22" r="6" fill="#b91c2c"/>
+  <text
+    x="140"
+    y="58"
+    text-anchor="middle"
+    font-family="Syne, Arial Black, Arial, sans-serif"
+    font-size="42"
+    font-weight="800"
+    letter-spacing="14"
+    fill="#ebe6da"
+  >&#1057;&#1051;&#1045;&#1044;</text>
+</svg>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>База отдыха «Скала»</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;700&amp;family=Outfit:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--stone:#ebe0d0;--ink:#2c241c;--muted:#6e6256;--pine:#3a5568;--pine-l:#6a8496;--paper:#faf6ee;--line:#d6cbb8}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(160deg,#b9c9d4 0%,#e8d9c4 48%,#d4b896 100%);color:var(--ink);font-family:Outfit,sans-serif;min-height:100vh}
+a{color:var(--pine);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
+.wrap{max-width:680px;margin:0 auto;padding:clamp(20px,4vw,36px) 18px 48px}
+.head{padding:8px 0 20px}
+.head .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pine-l);margin:0 0 8px}
+.head h1{font-family:Fraunces,serif;font-size:clamp(1.7rem,4vw,2.2rem);margin:0;font-weight:700}
+.head .sub{margin:8px 0 0;color:var(--muted)}
+.nav{display:flex;flex-wrap:wrap;gap:8px 16px;padding:12px 0 20px;border-bottom:1px solid var(--line);font-size:.92rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0;box-shadow:0 8px 24px rgba(60,50,30,.06)}
+.carousel{margin:0 0 8px}
+.carousel-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#ddd6c8;aspect-ratio:16/10;cursor:zoom-in}
+.carousel-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.carousel-cap{margin:8px 0 0;color:var(--muted);font-size:.8rem;line-height:1.35;min-height:1.35em}
+.carousel-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.carousel-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.3rem;line-height:1;cursor:pointer;flex-shrink:0}
+.carousel-btn:hover{border-color:var(--pine);color:var(--pine)}
+.carousel-dots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;flex:1}
+.carousel-dots button{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#c8bfb0;cursor:pointer}
+.carousel-dots button.is-on{background:var(--pine)}
+.carousel-count{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-align:center;margin:6px 0 0}
+.media{display:block;width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin:10px 0 0;border:1px solid var(--line)}
+.media-cap{font-size:.75rem;color:var(--muted);margin:6px 0 0}
+.lb{position:fixed;inset:0;z-index:90;display:none}
+.lb.is-open{display:block}
+body.lb-open{overflow:hidden}
+.lb-bg{position:absolute;inset:0;background:rgba(20,18,14,.88)}
+.lb-box{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 56px 28px;gap:12px}
+.lb-img{max-width:min(960px,100%);max-height:min(78vh,820px);width:auto;height:auto;object-fit:contain;border-radius:12px;border:1px solid #5a5448;background:#1a1814}
+.lb-cap{margin:0;color:#e8e2d6;font-size:.9rem;text-align:center;max-width:min(640px,100%)}
+.lb-count{margin:0;color:#a09888;font-size:.75rem;letter-spacing:.08em}
+.lb-x,.lb-prev,.lb-next{position:absolute;z-index:2;border:1px solid #5a5448;background:#2a2620;color:#faf7f1;cursor:pointer;font-size:1.4rem;line-height:1}
+.lb-x{top:16px;right:16px;width:40px;height:40px;border-radius:10px}
+.lb-prev,.lb-next{top:50%;transform:translateY(-50%);width:44px;height:56px;border-radius:10px}
+.lb-prev{left:12px}
+.lb-next{right:12px}
+.lb-x:hover,.lb-prev:hover,.lb-next:hover{border-color:var(--pine-l);color:#c8d8e4}
+@media(max-width:560px){
+  .carousel-frame{aspect-ratio:4/3}
+  .lb-box{padding:52px 12px 24px}
+  .lb-prev,.lb-next{width:40px;height:48px;top:auto;bottom:18px;transform:none}
+  .lb-prev{left:16px}
+  .lb-next{right:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+<div class="eyebrow">База отдыха</div>
+<h1>«Скала»</h1>
+<p class="sub">Незабываемый отдых у подножия перевала «Седой Хребет»</p>
+</header>
+<div aria-label="Фото базы отдыха" aria-roledescription="carousel" class="carousel" id="skala-carousel">
+<div class="carousel-frame">
+<img alt="База отдыха «Скала»" id="skala-img" src="../img/skala-exterior.jpg"/>
+</div>
+<p class="carousel-cap" id="skala-cap">Главный корпус, подъезд к перевалу</p>
+<div class="carousel-nav">
+<button aria-label="Предыдущее фото" class="carousel-btn" id="skala-prev" type="button">‹</button>
+<div aria-label="Слайды" class="carousel-dots" id="skala-dots" role="tablist"></div>
+<button aria-label="Следующее фото" class="carousel-btn" id="skala-next" type="button">›</button>
+</div>
+<p class="carousel-count" id="skala-count"></p>
+</div>
+<nav class="nav">
+<a href="index.html">Главная</a>
+<a href="rooms.html">Номера</a>
+<a href="staff.html">Отзывы</a>
+</nav>
+<div class="card">
+<p style="margin:0;line-height:1.5">
+      База отдыха «Скала» у подножия хребта находится совсем у края леса, где до туристических троп рукой подать. У нас есть номера на любой вкус — от компактных до просторных, и из каждого открывается шикарный вид на склоны. По утрам гостей ждёт завтрак в уютном кафе. В зависимости от сезона у нас различный «шведский стол». А если вы приехали с походным снаряжением, мы организуем трансфер до стартовых точек маршрутов вместе с турклубом «Седой хребет».
+    </p>
+</div>
+<div class="card">
+<b style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Адрес</b>
+<p style="margin:8px 0 0;line-height:1.45">
+      г. Каменногорск, подъезд к переулку «Седой Хребет», база отдыха «Скала»<br/>
+      Ресепшн работает круглосуточно в сезон, КПП — с 06:00 до 23:00.
+    </p>
+</div>
+<div class="card">
+<b style="font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Кафе «Скала»</b>
+<p style="margin:8px 0 0;line-height:1.45;font-size:.92rem">
+      Завтраки  «шведский стол» для гостей начинаются с 07:30 и до 10:00, ресторан открыт до 22:00. На кухне для вас работают… Галина Тишина и Павел Кузнецов;
+      официанты — Софья Рыжова и Дарья Мельникова; в баре — Илья Фомин. Состав сезона — смотрите на странице <a href="staff.html">команды</a>.
+    </p>
+</div>
+</div>
+<div class="lb" hidden="" id="skala-lb">
+<div class="lb-bg" data-lb-close=""></div>
+<button aria-label="Закрыть" class="lb-x" data-lb-close="" type="button">×</button>
+<button aria-label="Назад" class="lb-prev" type="button">‹</button>
+<button aria-label="Вперёд" class="lb-next" type="button">›</button>
+<div class="lb-box">
+<img alt="" class="lb-img"/>
+<p class="lb-cap"></p>
+<p class="lb-count"></p>
+</div>
+</div>
+<script>
+(function () {
+  var slides = [
+    {src: "../img/skala-exterior.jpg", alt: "База отдыха «Скала»", cap: "Главный корпус · подъезд к перевалу"},
+    {src: "../img/skala-cafe.jpg", alt: "Кафе базы отдыха", cap: "Кафе «Скала»"},
+    {src: "../../places/img/p06-cafe-shift.jpg", alt: "Смена в кафе", cap: "Наша кухня"},
+    {src: "../../places/img/p05-skala-guests.jpg", alt: "Гости на базе отдыха", cap: "Гости в холле · сезон 2024"},
+    {src: "../img/skala-repair.jpg", alt: "Крыло на ремонте", cap: "Крыло номеров · ремонт летом 2024"},
+    {src: "../../places/img/p12-rooms-repair.jpg", alt: "Коридор на ремонте", cap: "Коридор · номера с видом на озеро"},
+    {src: "../../places/img/skala-barrier.jpg", alt: "КПП базы отдыха", cap: "КПП · шлагбаум у въезда"}
+  ];
+  var i = 0;
+  var img = document.getElementById("skala-img");
+  var cap = document.getElementById("skala-cap");
+  var count = document.getElementById("skala-count");
+  var dots = document.getElementById("skala-dots");
+  var lb = document.getElementById("skala-lb");
+  var lbImg = lb.querySelector(".lb-img");
+  var lbCap = lb.querySelector(".lb-cap");
+  var lbCount = lb.querySelector(".lb-count");
+  var x0 = null;
+  var open = false;
+  slides.forEach(function (_, n) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Фото " + (n + 1));
+    b.addEventListener("click", function () { go(n); });
+    dots.appendChild(b);
+  });
+  function paintLb() {
+    var s = slides[i];
+    lbImg.src = s.src;
+    lbImg.alt = s.alt;
+    lbCap.textContent = s.cap;
+    lbCount.textContent = (i + 1) + " / " + slides.length;
+  }
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    var s = slides[i];
+    img.src = s.src;
+    img.alt = s.alt;
+    cap.textContent = s.cap;
+    count.textContent = (i + 1) + " / " + slides.length;
+    Array.prototype.forEach.call(dots.children, function (d, k) {
+      d.classList.toggle("is-on", k === i);
+    });
+    if (open) paintLb();
+  }
+  function openLb() {
+    open = true;
+    paintLb();
+    lb.hidden = false;
+    lb.classList.add("is-open");
+    document.body.classList.add("lb-open");
+  }
+  function closeLb() {
+    open = false;
+    lb.hidden = true;
+    lb.classList.remove("is-open");
+    document.body.classList.remove("lb-open");
+  }
+  document.getElementById("skala-prev").addEventListener("click", function () { go(i - 1); });
+  document.getElementById("skala-next").addEventListener("click", function () { go(i + 1); });
+  img.addEventListener("click", openLb);
+  lb.querySelector(".lb-prev").addEventListener("click", function () { go(i - 1); });
+  lb.querySelector(".lb-next").addEventListener("click", function () { go(i + 1); });
+  Array.prototype.forEach.call(lb.querySelectorAll("[data-lb-close]"), function (el) {
+    el.addEventListener("click", closeLb);
+  });
+  img.addEventListener("touchstart", function (e) { x0 = e.changedTouches[0].clientX; }, {passive: true});
+  img.addEventListener("touchend", function (e) {
+    if (x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(i + (dx > 0 ? -1 : 1));
+    else openLb();
+    x0 = null;
+  });
+  lbImg.addEventListener("touchstart", function (e) { x0 = e.changedTouches[0].clientX; }, {passive: true});
+  lbImg.addEventListener("touchend", function (e) {
+    if (x0 == null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(i + (dx > 0 ? -1 : 1));
+    x0 = null;
+  });
+  document.addEventListener("keydown", function (e) {
+    if (open) {
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") go(i - 1);
+      if (e.key === "ArrowRight") go(i + 1);
+      return;
+    }
+    var el = document.getElementById("skala-carousel");
+    var r = el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (e.key === "ArrowLeft") go(i - 1);
+    if (e.key === "ArrowRight") go(i + 1);
+  });
+  go(0);
+})();
+</script>
+<script src="../js/visit-site.js?v=3" data-site="skala"></script>
+</body>
+</html>

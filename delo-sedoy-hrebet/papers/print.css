@@ -1,0 +1,2398 @@
+/* Печать — дело «Убийство на перевале» */
+@import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Caveat:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&family=Lobster&family=Marck+Script&family=Neucha&family=PT+Sans:wght@400;700&family=Pacifico&family=Pangolin&display=swap");
+
+@page {
+  size: A4;
+  margin: 14mm 16mm 16mm 16mm;
+}
+
+* { box-sizing: border-box; }
+
+html { background: #e8e4dc; }
+
+body.doc {
+  margin: 0 auto;
+  max-width: 210mm;
+  min-height: 297mm;
+  padding: 16mm 15mm 14mm;
+  background: #f7f3ea;
+  color: #1a1a1a;
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 12pt;
+  line-height: 1.42;
+  border: 1px solid #c8c0b0;
+  box-shadow: 0 2px 12px rgba(0,0,0,.12);
+}
+
+.agency {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 2px solid #2f3a2a;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.agency-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.agency .omvd-logo {
+  width: 64px;
+  height: auto;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+}
+.agency .left strong { display: block; font-size: 11.5pt; letter-spacing: .06em; }
+.agency .right { text-align: right; color: #444; }
+
+.case-line {
+  font-size: 10pt;
+  color: #333;
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #c8c0b0;
+}
+
+h1 {
+  font-size: 15pt;
+  margin: 0 0 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+h2 {
+  font-size: 12pt;
+  margin: 16px 0 8px;
+  border-bottom: 1px solid #b8b0a0;
+  padding-bottom: 3px;
+}
+
+p { margin: 0 0 10px; }
+
+.meta, .muted { color: #555; font-size: 10.5pt; }
+.stamp {
+  display: inline-block;
+  border: 2px solid #8a2a2a;
+  color: #8a2a2a;
+  padding: 2px 8px;
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  transform: rotate(-4deg);
+  margin: 6px 0 12px;
+}
+
+/* Авторские плашки: алиби/сдвиг vs ложный ход */
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 9.5pt;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin: 0 4px 0 0;
+}
+.pill-ok {
+  background: #c8e6c9;
+  color: #1b5e20;
+  border: 1px solid #81c784;
+}
+.pill-bad {
+  background: #ffcdd2;
+  color: #b71c1c;
+  border: 1px solid #e57373;
+}
+.pills {
+  margin: 0 0 12px;
+}
+.box {
+  border: 1px solid #8a8070;
+  background: #efe9dc;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+.note {
+  border-left: 3px solid #5a6a4a;
+  padding: 6px 10px;
+  margin: 12px 0;
+  background: #f0ebe0;
+  font-size: 10.5pt;
+}
+table.grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5pt;
+  margin: 10px 0 14px;
+}
+table.grid th, table.grid td {
+  border: 1px solid #a09888;
+  padding: 5px 7px;
+  text-align: left;
+  vertical-align: top;
+}
+table.grid th { background: #e4ddd0; }
+table.grid td.photo { width: 48px; text-align: center; vertical-align: middle; }
+table.grid img.thumb {
+  width: 40px;
+  height: 54px;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid #a09888;
+  background: #f7f3ea;
+  display: block;
+  margin: 0 auto;
+}
+.sig {
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 10.5pt;
+}
+.sig .line { border-top: 1px solid #333; margin-top: 28px; padding-top: 4px; min-width: 40%; }
+.footer-id {
+  margin-top: 24px;
+  font-size: 9pt;
+  color: #666;
+  border-top: 1px dashed #b0a890;
+  padding-top: 6px;
+}
+.ticket {
+  border: 2px dashed #555;
+  padding: 14px 16px;
+  background: #fffdf6;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11pt;
+}
+.receipt {
+  max-width: 92mm;
+  margin: 0 auto;
+  border: 1px solid #333;
+  padding: 12px 14px;
+  background: #fff;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 10.5pt;
+  line-height: 1.35;
+}
+.center { text-align: center; }
+
+/* Рукописное письмо (B01) */
+body.doc.letter-page {
+  background: #fff;
+  border: none;
+  box-shadow: none;
+}
+
+/* Белый лист без рамки (B02, B03, B04, B05, B16) */
+body.doc.sheet-white {
+  background: #fff;
+  border: none;
+  box-shadow: none;
+}
+body.doc.sheet-white .decree,
+body.doc.sheet-white .sme,
+body.doc.sheet-white .raport,
+body.doc.sheet-white .zajavlenie,
+body.doc.sheet-white .dossier {
+  background: #fff;
+  border: none;
+  box-shadow: none;
+}
+body.doc.sheet-white .raport-form-top,
+body.doc.sheet-white .raport-form-foot {
+  background: #fff;
+}
+
+/* Досье · листок (B05): фото слева сверху */
+body.doc.dossier-page {
+  padding: 18px 22px 28px;
+}
+.dossier {
+  max-width: 170mm;
+  margin: 0 auto;
+}
+.dossier-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin: 0 0 18px;
+}
+.dossier-photo {
+  width: 132px;
+  height: 168px;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  border: 1px solid #bbb;
+  background: #f3f3f3;
+}
+.dossier-head {
+  flex: 1;
+  min-width: 0;
+  padding-top: 4px;
+}
+.dossier-label {
+  margin: 0 0 6px;
+  font: 600 9pt "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #666;
+}
+.dossier-head h1 {
+  margin: 0 0 8px;
+  font: 700 16pt Literata, Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+  border: none;
+  padding: 0;
+  color: #1a1a1a;
+}
+.dossier-sub {
+  margin: 0;
+  font: 10.5pt "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  color: #555;
+  line-height: 1.35;
+}
+.dossier-fields {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11pt;
+  line-height: 1.4;
+}
+.dossier-fields th,
+.dossier-fields td {
+  padding: 7px 0 8px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+  text-align: left;
+  background: transparent;
+}
+.dossier-fields th {
+  width: 32%;
+  padding-right: 12px;
+  font: 600 9.5pt "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  color: #444;
+  white-space: nowrap;
+}
+.dossier-fields td {
+  font-family: Literata, Georgia, "Times New Roman", serif;
+  color: #1a1a1a;
+}
+.dossier-fields tr:last-child th,
+.dossier-fields tr:last-child td {
+  border-bottom: none;
+}
+.hand-letter {
+  margin: 14px 0 8px;
+  padding: 22px 26px 28px;
+  background: #fff;
+  border: none;
+  box-shadow: none;
+  font-family: "Caveat", "Marck Script", "Segoe Script", "Comic Sans MS", cursive;
+  font-size: 18pt;
+  line-height: 1.55;
+  color: #1a2740;
+}
+.hand-letter p { margin: 0 0 14px; }
+.hand-letter b { font-weight: 400; color: inherit; }
+.hand-letter ol {
+  margin: 0 0 16px 1.2em;
+  padding: 0;
+}
+.hand-letter li { margin: 0 0 8px; }
+.hand-letter .hand-date {
+  text-align: right;
+  font-size: 16pt;
+  color: #3a4560;
+  margin-bottom: 18px;
+}
+.hand-letter .hand-sig {
+  margin-top: 22px;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+.hand-letter .muted {
+  font-size: 15pt;
+  color: #4a5568;
+}
+
+/* Официальное постановление (B02) — плотная вёрстка под 1×A4 */
+.decree {
+  position: relative;
+  margin: 0;
+  padding: 8px 10px 6px;
+  font-family: Literata, "Times New Roman", Georgia, serif;
+  font-size: 9pt;
+  line-height: 1.32;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.55) 0%, transparent 40%),
+    repeating-linear-gradient(
+      0deg,
+      #faf8f2,
+      #faf8f2 1px,
+      #f6f3ea 2px
+    );
+  border: 1px solid #9a9080;
+  box-shadow: inset 0 0 40px rgba(80, 70, 50, .06);
+  overflow: hidden;
+}
+.decree-stamp-copy {
+  position: absolute;
+  top: 70px;
+  right: 18px;
+  z-index: 2;
+  border: 2px solid #8a2a2a;
+  color: #8a2a2a;
+  padding: 3px 9px;
+  font: 700 10pt "Segoe UI", Arial, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transform: rotate(-12deg);
+  opacity: .82;
+  background: rgba(255, 248, 245, .35);
+  pointer-events: none;
+}
+.decree-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  border-bottom: 2px solid #2f3a2a;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+.decree-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 68%;
+}
+.omvd-logo {
+  width: 48px;
+  height: auto;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+}
+.decree .omvd-logo,
+.protocol .omvd-logo {
+  width: 48px;
+}
+.decree-org {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 7.5pt;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  max-width: none;
+}
+.decree-org .muted {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 7.5pt;
+}
+.decree-case {
+  text-align: right;
+  border: 1px solid #2f3a2a;
+  padding: 4px 8px;
+  min-width: 120px;
+  background: #fff;
+}
+.decree-case-label {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 6.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #555;
+}
+.decree-case-no {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10pt;
+  letter-spacing: .04em;
+  margin: 1px 0 2px;
+}
+.decree-case-meta {
+  font-size: 7pt;
+  color: #555;
+  line-height: 1.25;
+}
+.decree-date-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  margin: 0 0 6px;
+  color: #333;
+}
+.decree-title {
+  text-align: center;
+  border: none;
+  margin: 0 0 6px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.decree-title span {
+  display: block;
+  font-size: 9pt;
+  font-weight: 400;
+  letter-spacing: .03em;
+  text-transform: none;
+  margin-top: 2px;
+}
+.decree-lead { margin: 0 0 5px; text-align: justify; }
+.decree-sec {
+  margin: 7px 0 4px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-align: center;
+  border: none;
+}
+.decree-ol {
+  margin: 0 0 6px 1.1em;
+  padding: 0;
+}
+.decree-ol li { margin: 0 0 4px; text-align: justify; }
+/* Строки бланка: линейка на каждую строку текста */
+.form-lbl {
+  margin: 0 0 2px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 9pt;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.form-line {
+  display: inline-block;
+  min-width: 10em;
+  padding: 0 2px 2px;
+  border-bottom: 1px solid #2a2a2a;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+.form-lined,
+.sme-lined {
+  margin: 0 0 5px;
+  padding: 0;
+  text-align: justify;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.35;
+  /* Только под текстом — без пустых «лишних» линеек в конце блока */
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.7px;
+  text-decoration-color: #2a2a2a;
+  text-underline-offset: 0.18em;
+  text-decoration-skip-ink: none;
+  background-image: none;
+}
+.form-lined-list {
+  margin: 4px 0 8px 1.1em;
+  padding: 0;
+}
+.form-lined-list li {
+  margin: 0 0 4px;
+}
+.decree .fill,
+.protocol .fill {
+  font-weight: 400;
+  color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 4px 1px;
+}
+.decree-sign-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-end;
+  margin-top: 10px;
+  padding-top: 4px;
+}
+.decree-sign-left {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  line-height: 1.3;
+  position: relative;
+  min-width: 42%;
+}
+.decree-seal {
+  margin-top: 10px;
+  width: 92px;
+  height: 92px;
+  border: 2px solid #1e4a7a;
+  border-radius: 50%;
+  color: #1e4a7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font: 700 8pt "Segoe UI", Arial, sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  transform: rotate(-8deg);
+  opacity: .88;
+  box-shadow: inset 0 0 0 1px rgba(30, 74, 122, .35);
+}
+.omvd-seal-img {
+  display: block;
+  width: 88px;
+  height: auto;
+  margin-top: 10px;
+  transform: rotate(-6deg);
+  opacity: .95;
+}
+.omvd-stamp {
+  display: block;
+  width: 72px;
+  height: auto;
+  margin-top: 4px;
+  transform: rotate(-10deg);
+  opacity: .88;
+  mix-blend-mode: multiply;
+}
+.decree-sign-right {
+  text-align: right;
+  min-width: 40%;
+}
+.decree-signature {
+  font-family: "Caveat", "Marck Script", "Segoe Script", cursive;
+  font-size: 28pt;
+  color: #1a3a8a;
+  line-height: 1;
+  margin: 0 0 2px;
+  transform: rotate(-3deg);
+}
+.decree-sign-line {
+  border-top: 1px solid #333;
+  padding-top: 4px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+  display: inline-block;
+  min-width: 160px;
+}
+.decree-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 8px;
+  border-top: 1px dashed #b8b0a0;
+  font-size: 9pt;
+  color: #666;
+}
+.decree-barcode {
+  display: inline-block;
+  width: 120px;
+  height: 28px;
+  background: repeating-linear-gradient(
+    90deg,
+    #111 0 2px,
+    transparent 2px 4px,
+    #111 4px 5px,
+    transparent 5px 8px,
+    #111 8px 11px,
+    transparent 11px 13px
+  );
+  opacity: .75;
+}
+
+/* Протокол ОМП (B03) — плотная вёрстка под 1×A4 */
+.protocol {
+  font-family: Literata, Georgia, "Times New Roman", serif;
+  font-size: 9pt;
+  line-height: 1.32;
+}
+.protocol-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0 0 5px;
+}
+.protocol-brand .omvd-logo {
+  width: 44px;
+  height: auto;
+}
+.protocol-org {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.25;
+}
+.protocol-title {
+  text-align: center;
+  border: none;
+  margin: 0 0 5px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.2;
+}
+.protocol-title span {
+  display: block;
+  font-size: 9pt;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: none;
+  margin-top: 1px;
+}
+.protocol-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  margin: 0 0 4px;
+}
+.protocol h2 {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin: 6px 0 3px;
+}
+.protocol .sig {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+}
+.protocol-times {
+  max-width: 380px;
+  margin: 4px 0 6px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+}
+.protocol-times td:first-child {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 7.5pt;
+  font-weight: 600;
+  color: #333;
+  background: #efe9dc;
+  border-bottom: 1px solid #a09888;
+}
+.protocol-times td:last-child {
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-size: 8.5pt;
+  font-weight: 400;
+  color: #1a1a1a;
+  border-bottom: 1px solid #d4cdc0;
+  background: transparent;
+  line-height: 1.25;
+  padding: 3px 6px;
+}
+.protocol-legend {
+  margin: 4px 0 2px 1.1em;
+  padding: 0;
+}
+.protocol-legend li { margin: 0 0 2px; }
+.protocol .form-lbl {
+  font-size: 7.5pt;
+  margin: 4px 0 1px;
+}
+
+/* Анкетные 2-колоночные таблицы (досье и т.п.) */
+table.grid.anketa-fill {
+  border-collapse: collapse;
+}
+table.grid.anketa-fill th[colspan] {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  text-align: center;
+  letter-spacing: .04em;
+}
+table.grid.anketa-fill td:first-child {
+  width: 34%;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 9pt;
+  font-weight: 600;
+  color: #333;
+  background: #efe9dc;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+table.grid.anketa-fill td:last-child {
+  font-family: "Caveat", "Marck Script", "Segoe Script", cursive;
+  font-size: 15pt;
+  font-weight: 600;
+  color: #1a2740;
+  line-height: 1.25;
+  vertical-align: baseline;
+  border-bottom: 1.5px solid #333;
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 17px,
+      rgba(120, 150, 180, .16) 18px
+    );
+  background-size: 100% 18px;
+}
+
+/* Заявление Беловой о субсидии (B23) */
+.zajavlenie {
+  margin: 6px 0;
+  padding: 18px 20px 14px;
+  font-family: Literata, Georgia, "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  background: #fff;
+  border: none;
+}
+.zajavlenie-to {
+  margin: 0 0 18px auto;
+  max-width: 52%;
+  text-align: right;
+  font-size: 10pt;
+  line-height: 1.4;
+}
+.zajavlenie-title {
+  margin: 18px 0 4px;
+  text-align: center;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 14pt;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.zajavlenie-sub {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 10pt;
+  color: #444;
+}
+.zajavlenie p {
+  margin: 0 0 10px;
+  text-align: justify;
+}
+.zajavlenie ol {
+  margin: 0 0 12px;
+  padding-left: 1.2em;
+}
+.zajavlenie ol li {
+  margin: 0 0 8px;
+  text-align: justify;
+}
+.zajavlenie-sign {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 22px;
+}
+.zajavlenie-hand {
+  font-family: "Marck Script", "Segoe Script", cursive;
+  font-size: 26pt;
+  color: #1a3a8a;
+  line-height: 1;
+  margin: 0 0 2px;
+  transform: rotate(-2deg);
+}
+.zajavlenie-hand img,
+.zajavlenie-hand .sign-img {
+  display: block;
+  height: 72px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  margin: 0 0 4px;
+  transform: none;
+}
+.zajavlenie-line {
+  border-top: 1px solid #333;
+  padding-top: 2px;
+  font-size: 10pt;
+}
+.zajavlenie-date {
+  font-size: 10.5pt;
+  white-space: nowrap;
+}
+.zajavlenie-note {
+  margin: 18px 0 0 !important;
+  padding-top: 10px;
+  border-top: 1px dashed #a09888;
+  font-size: 9pt;
+  color: #666;
+  text-align: left !important;
+}
+
+/* Черновик кассы клуба (B24) */
+.club-sheet {
+  margin: 6px 0;
+  padding: 16px 18px 14px;
+  font-family: Literata, Georgia, "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.4;
+  background: #faf8f2;
+  border: 1px solid #9a9080;
+}
+.club-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  border-bottom: 1.5px solid #2f3a2a;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+.club-sheet-org {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #2f3a2a;
+  letter-spacing: .02em;
+  line-height: 1.35;
+}
+.club-sheet-no {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 9.5pt;
+  color: #444;
+  text-align: right;
+  white-space: nowrap;
+}
+.club-sheet-title {
+  text-align: center;
+  border: none;
+  margin: 0 0 4px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 14pt;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #1a1a1a;
+}
+.club-sheet-meta {
+  text-align: center;
+  margin: 0 0 14px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+  color: #555;
+}
+.club-sheet h2 {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border: none;
+  margin: 18px 0 8px;
+  color: #2f3a2a;
+}
+.club-sheet table.grid {
+  font-size: 9.5pt;
+}
+.club-sheet table.grid th {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8.5pt;
+  background: #e4ddd0;
+}
+.club-sheet-foot {
+  margin-top: 16px;
+  font-size: 10pt;
+  color: #333;
+}
+.club-sheet-sign-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 10px;
+}
+.club-stamp {
+  width: 110px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  transform: rotate(-8deg);
+  opacity: .88;
+  mix-blend-mode: multiply;
+}
+.club-sheet-sign-right {
+  text-align: right;
+}
+.club-sheet-sign {
+  margin-top: 0;
+  font-family: "Caveat", "Marck Script", cursive;
+  font-size: 20pt;
+  color: #1a3a8a;
+  line-height: 1.1;
+}
+.club-sheet-sign-line {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+  border-top: 1px solid #333;
+  display: inline-block;
+  min-width: 180px;
+  padding-top: 4px;
+  margin-top: 2px;
+  color: #1a1a1a;
+}
+
+/* Акт СМЭ · выписка (B04) — плотная вёрстка под 1×A4 */
+.sme {
+  position: relative;
+  margin: 0;
+  padding: 6px 8px 4px;
+  font-family: Literata, Georgia, "Times New Roman", serif;
+  font-size: 8.5pt;
+  line-height: 1.28;
+  background: #faf8f2;
+  border: 1px solid #9a9080;
+  overflow: hidden;
+}
+.sme-stamp {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  border: 2px solid #8a2a2a;
+  color: #8a2a2a;
+  padding: 2px 7px;
+  font: 700 8pt "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: .1em;
+  transform: rotate(8deg);
+  opacity: .85;
+  background: rgba(255, 248, 245, .4);
+  pointer-events: none;
+}
+.sme-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: flex-start;
+  border-bottom: 2px solid #2f3a2a;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+.sme-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.sme-logo {
+  width: 40px;
+  height: auto;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+}
+.sme-org {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.sme-case {
+  text-align: right;
+  border: 1px solid #2f3a2a;
+  padding: 3px 6px;
+  background: #fff;
+  min-width: 100px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  line-height: 1.2;
+}
+.sme-title {
+  text-align: center;
+  border: none;
+  margin: 2px 0 4px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.15;
+}
+.sme-title span {
+  display: block;
+  font-size: 8pt;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: none;
+  margin-top: 1px;
+}
+.sme-lead {
+  font-size: 10pt;
+  line-height: 1.3;
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #c8c0b0;
+}
+.sme-lbl {
+  margin: 6px 0 1px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.sme-date-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 6px;
+}
+.sme-line {
+  display: inline-block;
+  min-width: 11em;
+  padding: 0 2px 1px;
+  border-bottom: 1px solid #2a2a2a;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+.sme-sec {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 8pt;
+  margin: 5px 0 2px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 700;
+  border: none;
+  padding: 0;
+}
+.sme .sme-lined {
+  margin: 0 0 3px;
+  padding: 0;
+  line-height: 1.3;
+  background-image: none;
+}
+.sme-grid th,
+.sme-grid td {
+  padding: 2px 5px;
+}
+.sme-grid th {
+  width: 34%;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 7.5pt;
+  background: #efe9dc;
+  font-weight: 700;
+  vertical-align: baseline;
+}
+.sme-grid td:first-child {
+  width: 34%;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 7.5pt;
+  font-weight: 600;
+  color: #333;
+  background: #efe9dc;
+  vertical-align: baseline;
+}
+.sme-grid td:last-child {
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-size: 10pt;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.25;
+  vertical-align: baseline;
+  border-bottom: 1px solid #d4cdc0;
+  background: transparent;
+  padding: 3px 6px;
+}
+.sme .fill {
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-weight: 400;
+  color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 4px 1px;
+  white-space: nowrap;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.sme .fill.wide {
+  white-space: normal;
+}
+.sme-ol {
+  margin: 2px 0 8px 1.15em;
+  padding: 0;
+}
+.sme-ol li {
+  margin: 0 0 3px;
+  line-height: 1.35;
+  padding-left: 2px;
+}
+.sme-ol li.sme-lined {
+  list-style-position: outside;
+}
+body.sme-page {
+  padding-top: 6mm;
+  padding-bottom: 6mm;
+}
+body.sme-page .sme {
+  margin-top: 0;
+}
+.omp-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+.omp-gallery figure {
+  margin: 0;
+  border: 1px solid #a09888;
+  background: #fff;
+  padding: 6px;
+}
+.omp-gallery img {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #d4cdc0;
+}
+.omp-gallery figcaption {
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 6px;
+  line-height: 1.25;
+  text-align: center;
+}
+@media print {
+  .omp-gallery img { height: 110px; }
+}
+.sme-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+.sme-gallery figure {
+  margin: 0;
+  border: 1px solid #a09888;
+  background: #fff;
+  padding: 6px;
+}
+.sme-gallery img {
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #d4cdc0;
+}
+.sme-gallery figcaption {
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 6px;
+  line-height: 1.25;
+  text-align: center;
+}
+.photo-print figure {
+  margin: 8px 0 12px;
+  text-align: center;
+}
+.photo-print img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 178mm;
+  max-height: 205mm;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #8a8070;
+  background: #fff;
+}
+.photo-print figcaption {
+  margin-top: 10px;
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 1.3;
+}
+@media print {
+  .photo-print { page-break-inside: avoid; }
+  .photo-print img { max-height: 220mm; }
+}
+.sme-sign-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 4px;
+}
+.sme-seal {
+  width: 88px;
+  height: 88px;
+  border: 2px solid #1e4a7a;
+  border-radius: 50%;
+  color: #1e4a7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font: 700 8pt "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  transform: rotate(-6deg);
+  opacity: .88;
+  box-shadow: inset 0 0 0 1px rgba(30, 74, 122, .35);
+}
+.sme-seal-img {
+  width: 96px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  transform: rotate(-4deg);
+  opacity: .95;
+}
+.sme-sign-block img.sme-stamp {
+  position: static;
+  width: 90px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  font: inherit;
+  letter-spacing: normal;
+  background: transparent;
+  transform: rotate(-8deg);
+  opacity: .88;
+  mix-blend-mode: multiply;
+  pointer-events: auto;
+}
+.sme-sign-right {
+  text-align: right;
+  min-width: 38%;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+}
+
+/* Рапорт лесничества (B16) */
+.raport {
+  margin: 6px 0;
+  padding: 0;
+  border: 1px solid #8a9078;
+  background: #f5f3ea;
+  overflow: hidden;
+}
+.raport-form-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px 16px 10px;
+  border-bottom: 2px solid #2f3a2a;
+  background: linear-gradient(180deg, #ebe6d8 0%, #f5f3ea 100%);
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+}
+.raport-form-top-left { flex: 1; min-width: 0; }
+.raport-form-code {
+  margin-top: 6px;
+  font-size: 8.5pt;
+  color: #5a6558;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.raport-form-top-right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.raport-form-box {
+  border: 1px solid #2f3a2a;
+  background: #fff;
+  min-width: 120px;
+  padding: 5px 8px;
+  text-align: right;
+}
+.raport-form-box-lbl {
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #666;
+}
+.raport-form-box-val {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 2px;
+}
+.raport-to,
+.raport-from {
+  margin: 0 16px 4px;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 9.5pt;
+}
+.raport-form-foot {
+  margin-top: 4px;
+  padding: 10px 16px 12px;
+  border-top: 2px solid #2f3a2a;
+  background: #ebe6d8;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 9pt;
+  color: #3a4438;
+}
+.raport-form-foot-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  margin: 0 0 6px;
+}
+.raport-form-foot-row:last-child { margin-bottom: 0; }
+.raport-form-foot-line {
+  border-bottom: 1px solid #6a7468;
+  padding: 0 4px 1px;
+  min-width: 42%;
+  text-align: right;
+  color: #1a1a1a;
+}
+.raport-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border-bottom: 2px solid #2f3a2a;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+.raport-photo {
+  width: 88px;
+  height: 110px;
+  object-fit: cover;
+  border: 1px solid #a09888;
+  background: #ddd;
+  flex-shrink: 0;
+}
+.raport-org {
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: 10.5pt;
+  font-weight: 700;
+}
+.raport-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.forestry-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+.raport-title {
+  border: none;
+  margin: 12px 16px 8px;
+  padding: 0;
+  font-size: 16pt;
+  letter-spacing: .12em;
+  text-align: center;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+}
+.raport-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10.5pt;
+  max-width: 420px;
+}
+.raport-hand {
+  margin: 8px 16px 12px;
+  padding: 10px 12px 6px;
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 29px,
+      rgba(140, 160, 120, .22) 30px
+    );
+  font-family: "Caveat", "Marck Script", "Segoe Script", "Comic Sans MS", cursive;
+  font-size: 17.5pt;
+  line-height: 30px;
+  color: #1c2838;
+}
+.raport-hand p { margin: 0 0 8px; }
+.raport-hand b { font-weight: 700; color: #12203a; }
+.raport-sign-right {
+  text-align: right;
+  min-width: 38%;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.25;
+  color: #1c2838;
+}
+.raport-sign-right .sign-img {
+  margin-left: auto;
+  margin-bottom: 4px;
+  height: 72px;
+  max-width: 280px;
+}
+.raport-sign-right .muted {
+  font-size: 9.5pt;
+  color: #3a4a40;
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+}
+.raport-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+.raport-gallery figure {
+  margin: 0;
+  border: 1px solid #a09888;
+  background: #fff;
+  padding: 6px;
+}
+.raport-gallery img {
+  display: block;
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #d4cdc0;
+}
+.raport-gallery figcaption {
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 5px;
+  line-height: 1.25;
+  text-align: center;
+}
+.raport-sign-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin: 0 16px 8px;
+  padding-top: 8px;
+}
+.raport-seal {
+  width: 88px;
+  height: 88px;
+  border: 2px solid #2a5a3a;
+  border-radius: 50%;
+  color: #2a5a3a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font: 700 8pt "Segoe UI", Arial, sans-serif;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  transform: rotate(-7deg);
+  opacity: .9;
+  box-shadow: inset 0 0 0 1px rgba(42, 90, 58, .35);
+}
+.forestry-stamp {
+  width: 110px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  transform: rotate(-8deg);
+  opacity: .9;
+  mix-blend-mode: multiply;
+}
+
+/* Журнал верёвок (B19) */
+.rope-log {
+  margin: 6px 0;
+  padding: 12px 14px;
+  border: 1px solid #7a8a70;
+  background: #f3f1e8;
+}
+.rope-log-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border-bottom: 2px solid #2f3a2a;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+.rope-log-photo {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #a09888;
+  flex-shrink: 0;
+}
+.rope-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0 12px;
+}
+.rope-gallery figure {
+  margin: 0;
+  border: 1px solid #a09888;
+  background: #fff;
+  padding: 6px;
+}
+.rope-gallery img {
+  display: block;
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #d4cdc0;
+}
+.rope-gallery figcaption {
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 5px;
+  line-height: 1.25;
+  text-align: center;
+}
+@media print {
+  .rope-gallery img { height: 95px; }
+}
+@media (max-width: 640px) {
+  .rope-gallery { grid-template-columns: 1fr 1fr; }
+  .rope-log-head { flex-direction: column; }
+}
+
+.clipping {
+  max-width: 100%;
+  height: auto;
+  border: none;
+  background: transparent;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Карточка A6 (B60) */
+body.doc.a6-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 12px;
+  background: #fff;
+  border: none;
+  box-shadow: none;
+  max-width: none;
+}
+.a6-card-frame {
+  width: 105mm;
+  max-width: 100%;
+  aspect-ratio: 105 / 148;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #c8c2b6;
+  background: #111;
+  box-shadow: 0 2px 10px rgba(0,0,0,.12);
+}
+.a6-card-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+@media print {
+  body.doc.a6-card {
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  body.doc.a6-card .a6-card-frame {
+    width: 105mm;
+    height: 148mm;
+    border: none;
+    box-shadow: none;
+  }
+}
+@page a6-pin {
+  size: A6 portrait;
+  margin: 0;
+}
+body.doc.a6-card {
+  page: a6-pin;
+}
+
+.newspaper {
+  font-family: Georgia, "Times New Roman", serif;
+  columns: 2;
+  column-gap: 18px;
+  font-size: 10.5pt;
+}
+.newspaper h1 {
+  columns: 1;
+  column-span: all;
+  font-size: 18pt;
+  text-align: center;
+  border-bottom: 3px double #222;
+  padding-bottom: 8px;
+}
+.masthead {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: 9pt;
+  margin-bottom: 8px;
+}
+.chat-sheet {
+  max-width: 420px;
+  margin: 12px auto;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 10pt;
+}
+.chat-meta {
+  text-align: center;
+  font-size: 8.5pt;
+  color: #666;
+  margin: 10px 0 4px;
+}
+.chat-them, .chat-me {
+  margin: 4px 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+  max-width: 85%;
+}
+.chat-them {
+  background: #eceff1;
+  margin-right: auto;
+}
+.chat-me {
+  background: #e3f2fd;
+  margin-left: auto;
+  text-align: right;
+}
+.chat-them .who, .chat-me .who {
+  display: block;
+  font-size: 8pt;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 2px;
+}
+.qr-block {
+  border: 2px dashed #8a8070;
+  padding: 14px 16px;
+  margin: 14px 0;
+  text-align: center;
+  background: #faf8f3;
+}
+.qr-url {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11pt;
+  font-weight: 600;
+  letter-spacing: .02em;
+  margin: 8px 0;
+}
+.qr-img {
+  width: 32mm;
+  height: 32mm;
+  image-rendering: pixelated;
+  border: 0;
+}
+@media print {
+  html { background: #fff; }
+  body.doc {
+    box-shadow: none;
+    border: none;
+    max-width: none;
+    min-height: auto;
+  }
+  body.player .author-only,
+  body.player .pills,
+  body.player .footer-id {
+    display: none !important;
+  }
+}
+
+/* Схема ОМП B03c */
+.omp-scheme {
+  border: none;
+  background: #fff;
+  padding: 0;
+  margin: 10px 0 14px;
+}
+.omp-scheme svg,
+.omp-scheme img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media print {
+  .omp-scheme { break-inside: avoid; }
+}
+
+/* Карточка целей P01 */
+.objective-frame {
+  border: 2px solid #2f3a2a;
+  padding: 16px 18px;
+  margin: 12px 0;
+  background: #f0ebe0;
+}
+.objective-frame h1 .sub {
+  font-size: 11pt;
+  font-weight: normal;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.objective-foot {
+  text-align: center;
+  margin: 14px 0 0;
+  font-size: 10pt;
+  color: #444;
+}
+
+/* Протоколы допросов — плотная вёрстка: 1 допрос = 1 лист A4 */
+body.doc.dopros {
+  font-size: 8.5pt;
+  line-height: 1.28;
+  background: #fff;
+  padding: 9mm 10mm 8mm;
+}
+.dopros .agency {
+  padding-bottom: 4px;
+  margin-bottom: 5px;
+  font-size: 8pt;
+}
+.dopros .agency .omvd-logo {
+  width: 44px;
+}
+.dopros .agency .left strong {
+  font-weight: 600;
+  font-size: 9pt;
+}
+.dopros .stamp {
+  float: right;
+  margin: 0 0 4px 10px;
+  font-size: 8pt;
+  padding: 1px 6px;
+}
+.proto-head {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 0 0 5px;
+}
+.portrait-wrap {
+  flex: 0 0 88px;
+  text-align: center;
+}
+.portrait-wrap .portrait {
+  width: 88px;
+  height: 110px;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid #333;
+  background: #e8e4dc;
+  display: block;
+}
+.portrait-cap {
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-top: 4px;
+  color: #444;
+}
+.proto-title { flex: 1; min-width: 0; }
+.dopros .place-line {
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  margin: 0 0 8px;
+  text-align: justify;
+}
+.dopros .time-grid {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 5px;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 7.5pt;
+}
+.dopros .time-grid td {
+  border: 1px solid #222;
+  padding: 2px 5px;
+  width: 50%;
+}
+.dopros h1 { font-size: 10.5pt; margin: 2px 0 4px; font-weight: 600; }
+.dopros .ud-line {
+  text-align: center;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  margin: 0;
+}
+/* Вписанные данные: нижняя строка бланка + печатный текст */
+.dopros .fill,
+.dopros span.fill,
+.dopros td.fill {
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-weight: 400;
+  color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 5px 1px;
+  line-height: 1.2;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.dopros .ud-line .fill,
+.dopros .time-grid .fill {
+  display: inline;
+  font-size: 9pt;
+  border-bottom-color: #333;
+}
+.dopros .time-grid td {
+  border: 1px solid #222;
+  padding: 3px 6px 2px;
+  width: 50%;
+  vertical-align: baseline;
+}
+.dopros table.anketa {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 5px;
+  font-size: 8pt;
+}
+.dopros table.anketa th,
+.dopros table.anketa td {
+  border: none;
+  border-bottom: 1px solid #bbb;
+  padding: 2px 6px 1px;
+  vertical-align: baseline;
+  text-align: left;
+}
+.dopros table.anketa tr:last-child th,
+.dopros table.anketa tr:last-child td {
+  border-bottom: 1px solid #222;
+}
+.dopros table.anketa th {
+  width: 36%;
+  background: transparent;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 7pt;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #bbb;
+  padding-right: 8px;
+  white-space: nowrap;
+}
+.dopros table.anketa td.fill {
+  width: 64%;
+  font-size: 8.5pt;
+  line-height: 1.2;
+  font-weight: 400;
+  border-bottom: 1.5px solid #222;
+  background: transparent;
+  min-height: 1.2em;
+}
+.dopros .rights {
+  border: 1.5px solid #222;
+  padding: 4px 6px;
+  margin: 0 0 6px;
+  font-size: 7pt;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  background: #fff;
+  text-align: justify;
+  line-height: 1.25;
+}
+.dopros .rights .sign-mini {
+  margin-top: 3px;
+  text-align: right;
+  display: inline-block;
+  min-width: 38%;
+  margin-left: auto;
+  float: right;
+  clear: both;
+}
+.dopros .rights .sign-expand {
+  border-top: 1px solid #333;
+  padding-top: 1px;
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-size: 8pt;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.1;
+}
+.dopros .rights::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.dopros .qa-head {
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #111;
+  margin: 5px 0 4px;
+  padding-bottom: 1px;
+}
+.dopros .q {
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  margin: 5px 0 1px;
+}
+.dopros .a {
+  margin: 0 0 4px;
+  text-align: justify;
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-size: 8.5pt;
+  font-weight: 400;
+  line-height: 1.32;
+  color: #1a1a1a;
+  padding: 1px 2px 2px;
+  background: transparent;
+  border-bottom: 1px solid #c8c0b0;
+}
+.dopros .closing {
+  margin-top: 6px;
+  font-size: 7.5pt;
+  text-align: justify;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+}
+.dopros .note-proto {
+  font-size: 9.5pt;
+  font-style: italic;
+  margin: 10px 0;
+  border-left: 2px solid #888;
+  padding-left: 8px;
+}
+.sign-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 24px;
+  align-items: flex-end;
+}
+.dopros .sign-block {
+  margin-top: 8px;
+  gap: 16px;
+}
+.sign-col {
+  min-width: 42%;
+}
+.sign-col-right {
+  text-align: right;
+  position: relative;
+}
+.dopros .sign-col-right .omvd-stamp {
+  position: absolute;
+  left: -28px;
+  bottom: -6px;
+  margin: 0;
+  z-index: 1;
+  pointer-events: none;
+  width: 72px !important;
+  height: auto !important;
+}
+.dopros .sign-img {
+  height: 48px;
+  max-width: 240px;
+}
+.dopros .sign-col-right .sign-img {
+  height: 28px;
+  max-width: 140px;
+}
+.dopros .sign-mini .sign-img {
+  height: 36px;
+  max-width: 180px;
+}
+.dopros .sign-line {
+  font-size: 8.5pt;
+}
+.dopros .sign-role {
+  font-size: 7pt;
+}
+.sign-hand {
+  font-family: "Caveat", "Marck Script", "Segoe Script", cursive;
+  font-size: 26pt;
+  font-weight: 600;
+  color: #1a3a8a;
+  line-height: 1;
+  margin: 0 0 2px;
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+.sign-img {
+  display: block;
+  height: 84px;
+  width: auto;
+  max-width: 380px;
+  object-fit: contain;
+  margin: 0 0 2px;
+}
+.sign-block .sign-col > img.sign-img[src*="dudin-sign"] {
+  height: 42px;
+  max-width: 190px;
+}
+.sign-col-right .sign-img {
+  margin-left: auto;
+  height: 42px;
+  max-width: 190px;
+}
+.dopros .sign-mini .sign-img {
+  height: 60px;
+  max-width: 300px;
+}
+/* Индивидуальные «чернила» допрашиваемых */
+.sign-hand-tishin {
+  font-family: "Neucha", cursive;
+  font-size: 25pt;
+  font-weight: 400;
+  color: #1a2f6e;
+  transform: rotate(-4deg) skewX(-4deg);
+  letter-spacing: 0.04em;
+}
+.sign-hand-koltsov {
+  font-family: "Pangolin", cursive;
+  font-size: 23pt;
+  font-weight: 400;
+  color: #152a4a;
+  transform: rotate(2deg) skewX(3deg);
+  letter-spacing: -0.02em;
+}
+.sign-hand-seleznjov {
+  font-family: "Bad Script", cursive;
+  font-size: 27pt;
+  font-weight: 400;
+  color: #203868;
+  transform: rotate(-1deg);
+  letter-spacing: 0.06em;
+}
+.sign-hand-ryzhova {
+  font-family: "Marck Script", cursive;
+  font-size: 28pt;
+  font-weight: 400;
+  color: #3a2458;
+  transform: rotate(-3deg) skewX(-2deg);
+  letter-spacing: 0.03em;
+}
+.sign-hand-vladykin {
+  font-family: "Lobster", cursive;
+  font-size: 24pt;
+  font-weight: 400;
+  color: #2a2a2a;
+  transform: rotate(0.5deg);
+  letter-spacing: 0.01em;
+}
+.sign-hand-tishina {
+  font-family: "Pacifico", cursive;
+  font-size: 22pt;
+  font-weight: 400;
+  color: #4a2840;
+  transform: rotate(-2.5deg) skewX(2deg);
+  letter-spacing: 0.02em;
+}
+.sign-hand-belov {
+  font-family: "Caveat", cursive;
+  font-size: 29pt;
+  font-weight: 700;
+  color: #1a3a5a;
+  transform: rotate(-5deg);
+  letter-spacing: -0.01em;
+}
+.sign-hand-orlov {
+  font-family: "Neucha", cursive;
+  font-size: 26pt;
+  font-weight: 400;
+  color: #1e4028;
+  transform: rotate(3deg) skewX(-5deg);
+  letter-spacing: 0.05em;
+}
+.sign-hand-lebedev {
+  font-family: "Pangolin", cursive;
+  font-size: 24pt;
+  font-weight: 400;
+  color: #2c2418;
+  transform: rotate(-1.5deg);
+  letter-spacing: 0.08em;
+}
+.sign-hand-dudin {
+  font-family: "Bad Script", cursive;
+  font-size: 25pt;
+  font-weight: 400;
+  color: #1a3550;
+  transform: rotate(4deg) skewX(4deg);
+  letter-spacing: 0.02em;
+}
+.sign-hand-samoylova {
+  font-family: "Marck Script", cursive;
+  font-size: 30pt;
+  font-weight: 400;
+  color: #3a1a4a;
+  transform: rotate(-3.5deg) skewX(-3deg);
+  letter-spacing: 0.04em;
+}
+.sign-hand-krutov {
+  font-family: "Caveat", cursive;
+  font-weight: 600;
+  color: #1e2a5a;
+  transform: rotate(1.5deg);
+  font-size: 28pt;
+  letter-spacing: 0;
+}
+.sign-line {
+  border-top: 1px solid #333;
+  padding-top: 2px;
+  font-family: Literata, "Times New Roman", Times, Georgia, serif;
+  font-size: 11pt;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.15;
+}
+.sign-role {
+  display: block;
+  font-size: 8.5pt;
+  color: #555;
+  font-family: "PT Sans", Arial, sans-serif;
+  font-weight: 400;
+  margin-top: 2px;
+}
+@media print {
+  .dopros table.anketa th,
+  .dopros .rights {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Карточка дела (B06) */
+body.case-card-page {
+  padding: 12mm 14mm;
+  background: #f4efe4;
+}
+
+.case-card {
+  min-height: calc(297mm - 24mm);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #2f3a2a;
+  outline: 1px solid #8a8070;
+  outline-offset: 4px;
+  padding: 14mm 16mm 12mm;
+  background: linear-gradient(180deg, #faf6ee 0%, #f7f3ea 18%, #f7f3ea 100%);
+  position: relative;
+}
+
+.case-card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(47, 58, 42, .18);
+  pointer-events: none;
+}
+
+.case-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  border-bottom: 2px solid #2f3a2a;
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+
+.case-card-bureau-name {
+  display: block;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.case-card-bureau-city {
+  display: block;
+  font-size: 10pt;
+  color: #444;
+  letter-spacing: .06em;
+  margin-top: 2px;
+}
+
+.case-card-id {
+  text-align: right;
+}
+
+.case-card-id-label {
+  display: block;
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #555;
+}
+
+.case-card-id-num {
+  display: block;
+  font-size: 16pt;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #2f3a2a;
+  margin-top: 2px;
+}
+
+.case-card-title {
+  margin: 0 0 4px;
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-align: center;
+  border: none;
+}
+
+.case-card-place {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 11pt;
+  color: #555;
+  letter-spacing: .04em;
+}
+
+.case-card-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 0 0 22px;
+  border: 1px solid #8a8070;
+  background: #efe9dc;
+}
+
+.case-card-fact {
+  padding: 10px 8px;
+  text-align: center;
+  border-right: 1px solid #c8c0b0;
+}
+
+.case-card-fact:last-child {
+  border-right: none;
+}
+
+.case-card-fact .lbl {
+  display: block;
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: #666;
+  margin-bottom: 4px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.case-card-fact .val {
+  display: block;
+  font-size: 10.5pt;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1a1a1a;
+}
+
+.case-card-body {
+  flex: 1;
+  font-size: 12.5pt;
+  line-height: 1.55;
+}
+
+.case-card-body p {
+  margin: 0 0 14px;
+  text-align: justify;
+  text-indent: 1.2em;
+}
+
+.case-card-body p:first-child {
+  text-indent: 0;
+}
+
+.case-card-body p:first-child::first-letter {
+  float: left;
+  font-size: 2.6em;
+  line-height: .85;
+  padding-right: 6px;
+  padding-top: 2px;
+  font-weight: 700;
+  color: #2f3a2a;
+}
+
+.case-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #b8b0a0;
+}
+
+.case-card-foot-left .line {
+  display: block;
+  border-top: 1px solid #333;
+  padding-top: 4px;
+  min-width: 180px;
+  font-size: 11pt;
+}
+
+.case-card-foot-left .role {
+  display: block;
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 4px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.case-card-foot-right {
+  text-align: right;
+}
+
+.stamp-mini {
+  display: inline-block;
+  border: 2px solid #8a2a2a;
+  color: #8a2a2a;
+  padding: 2px 10px;
+  font-size: 9pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  transform: rotate(-3deg);
+  margin-bottom: 6px;
+}
+
+.sheet-id {
+  display: block;
+  font-size: 9pt;
+  color: #666;
+  letter-spacing: .06em;
+}
+
+@media print {
+  body.case-card-page {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: #f7f3ea;
+  }
+  .case-card {
+    min-height: auto;
+    outline: none;
+    border-width: 1.5px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .case-card-strip,
+  .stamp-mini {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

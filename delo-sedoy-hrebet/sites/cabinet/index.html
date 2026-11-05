@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Кабинет «След» ПП‑2024‑0624</title>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<script>
+(function () {
+  var KEY = "pp_visited_sites";
+  var ALLOWED = { mail: 1, club: 1, pokoy: 1, skala: 1 };
+  function readList() {
+    var a = [], b = [], out = [];
+    try { a = JSON.parse(sessionStorage.getItem(KEY) || "[]"); } catch (e) {}
+    try { b = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) {}
+    if (!Array.isArray(a)) a = [];
+    if (!Array.isArray(b)) b = [];
+    a.concat(b).forEach(function (x) {
+      if (x && ALLOWED[x] && out.indexOf(x) === -1) out.push(x);
+    });
+    return out;
+  }
+  function writeList(list) {
+    var raw = JSON.stringify(list);
+    try { sessionStorage.setItem(KEY, raw); } catch (e) {}
+    try { localStorage.setItem(KEY, raw); } catch (e) {}
+  }
+  try {
+    var from = new URLSearchParams(location.search).get("from");
+    if (from && ALLOWED[from]) {
+      var list = readList();
+      if (list.indexOf(from) === -1) list.push(from);
+      writeList(list);
+    }
+  } catch (e) {}
+  try {
+    var ok = sessionStorage.getItem("pp_cabinet") === "1" || localStorage.getItem("pp_cabinet") === "1";
+    if (ok) {
+      sessionStorage.setItem("pp_cabinet", "1");
+      localStorage.setItem("pp_cabinet", "1");
+      document.documentElement.classList.add("pp-cab-open");
+    }
+  } catch (e) {}
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<style>
+    html.pp-cab-open #gate { display: none !important; }
+    html.pp-cab-open #links { display: block !important; }
+    html.pp-cab-open #caseLine .open { display: inline; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { overflow-x: hidden; }
+    body {
+      margin:0; min-height:100vh; background:#0c1018; color:#c8d4e0;
+      font-family:"IBM Plex Sans",sans-serif;
+      display:flex; align-items:flex-start; justify-content:center;
+      padding:24px 16px 48px;
+    }
+    .box {
+      width:100%; max-width:420px; min-width:0; padding:28px; border-radius:16px;
+      background:#141a24; border:1px solid #2a3444;
+      overflow-wrap:anywhere; word-wrap:break-word;
+    }
+    body.solved .box { max-width:720px; }
+    h1 { margin:0 0 8px; font-size:1.15rem; font-weight:600; color:#e8eef6; }
+    .hint { color:#7a8a9c; font-size:.85rem; margin:0 0 16px; line-height:1.35; }
+    .hint .open { color:#7dcea0; display:none; }
+    .hint.is-open .open { display:inline; }
+    .actions {
+      display:grid; grid-template-columns:1fr 1fr; gap:8px;
+      margin:0 0 14px;
+    }
+    .action-btn {
+      display:flex; align-items:center; justify-content:center; min-height:34px;
+      padding:6px 8px; border-radius:8px; font-weight:600; font-size:.78rem;
+      text-decoration:none; text-align:center; line-height:1.2;
+      border:1px solid; box-shadow:none;
+      transition:filter .12s ease, background .12s ease;
+    }
+    .action-btn:hover { filter:brightness(1.08); }
+    .action-btn.hints {
+      background:linear-gradient(180deg,#3a3050,#2a2438);
+      border-color:#8a72b8; color:#f0e6ff;
+    }
+    .action-btn.verify {
+      background:linear-gradient(180deg,#3d7a5a,#2d5c44);
+      border-color:#6ecf96; color:#e8fff0;
+    }
+    label { display:block; font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; color:#8a9aac; margin-bottom:6px; }
+    input { width:100%; max-width:100%; padding:12px 14px; border-radius:10px; border:1px solid #3a4658;
+      background:#0c1018; color:#9ef0b0; font:500 1.05rem "IBM Plex Mono",monospace; }
+    button { margin-top:14px; width:100%; padding:12px; border:0; border-radius:10px; background:#3d7a5a;
+      color:#fff; font-weight:600; cursor:pointer; font-family:inherit; }
+    button:hover { background:#4a8f6a; }
+    .err { color:#f08080; display:none; margin-top:10px; font-size:.9rem; }
+    .links { display:none; margin-top:18px; }
+    .links p { color:#7dcea0; margin:0 0 10px; font-size:.9rem; }
+    .links > a { color:#9ec8ff; display:block; padding:8px 0; border-bottom:1px solid #243040; text-decoration:none; }
+    .links > a:hover { color:#c8e0ff; }
+    .quick { margin-top:6px; }
+    .quick-label {
+      margin:0 0 6px; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
+      color:#6a7a8c; font-weight:600;
+    }
+    .quick a {
+      color:#9ec8ff; display:block; padding:9px 0; border-bottom:1px solid #243040;
+      text-decoration:none; font-size:.9rem;
+    }
+    .quick a:hover { color:#c8e0ff; }
+    .quick a:last-child { border-bottom:0; }
+    .quick[hidden] { display:none !important; }
+    .hero { display:block; width:100%; max-width:100%; height:auto; max-height:140px; object-fit:cover; border-radius:12px; margin:0 0 16px; border:1px solid #2a3444; }
+    .disclaimer {
+      margin:18px 0 0; padding-top:14px; border-top:1px solid #243040;
+      color:#5a6a7c; font-size:.72rem; line-height:1.4; text-align:center;
+    }
+    .chrono {
+      display:none; margin-top:22px; padding-top:18px; border-top:1px solid #243040;
+    }
+    .chrono.on { display:block; }
+    .chrono h2 {
+      margin:0 0 14px; font-size:1.05rem; font-weight:600; color:#e8eef6; letter-spacing:-.01em;
+    }
+    .chrono p {
+      margin:0 0 14px; font-size:.9rem; line-height:1.55; color:#9aabbc;
+      overflow-wrap:anywhere;
+    }
+    .chrono p:last-child { margin-bottom:0; }
+    .chrono b { color:#dce6f0; font-weight:600; }
+    .voice {
+      margin:0 0 20px; padding:14px 14px 12px; border-radius:14px;
+      background:linear-gradient(160deg,#152018 0%,#121820 55%,#10161e 100%);
+      border:1px solid #2a3d34; box-shadow:inset 0 1px 0 rgba(125,206,160,.08);
+      max-width:100%;
+    }
+    .voice-top {
+      display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;
+    }
+    .voice-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:#7dcea0; font-weight:600;
+    }
+    .voice-badge::before {
+      content:""; flex:0 0 auto; width:7px; height:7px; border-radius:50%; background:#5fd98a;
+      box-shadow:0 0 0 0 rgba(95,217,138,.55); animation:voicePulse 1.6s ease-out infinite;
+    }
+    .voice.playing .voice-badge::before { animation:voicePulse 1s ease-out infinite; }
+    @keyframes voicePulse {
+      0% { box-shadow:0 0 0 0 rgba(95,217,138,.5); }
+      70% { box-shadow:0 0 0 8px rgba(95,217,138,0); }
+      100% { box-shadow:0 0 0 0 rgba(95,217,138,0); }
+    }
+    .voice-row { display:flex; align-items:center; gap:12px; min-width:0; }
+    .voice-play {
+      flex:0 0 auto; width:48px; height:48px; margin:0; padding:0; border-radius:50%;
+      border:1px solid #3d7a5a; background:radial-gradient(circle at 35% 30%,#4a8f6a,#2d5c44);
+      color:#e8fff0; cursor:pointer; display:grid; place-items:center;
+      box-shadow:0 4px 14px rgba(0,0,0,.35); font-size:0;
+    }
+    .voice-play:hover { filter:brightness(1.1); background:radial-gradient(circle at 35% 30%,#55a078,#356a50); }
+    .voice-play svg { width:18px; height:18px; display:block; }
+    .voice-body { flex:1; min-width:0; }
+    .voice-title { font-size:.88rem; font-weight:600; color:#e8eef6; margin:0 0 8px; }
+    .voice-wave {
+      display:flex; align-items:flex-end; gap:2px; height:18px; margin:0 0 8px; opacity:.55;
+      overflow:hidden;
+    }
+    .voice-wave span {
+      flex:1 1 0; border-radius:1px; background:#5a9a78; min-width:2px; max-width:100%;
+      transform-origin:bottom center; will-change:transform;
+    }
+    .voice.playing .voice-wave span { animation:voiceBar 1.1s ease-in-out infinite; }
+    .voice-wave span:nth-child(odd) { animation-delay:.08s; }
+    .voice-wave span:nth-child(3n) { animation-delay:.22s; }
+    .voice-wave span:nth-child(4n) { animation-delay:.35s; }
+    @keyframes voiceBar {
+      0%,100% { transform:scaleY(.35); opacity:.45; }
+      50% { transform:scaleY(1); opacity:1; }
+    }
+    .voice-seek {
+      position:relative; height:6px; border-radius:999px; background:#1a2430;
+      cursor:pointer; overflow:hidden; border:1px solid #2a3444;
+    }
+    .voice-seek-fill {
+      position:absolute; inset:0 auto 0 0; width:0%; max-width:100%;
+      background:linear-gradient(90deg,#3d7a5a,#7dcea0); border-radius:inherit;
+    }
+    .voice-times {
+      display:flex; justify-content:space-between; margin-top:6px; gap:8px;
+      font:500 .72rem "IBM Plex Mono",monospace; color:#6a7a8c;
+    }
+    @media (max-width: 520px) {
+      body { padding:16px 12px 40px; }
+      .box { padding:20px 16px; }
+      .actions { grid-template-columns: 1fr; }
+      .action-btn { min-height:42px; }
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+<img alt="Кабинет" class="hero" src="../img/cabinet-desk.jpg"/>
+<h1>Кабинет — частное бюро «След»</h1>
+<p class="hint" id="caseLine">Дело ПП-2024-0624 «Перевал Седой Хребет»<span class="open"> · Доступ открыт</span></p>
+<div id="gate">
+<label>PIN</label>
+<input autocomplete="off" id="pin" maxlength="8" type="password"/>
+<button id="go" type="button">Войти</button>
+<div class="err" id="err">Неверный PIN</div>
+</div>
+<div class="links" id="links">
+<div class="actions">
+<a class="action-btn hints" href="../hints/index.html">Подсказки</a>
+<a class="action-btn verify" href="../verify/index.html">Проверка версии</a>
+</div>
+<div class="quick" id="quick" hidden>
+<p class="quick-label">Быстрые ссылки</p>
+<div id="quickList"></div>
+</div>
+</div>
+<div class="chrono" id="chrono">
+<div class="voice" id="voice" hidden>
+  <div class="voice-top">
+    <span class="voice-badge">Аудиозапись</span>
+  </div>
+  <div class="voice-row">
+    <button class="voice-play" id="voicePlay" type="button" aria-label="Слушать">
+      <svg id="voiceIconPlay" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="voiceIconPause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+    </button>
+    <div class="voice-body">
+      <div class="voice-title">Разбор дела · голосом</div>
+      <div class="voice-wave" aria-hidden="true">
+        <span style="height:40%"></span><span style="height:70%"></span><span style="height:100%"></span>
+        <span style="height:55%"></span><span style="height:85%"></span><span style="height:45%"></span>
+        <span style="height:95%"></span><span style="height:60%"></span><span style="height:75%"></span>
+        <span style="height:50%"></span><span style="height:90%"></span><span style="height:35%"></span>
+        <span style="height:65%"></span><span style="height:80%"></span><span style="height:55%"></span>
+        <span style="height:100%"></span><span style="height:42%"></span><span style="height:72%"></span>
+      </div>
+      <div class="voice-seek" id="voiceSeek" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+        <div class="voice-seek-fill" id="voiceFill"></div>
+      </div>
+      <div class="voice-times"><span id="voiceCur">0:00</span><span id="voiceDur">–:––</span></div>
+    </div>
+  </div>
+  <audio id="voiceAudio" preload="metadata"></audio>
+</div>
+<h2>Хронология событий</h2>
+<p>Утром 25 июня работник дорожной службы Дудин, который с бригадой в это время обновлял дорогу около озера, обнаружил тело девушки у перевала Седой Хребет. Сначала было мнение, что она сорвалась с обрыва, т.к. такие инциденты уже были в этом районе, а вечером был дождь, плохая видимость и девушка могла запросто соскользнуть с обрыва. Тем не менее позже была найдена верёвка и проведена СМЭ по заявлению отца погибшей, которая определила, что время смерти девушки было около 23:00 24 июня и смерть была не несчастный случай, а от удушения туристической верёвкой.</p>
+<p>Роман Тишин в этот вечер работал на своей ночной рабочей смене в АЗС «Трак». Делал кофе и помогал на заправке. По дороге домой по тропе через оз. Черничное после смены под утро 25 числа он увидел тело девушки и не удержался и взял кошелёк с деньгами. Так он стал подозреваемым в её убийстве. Его мама написала заявление на проведение независимого детективного расследования. Так вы были приглашены в это дело.</p>
+<p>Роман Тишин не мог убить Киру, т.к. в момент её смерти в районе 23:00 он работал на АЗС «Трак» и был на кассе, что отражено в онлайн-выписке кассы (с 22:47 до 02:43). В этой выписке также можно увидеть, что машина Артёма Кольцова заправлялась в 22:47 (по номеру А 123 ВС 47). Этот номер машины можно увидеть на доске объявлений в КаменьMail, где Артём выложил объявление о продаже машины.</p>
+<p>Переходим к Артёму Кольцову. Как было сказано выше, можно отметить, что он был недалеко от места совершения преступления. В выписке из онлайн-кассы прописан номер его машины, а также следы, похожие на его протекторы резины, были обнаружены утром у места убийства. Они отчётливо отпечатались на влажной от дождя глине. Артём утверждает, что во время смерти Киры он был с Софьей Рыжовой, своей новой подругой, в базе отдыха «Скала». В этой базе Софья Рыжова работает официанткой и имеет доступы к номерам, что не составило бы труда снять любой номер. Софья также подтверждает его алиби, что Артём в эту ночь был с ней.</p>
+<p>Тем не менее, более детально изучив сайт базы отдыха «Скала», можно увидеть, что «номер с видом на озеро», о котором говорит Артём, в этот период был на ремонте. Этот факт убирает алиби Артёма.</p>
+<p>Продолжаем собирать больше фактов и улик про других подозреваемых. Селезнёв и Орлов — это сотрудники турклуба «Седой Хребет», где Кира работала волонтёром в летний сезон.</p>
+<p>Никита Орлов является старшим инструктором клуба. Кира помогала ему водить туристические группы и на складе. Один из таких походов был 17 июня, за неделю до её смерти. Именно после этого похода пропала чёрно-жёлтая туристическая верёвка, принадлежащая Орлову. Эта верёвка была позже обнаружена недалеко от тела девушки, а СМЭ в заключении о смерти указала насильственный характер от удушения этой верёвкой. Таким образом, орудием убийства является верёвка Орлова. В процессе допроса Орлов признаёт её потерю и что в тот вечер он был дома с женой, которая это может подтвердить.</p>
+<p>Рассмотрим другого подозреваемого из турклуба. Это бухгалтер Марк Селезнёв, которому Кира также помогала с учётом финансовых документов. На него в личных вещах Киры отцом было найдено не отправленное заявление о мошеннической схеме по распиливанию субсидии. Является ли это мотивом убийства? На допросе Марк также заявляет, что вечером был один дома и никто его не видел.</p>
+<p>Изучаем дальше сайт турклуба «Седой Хребет», в котором работают все подозреваемые — Кольцов, Селезнёв и Орлов. На новостной странице можно увидеть email-адрес Селезнёва, куда он просит отправлять квитанции об оплате членских взносов. Также в фотоальбоме есть фотография с празднованием 25-летия Селезнёва. Пароль — дата рождения — подходит к входу в личный кабинет турклуба, где можно увидеть переписку Селезнёва с Кирой, где Кира накатывает на Марка и требует денег за молчание, чтобы не отправлять заявление о мошенничестве. Также из диалога Марка и Никиты Орлова можно понять, что они действительно закупились снаряжением по завышенной цене. Истинную стоимость некоторого снаряжения можно понять из доски объявлений на КаменьMail, где один из туристов его продаёт.</p>
+<p>В диалоге Марка и Орлова последний кидает закрытую паролем ссылку на время и место встречи с директором ГорСнаба (магазин снаряжения). Паролем к ссылке является дата основания турклуба — 01.06.2014. Эту дату можно заметить из новостей на КаменьMail. Таким образом, в момент совершения преступления Селезнёв и Орлов были на встрече с директором магазина туристического снаряжения для получения откатных «бонусов» за покупку. Убить Киру они не могли.</p>
+<p>Возвращаемся к Кольцову. Он остаётся последним подозреваемым. Есть его переписка с Селезнёвым, где можно посмотреть его почтовый ящик — a.koltsov@kamen.mail. Далее на сайте КаменьMail можно войти в эту почту через процесс восстановления и ввода трёх ответов на вопросы. Любимая марка машины — УАЗ (можно увидеть в объявлении о продаже). Улицу, где он живёт, можно увидеть в документе накладной на доставку кубка от победы на межклубном турнире по скалолазанию из личного кабинета Селезнёва. В ней указана улица Нагорная. Хотя в допросе Кольцов указал ул. Шоссейная. На третий вопрос о любимом спорте ответ — скалолазание. То, чем Кольцов любил заниматься вместе с Кирой.</p>
+<p>В почтовом ящике Кольцова мы находим непрочитанное письмо с фото с камер видеонаблюдения, которые поставили недавно у карьера, т.к. там часто превышали скорость. Кольцов после заправки на АЗС «Трак» поехал в другом направлении от оз. Черничное — к карьеру. И в момент смерти был далеко от места происшествия.</p>
+<p>Далее на почте мы находим переписку Кольцова и Игоря Владыкина, личного психолога Киры, так можно узнать про его почту. Пароль мы могли отметить на сайте клиники «Горный покой», на который можно перейти с доски объявлений КаменьMail. На сайте клиники на одной из фотографий на компьютере в кабинете Владыкина приклеен стикер с паролем — pokoy47.</p>
+<p>В почтовом ящике Владыкина мы видим переписку с Кирой, где она шантажирует его, требуя деньги за то, что она не будет говорить про изнасилование. Также в почтовом ящике есть письмо с ретрита в Турции, где на фотографии Владыкин с красной ниткой на запястье. Эта нитка была найдена в руках жертвы. Помимо этого на почте у него есть фото из автосервиса с изображением протектора резины, который совпадает со следами на парковке у озера. Владыкина можно было отметить также на общем фото в походе 17 июня — именно тогда, когда пропала чёрно-жёлтая туристическая верёвка Орлова.</p>
+<h2>Интересные находки</h2>
+<p>Вера Самойлова — дочь Степана Дудина: в допросе он говорит, что в разводе и его дочь зовут Вера.</p>
+<p>Следователь Морозов А.&nbsp;В. также работает психотерапевтом в частной клинике «Горный покой».</p>
+<p>Софья Рыжова живёт вместе с Артёмом Кольцовым — адрес из её допроса Нагорная,&nbsp;29, как и у Артёма в накладной на кубок.</p>
+</div>
+<p class="disclaimer">Все совпадения — чистая случайность. Персонажи и события придуманы.</p>
+</div>
+<script>
+const PIN = "0624";
+const TRACKS = ["audio/chrono-1.mp3", "audio/chrono-2.mp3"];
+
+const fmt = (s) => {
+  if (!isFinite(s) || s < 0) return "–:––";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ":" + String(sec).padStart(2, "0");
+};
+
+const initVoice = () => {
+  const root = document.getElementById("voice");
+  const audio = document.getElementById("voiceAudio");
+  const playBtn = document.getElementById("voicePlay");
+  const iconPlay = document.getElementById("voiceIconPlay");
+  const iconPause = document.getElementById("voiceIconPause");
+  const fill = document.getElementById("voiceFill");
+  const seek = document.getElementById("voiceSeek");
+  const curEl = document.getElementById("voiceCur");
+  const durEl = document.getElementById("voiceDur");
+  if (!root || !audio || root.dataset.ready === "1") return;
+  root.dataset.ready = "1";
+  root.hidden = false;
+  let idx = 0;
+  let durations = [0, 0];
+  let ready = 0;
+  let seeking = false;
+
+  const totalDur = () => durations[0] + durations[1];
+  const offset = () => (idx === 0 ? 0 : durations[0]);
+
+  const setPlaying = (on) => {
+    root.classList.toggle("playing", on);
+    iconPlay.hidden = on;
+    iconPause.hidden = !on;
+    playBtn.setAttribute("aria-label", on ? "Пауза" : "Слушать");
+  };
+
+  const updateProgress = () => {
+    const total = totalDur();
+    const pos = offset() + (audio.currentTime || 0);
+    const pct = total > 0 ? Math.min(100, (pos / total) * 100) : 0;
+    if (!seeking) fill.style.width = pct + "%";
+    seek.setAttribute("aria-valuenow", String(Math.round(pct)));
+    curEl.textContent = fmt(pos);
+    if (total > 0) durEl.textContent = fmt(total);
+  };
+
+  const loadTrack = (i, autoplay) => {
+    idx = i;
+    audio.src = TRACKS[idx];
+    audio.load();
+    if (autoplay) {
+      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    }
+  };
+
+  // preload durations
+  TRACKS.forEach((src, i) => {
+    const a = new Audio();
+    a.preload = "metadata";
+    a.src = src;
+    a.addEventListener("loadedmetadata", () => {
+      durations[i] = a.duration || 0;
+      ready += 1;
+      if (ready >= TRACKS.length) updateProgress();
+    });
+  });
+
+  playBtn.addEventListener("click", () => {
+    if (!audio.src) loadTrack(0, true);
+    else if (audio.paused) {
+      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    } else {
+      audio.pause();
+      setPlaying(false);
+    }
+  });
+
+  audio.addEventListener("timeupdate", updateProgress);
+  audio.addEventListener("ended", () => {
+    if (idx < TRACKS.length - 1) loadTrack(idx + 1, true);
+    else {
+      setPlaying(false);
+      loadTrack(0, false);
+      fill.style.width = "0%";
+      curEl.textContent = "0:00";
+    }
+  });
+
+  const seekTo = (clientX) => {
+    const total = totalDur();
+    if (total <= 0) return;
+    const rect = seek.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    const target = ratio * total;
+    fill.style.width = ratio * 100 + "%";
+    const nextIdx = target >= durations[0] && durations[0] > 0 ? 1 : 0;
+    const local = nextIdx === 0 ? target : target - durations[0];
+    const wasPlaying = !audio.paused || root.classList.contains("playing");
+    if (nextIdx !== idx) {
+      idx = nextIdx;
+      audio.src = TRACKS[idx];
+      audio.load();
+      const onMeta = () => {
+        audio.removeEventListener("loadedmetadata", onMeta);
+        audio.currentTime = Math.min(local, audio.duration || local);
+        if (wasPlaying) audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+        updateProgress();
+      };
+      audio.addEventListener("loadedmetadata", onMeta);
+    } else {
+      audio.currentTime = Math.min(local, audio.duration || local);
+      updateProgress();
+    }
+  };
+
+  seek.addEventListener("pointerdown", (e) => {
+    seeking = true;
+    seekTo(e.clientX);
+    const move = (ev) => seekTo(ev.clientX);
+    const up = () => {
+      seeking = false;
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  });
+
+  loadTrack(0, false);
+};
+
+const SITE_LINKS = {
+  mail: { href: "../mail/index.html", label: "КаменьMail" },
+  club: { href: "../sedoy-hrebet-club/index.html", label: "Турклуб «Седой Хребет»" },
+  pokoy: { href: "../gorny-pokoy/index.html", label: "Горный покой" },
+  skala: { href: "../pansionat-skala/index.html", label: "База отдыха «Скала»" },
+};
+
+const VISITED_KEY = "pp_visited_sites";
+
+const readVisited = () => {
+  let a = [];
+  let b = [];
+  try {
+    a = JSON.parse(sessionStorage.getItem(VISITED_KEY) || "[]");
+  } catch (e) {}
+  try {
+    b = JSON.parse(localStorage.getItem(VISITED_KEY) || "[]");
+  } catch (e) {}
+  if (!Array.isArray(a)) a = [];
+  if (!Array.isArray(b)) b = [];
+  const out = [];
+  [...a, ...b].forEach((id) => {
+    if (id && !out.includes(id)) out.push(id);
+  });
+  return out;
+};
+
+const writeVisited = (ids) => {
+  const raw = JSON.stringify(ids);
+  try {
+    sessionStorage.setItem(VISITED_KEY, raw);
+  } catch (e) {}
+  try {
+    localStorage.setItem(VISITED_KEY, raw);
+  } catch (e) {}
+};
+
+const markVisited = (id) => {
+  if (!id || !SITE_LINKS[id]) return;
+  const ids = readVisited();
+  if (!ids.includes(id)) ids.push(id);
+  writeVisited(ids);
+};
+
+const absorbFromParam = () => {
+  try {
+    const from = new URLSearchParams(location.search).get("from");
+    if (from) markVisited(from);
+  } catch (e) {}
+};
+
+const renderQuickLinks = () => {
+  absorbFromParam();
+  const wrap = document.getElementById("quick");
+  const list = document.getElementById("quickList");
+  if (!wrap || !list) return;
+  const ids = readVisited();
+  writeVisited(ids);
+  const items = ids.map((id) => SITE_LINKS[id]).filter(Boolean);
+  if (!items.length) {
+    wrap.hidden = true;
+    list.innerHTML = "";
+    return;
+  }
+  list.innerHTML = items
+    .map((s) => `<a href="${s.href}">${s.label}</a>`)
+    .join("");
+  wrap.hidden = false;
+};
+
+const openCabinet = () => {
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("links").style.display = "block";
+  document.getElementById("caseLine").classList.add("is-open");
+  document.getElementById("err").style.display = "none";
+  renderQuickLinks();
+  if (sessionStorage.getItem("pp_solved") === "1") {
+    document.body.classList.add("solved");
+    document.getElementById("chrono").classList.add("on");
+    initVoice();
+  }
+};
+const isCabinetOpen = () => {
+  try {
+    return sessionStorage.getItem("pp_cabinet") === "1" || localStorage.getItem("pp_cabinet") === "1";
+  } catch (e) {
+    return false;
+  }
+};
+const rememberCabinet = () => {
+  try {
+    sessionStorage.setItem("pp_cabinet", "1");
+    localStorage.setItem("pp_cabinet", "1");
+  } catch (e) {}
+};
+const go = () => {
+  const v = (document.getElementById("pin").value || "").trim();
+  if (v === PIN) {
+    rememberCabinet();
+    document.documentElement.classList.add("pp-cab-open");
+    openCabinet();
+  } else {
+    document.getElementById("err").style.display = "block";
+  }
+};
+document.getElementById("go").onclick = go;
+document.getElementById("pin").addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+if (isCabinetOpen()) {
+  rememberCabinet();
+  openCabinet();
+}
+window.addEventListener("pageshow", () => {
+  if (isCabinetOpen()) renderQuickLinks();
+});
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && isCabinetOpen()) renderQuickLinks();
+});
+</script>
+</body>
+</html>
